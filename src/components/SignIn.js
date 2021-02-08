@@ -12,12 +12,12 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-//import classes from '*.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { InputBase,spacing } from '@material-ui/core';
 import { borderColor, borderRadius } from '@material-ui/system';
 import { AddToHomeScreen } from '@material-ui/icons';
 import FaceIcon from '@material-ui/icons/Face';
+import logo from "../JupLogo.svg";
 
 function Copyright(props) {
   return (
@@ -51,7 +51,16 @@ const useStyles = makeStyles({
   checkBox:{
     color: '#B0D3EC',
     borderColor: 'white'
-  }
+  },
+  box: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100vw",
+    height: "100vh",
+    backgroundColor:'#D4E6F9'
+  }  
+
 });
 
 
@@ -60,13 +69,14 @@ const useStyles = makeStyles({
 export default function SignIn() {
   const classes = useStyles();
   return (
-    
+    <Box className={classes.box}>
+    <img src={logo} style={{ position: "fixed", top: "50%", left: "50%" }} />
     <Grid>      
      <Paper elevation={10} 
         style={{padding :20,
         height:'75vh',
         width:400, 
-        margin:"10% auto", 
+        margin:"2% auto", 
         backgroundColor:'#045375'}}>       
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -167,5 +177,6 @@ export default function SignIn() {
     </Container>
    </Paper>
     </Grid>
+    </Box>
   );
 }
