@@ -26,7 +26,7 @@ const SideNavbar = () => {
                     </NavText>
                 </NavItem>
                 <NavItem eventKey="charts">
-                    <NavIcon>
+                    <NavIcon style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <NoteAddIcon />
                     </NavIcon>
                     <NavText>
