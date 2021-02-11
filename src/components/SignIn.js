@@ -19,19 +19,8 @@ import { AddToHomeScreen } from '@material-ui/icons';
 import FaceIcon from '@material-ui/icons/Face';
 import logo from "../JupLogo.svg";
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-const useStyles = makeStyles({
+
+const useStyles = makeStyles((theme) =>({
   root: {
     background: 'linear-gradient(45deg, #4489A7 30%, #F3F5F6 90%)',
     border: '1px solid white',
@@ -61,12 +50,12 @@ const useStyles = makeStyles({
     backgroundColor:'#D4E6F9'
   }  
 
-});
+}));
 
 
 
 
-export default function SignIn() {
+const SignIn = (props) => {
   const classes = useStyles();
   return (
     <Box className={classes.box}>
@@ -170,13 +159,12 @@ export default function SignIn() {
           </Box>
         </Box>
       </Box>
-      <Box mt={2}>
-      <Copyright sx={{ mt: 8, mb: 4}} />
-      </Box>
-      
+      <Box mt={2}>      
+      </Box>      
     </Container>
    </Paper>
     </Grid>
     </Box>
   );
 }
+export default SignIn;
