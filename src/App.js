@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SignIn from './components/SignIn';
-//import './App.css';
+import './App.css';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Test from "./test";
 import theme from "./theme/Theme";

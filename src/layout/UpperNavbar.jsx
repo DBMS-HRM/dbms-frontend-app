@@ -16,7 +16,8 @@ const UpperNavbar = () => {
         },
         appBar: {
             marginLeft: '64px',
-          width: 'calc(100% - 64px)'
+          width: 'calc(100% - 64px)',
+            
         },
         brandIcon: {
             marginRight: '16px'
@@ -37,7 +38,7 @@ const UpperNavbar = () => {
 
     const classes = useStyles();
     return (
-        <AppBar position="static" className={classes.appBar}>
+        <AppBar position="static" elevation={0} className={classes.appBar}>
             <Toolbar>
                 <Box className={classes.brandIcon}>
                     <img src={jupiter} alt="jupiter-img" />

@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         bottom: 0,
         left: 0,
+        zIndex: 60,
         width: '100%',
         height: '48px',
         backgroundImage: "linear-gradient(to right, #043A5A , #159C8D)",
