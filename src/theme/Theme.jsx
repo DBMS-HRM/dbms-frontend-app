@@ -13,6 +13,9 @@ const theme = createMuiTheme({
         text: {
             primary: '#808191',
             secondary: '#6A707E'
+        },
+        typography: {
+            fontFamily: "'Poppins', sans-serif",
         }
     },
 });
