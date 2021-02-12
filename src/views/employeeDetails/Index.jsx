@@ -6,6 +6,7 @@ import {
 import {makeStyles} from "@material-ui/core/styles";
 import EmployeeTable from "./EmployeeTable";
 import SearchBar from "./SearchBar";
+import EmployeeTableAdvance from "./EmployeeTableAdvance";
 
 const useStyles = makeStyles({
    container: {
@@ -21,7 +22,8 @@ const Index = () => {
           <Container className={classes.container} >
               <SearchBar />
               <Box style={{marginTop: '4rem'}}>
-                  <EmployeeTable />
+                  {/*<EmployeeTable />*/}
+                  <EmployeeTableAdvance />
               </Box>
           </Container>
 
