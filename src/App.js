@@ -4,7 +4,7 @@ import Test from "./test";
 import theme from "./theme/Theme";
 import {MuiThemeProvider} from "@material-ui/core";
 import Layout from "./layout";
-import EmployeeDetails from "./views/employeeDetails/EmployeeDetails";
+import Index from "./views/employeeDetails/Index";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
                           <Test />
                       </Route>
                       <Route path="/employees">
-                          <EmployeeDetails />
+                          <Index />
                       </Route>
                   </Switch>
               </Layout>
