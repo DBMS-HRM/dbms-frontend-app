@@ -13,7 +13,6 @@ const SideNavbar = () => {
             onSelect={(selected) => {
                 // Add your code here
             }}
-
             style={{backgroundColor: '#00617E', zIndex: '50', position: 'fixed', left: 0, top: 0}}
         >
             <Toggle />
