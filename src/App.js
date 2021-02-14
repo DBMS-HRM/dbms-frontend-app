@@ -6,6 +6,7 @@ import { MuiThemeProvider } from "@material-ui/core";
 import Layout from "./layout";
 
 import Menu from "./components/Menu";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Switch>
           <Route path="/dashboard">
             <Layout />
+            <Dashboard />
           </Route>
         </Switch>
 
