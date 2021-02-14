@@ -4,10 +4,10 @@ import Test from "./test";
 import theme from "./theme/Theme";
 import {MuiThemeProvider} from "@material-ui/core";
 import Layout from "./layout";
-import './App.css';
 import Index from "./views/employeeDetails/Index";
 import PersonalDetailForm from "./views/addEmployee/personalDetailForm";
 import Checkout from "./views/addEmployee/checkout";
+import './App.css';
 
 import Menu from "./components/Menu";
 import Dashboard from "./components/Dashboard";
@@ -20,6 +20,9 @@ function App() {
                   <Switch>
                       <Route path="/test">
                           <Test />
+                      </Route>
+                      <Route path="/dashboard">
+                          <Dashboard />
                       </Route>
                       <Route path="/employees">
                           <Index />

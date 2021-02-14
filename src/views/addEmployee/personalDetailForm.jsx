@@ -10,7 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {makeStyles} from "@material-ui/core/styles";
 import CustomInputField from "../../components/customInput";
-import DateFnsUtils from '@date-io/date-fns';
+// import DateFnsUtils from '@date-io/date-fns';
 
 const useStyles = makeStyles({
     container: {
@@ -54,19 +54,19 @@ export default function PersonalDetailForm() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <KeyboardDatePicker
-                        disableToolbar
-                        variant="inline"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        label="Date picker inline"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
-                    />
+                    {/*<KeyboardDatePicker*/}
+                    {/*    disableToolbar*/}
+                    {/*    variant="inline"*/}
+                    {/*    format="MM/dd/yyyy"*/}
+                    {/*    margin="normal"*/}
+                    {/*    id="date-picker-inline"*/}
+                    {/*    label="Date picker inline"*/}
+                    {/*    value={selectedDate}*/}
+                    {/*    onChange={handleDateChange}*/}
+                    {/*    KeyboardButtonProps={{*/}
+                    {/*        'aria-label': 'change date',*/}
+                    {/*    }}*/}
+                    {/*/>*/}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <CustomInputField
