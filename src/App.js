@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
-import SignIn from './components/SignIn';
-import './App.css';
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import React from "react";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Test from "./test";
 import theme from "./theme/Theme";
 import {MuiThemeProvider} from "@material-ui/core";
 import Layout from "./layout";
-import Profile from './components/profile';
-
+import Index from "./views/employeeDetails/Index";
+import PersonalDetailForm from "./views/addEmployee/personalDetailForm";
+import Checkout from "./views/addEmployee/checkout";
+//import './App.css';
+import SignIn from './components/SignIn.jsx';
+import Profile from './components/profile.jsx';
+import Menu from "./components/Menu";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
-    <div className = "App">
-      <header className = "App-header">
       <MuiThemeProvider theme={theme}>
           <BrowserRouter>
               <Layout>
@@ -20,16 +22,26 @@ function App() {
                       <Route path="/test">
                           <Test />
                       </Route>
+                      <Route path="/dashboard">
+                          <Dashboard />
+                      </Route>
+                      <Route path="/employees">
+                          <Index />
+                      </Route>
+                      <Route path="/employee/add">
+                          <Checkout />
+                      </Route>
+                      <Route path="/signIn">
+                          <SignIn />
+                      </Route>
+                      <Route path="/profile">
+                          <Profile />
+                      </Route>
                   </Switch>
-              </Layout>
-          </BrowserRouter>
-      </MuiThemeProvider>
-      <Profile />
-      
-     </header> 
-    </div>
+              </Layout>              
+          </BrowserRouter>          
+      </MuiThemeProvider>      
   );
- 
 }
 
 export default App;

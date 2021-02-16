@@ -17,7 +17,9 @@ const UpperNavbar = () => {
         appBar: {
             marginLeft: '64px',
           width: 'calc(100% - 64px)',
-            
+            position: 'fixed',
+            top: 0,
+            left: 0
         },
         brandIcon: {
             marginRight: '16px'
