@@ -7,9 +7,10 @@ import Layout from "./layout";
 import Index from "./views/employeeDetails/Index";
 import PersonalDetailForm from "./views/addEmployee/personalDetailForm";
 import Checkout from "./views/addEmployee/checkout";
-//import './App.css';
+
 import SignIn from './components/SignIn.jsx';
 import Profile from './components/profile.jsx';
+
 import Menu from "./components/Menu";
 import Dashboard from "./components/Dashboard";
 
@@ -31,6 +32,7 @@ function App() {
                       <Route path="/employee/add">
                           <Checkout />
                       </Route>
+
                       <Route path="/signIn">
                           <SignIn />
                       </Route>
@@ -40,7 +42,7 @@ function App() {
                   </Switch>
               </Layout>              
           </BrowserRouter>          
-      </MuiThemeProvider>      
+      </MuiThemeProvider>
   );
 }
 
