@@ -1,6 +1,6 @@
 import React from "react";
 import {AppBar, Avatar, colors, IconButton, Toolbar, Typography, Box} from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
@@ -16,7 +16,7 @@ const UpperNavbar = () => {
         },
         appBar: {
             marginLeft: '64px',
-          width: 'calc(100% - 64px)',
+            width: 'calc(100% - 64px)',
             position: 'fixed',
             top: 0,
             left: 0
@@ -43,13 +43,13 @@ const UpperNavbar = () => {
         <AppBar position="static" elevation={0} className={classes.appBar}>
             <Toolbar>
                 <Box className={classes.brandIcon}>
-                    <img src={jupiter} alt="jupiter-img" />
+                    <img src={jupiter} alt="jupiter-img"/>
                 </Box>
                 <Typography variant="h6" className={classes.title}>
                     Jupiter HRMS
                 </Typography>
                 <IconButton color="inherit">
-                    <AddAlertIcon />
+                    <AddAlertIcon/>
                 </IconButton>
                 <IconButton color="inherit">
                     <Avatar className={classes.avatar}>
