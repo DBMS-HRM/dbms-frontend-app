@@ -3,8 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { InputBase,spacing } from '@material-ui/core';
-import logo from "../JupLogo.svg";
-import logo1 from "../humanResourse.png";
+import logo from "../../../JupLogo.svg";
+import logo1 from "../../../humanResourse.png";
 
 
 

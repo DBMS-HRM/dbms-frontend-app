@@ -16,7 +16,7 @@ const useStyles = makeStyles({
    },
 });
 
-const Index = () => {
+const EmployeeDetails = () => {
     const classes = useStyles()
     return (
           <Container className={classes.container} >
@@ -30,4 +30,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default EmployeeDetails;
