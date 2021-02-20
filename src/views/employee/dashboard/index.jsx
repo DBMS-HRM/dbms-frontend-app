@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import logo from "../JupLogo.svg";
+import logo from "../../../JupLogo.svg";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
