@@ -15,11 +15,9 @@ export default function AppRouter() {
                 </Route>
                 <Route path="/admin">
                     <Admin />
-                    <Redirect to="/admin/sign-in" />
                 </Route>
                 <Route path="/employee">
                     <Employee />
-                    <Redirect to="/employee/sign-in" />
                 </Route>
                 <Route path="/reports">
                     <Report />
