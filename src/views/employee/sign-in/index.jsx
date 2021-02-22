@@ -97,7 +97,7 @@ const SignIn = (props) => {
             
             placeholder="Username"
             type="Text"
-            margin="normal"
+            // margin="normal"
             variant="outlined"                                             
             required
             fullWidth
@@ -114,7 +114,7 @@ const SignIn = (props) => {
           <InputBase
             
             placeholder="Password"            
-            margin="normal"
+            // margin="normal"
             variant="outlined"
             required
             fullWidth
