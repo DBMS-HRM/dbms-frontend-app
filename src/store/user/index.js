@@ -13,7 +13,9 @@ export const userSlice = createSlice({
         },
         user: {
             userId: '',
-            accountType: ''
+            accountType: '',
+            email: '',
+            status: null,
         }
     },
     reducers: {
@@ -30,8 +32,6 @@ export const userSlice = createSlice({
  * Reducer
  */
 export default userSlice.reducer
-
-export const selectUser = state => state.user
 
 /**
  * Actions

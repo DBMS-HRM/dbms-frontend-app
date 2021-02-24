@@ -5,9 +5,18 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 
+import {selectUser} from "../store/user";
+
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {useHistory} from "react-router";
 
 const SideNavbar = () => {
+    const history = useHistory();
+    const accountType = useSelector(state => state.user.user.accountType)
+
+
     return (
         <SideNav
             onSelect={(selected) => {
@@ -17,7 +26,7 @@ const SideNavbar = () => {
         >
             <Toggle />
             <Nav defaultSelected="home">
-                <NavItem eventKey="home">
+                <NavItem eventKey="home" onClick={() => history.push(`/${accountType}/dashboard`)} >
                     <NavIcon style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <DashboardIcon />
                     </NavIcon>
@@ -25,13 +34,14 @@ const SideNavbar = () => {
                         Home
                     </NavText>
                 </NavItem>
-                <NavItem eventKey="charts">
-                    <NavIcon style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        <NoteAddIcon />
-                    </NavIcon>
-                    <NavText>
-                        Charts
-                    </NavText>
+                <NavItem eventKey="profile" onClick={() => history.push(`/${accountType}/profile`)} >
+                    <Link to="/employee/profile" />
+                        <NavIcon style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <NoteAddIcon />
+                        </NavIcon>
+                        <NavText>
+                            Profile
+                        </NavText>
                 </NavItem>
             </Nav>
         </SideNav>
