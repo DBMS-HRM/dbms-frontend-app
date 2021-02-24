@@ -14,12 +14,10 @@ export default function AppRouter() {
                     <Redirect to="/employee/sign-in" />
                 </Route>
                 <Route path="/admin">
-                    <Admin />
-                    <Redirect to="/admin/sign-in" />
+                    <Admin />                    
                 </Route>
                 <Route path="/employee">
-                    <Employee />
-                    <Redirect to="/employee/sign-in" />
+                    <Employee />                    
                 </Route>
                 <Route path="/reports">
                     <Report />

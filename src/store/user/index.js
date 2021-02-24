@@ -1,5 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+/**
+ * Asynchronous actions
+ */
+import {adminLogin, employeeLogin} from "./thunk";
+
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -8,7 +13,9 @@ export const userSlice = createSlice({
         },
         user: {
             userId: '',
-            accountType: ''
+            accountType: '',
+            email: '',
+            status: null,
         }
     },
     reducers: {
@@ -32,12 +39,8 @@ export default userSlice.reducer
 export  const userActions = {
     ...userSlice.actions
 }
-
-/**
- * Asynchronous actions
- */
-import {adminLogin} from "./thunk";
 export  const userTActions = {
-    adminLogin
+    adminLogin,
+    employeeLogin
 }
 

@@ -14,6 +14,11 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { InputBase,spacing } from '@material-ui/core';
 import logo from "../../../JupLogo.svg";
+import {userTActions} from "../../../store/user";
+import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router";
+import ButtonLoading from "../../../components/ButtonLoading";
 
 
 const useStyles = makeStyles((theme) =>({
@@ -53,6 +58,23 @@ const useStyles = makeStyles((theme) =>({
 
 const SignIn = (props) => {
   const classes = useStyles();
+
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  async function signIn() {
+    setLoading(true)
+    const response = await dispatch(userTActions.employeeLogin(username, password))
+    setLoading(false)
+    if(response.status === 200 ) {
+      history.push("/employee/dashboard")
+    }
+  }
+
   return (
     <Box className={classes.box}>
     <img src={logo} style={{ position: "fixed", top: "50%", left: "50%" }} />
@@ -107,6 +129,8 @@ const SignIn = (props) => {
             autoComplete="username"
             autoFocus
             className={classes.textField}
+            value={username}
+            onChange={e => setUsername(e.target.value)}
             
             
           />
@@ -124,6 +148,8 @@ const SignIn = (props) => {
             id="password"
             autoComplete="current-password"
             className={classes.textField}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
             
           />
           </Box>
@@ -134,9 +160,9 @@ const SignIn = (props) => {
             className={classes.checkBox}
             
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} className={classes.root}>
+          <ButtonLoading variant="contained" sx={{ mt: 3, mb: 2 }} onClick={signIn} className={classes.root} loading={loading}>
             Log In
-          </Button>
+          </ButtonLoading>
           <Box mt={3}>
           <Grid container>
             <Grid item xs>

@@ -8,6 +8,9 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PersonalDetailForm from './personalDetailForm';
+import CompanyDetailForm from './companyDetailForm';
+import EmployeeAccountForm from './employeeAccountForm';
+import ExtraForm from './extraForm';
 import {Container} from "@material-ui/core";
 
 
@@ -49,16 +52,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const steps = ['Personal Details', 'Company Details', 'Emergency Details'];
+const steps = ['Personal', 'Company', 'Employee Account', 'Extra'];
 
 function getStepContent(step) {
     switch (step) {
         case 0:
             return <PersonalDetailForm />;
         case 1:
-            return <PersonalDetailForm />;
+            return <CompanyDetailForm />;
         case 2:
-            return <PersonalDetailForm />;
+            return <EmployeeAccountForm />;
+        case 3:
+            return <ExtraForm />;    
         default:
             throw new Error('Unknown step');
     }
