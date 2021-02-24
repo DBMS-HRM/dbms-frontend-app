@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>({
   box: {  
     
     width: "75vw",
-    height: "125vh",
+    height: "160vh",
     backgroundColor:'#D4E6F9'
     
   },
@@ -40,7 +40,7 @@ const Profile = (props) => {
   return (
     
     <Box className={classes.box}>
-      <img src={logo1} style={{ position: "absolute", left: "75%", width:'25%',height:'126%',top:"9%"}} />
+      <img src={logo1} style={{ position: "absolute", left: "75%", width:'25%',height:'162%',top:"9%"}} />
       <img src={logo} style={{ position: "fixed", top: "50%", left: "50%"}} />
       <Grid container  
         style={{                                         
@@ -60,8 +60,7 @@ const Profile = (props) => {
               <InputBase
             
                 value="  Employee ID  :-"
-                readOnly            
-                margin="normal"
+                readOnly          
                 variant="outlined"
                 required 
                 fullWidth                                 
@@ -74,13 +73,27 @@ const Profile = (props) => {
             <Box height={40}>
                
               <InputBase
-                value="  Name             :-"
-                readOnly            
-                margin="normal"
+                value="  First Name     :-"
+                readOnly           
                 variant="outlined"
                 required 
                 fullWidth                 
-                name="name"                  
+                name="firstname"                  
+                type="text"             
+                className={classes.textField}
+            
+              />
+            </Box>
+
+            <Box height={40}>
+               
+              <InputBase
+                value="  Last Name     :-"
+                readOnly           
+                variant="outlined"
+                required 
+                fullWidth                 
+                name="lastname"                  
                 type="text"             
                 className={classes.textField}
             
@@ -92,7 +105,7 @@ const Profile = (props) => {
               <InputBase
                 value="  Date of Birth :-"
                 readOnly            
-                margin="normal"
+                
                 variant="outlined"
                 required 
                 fullWidth                                 
@@ -106,7 +119,7 @@ const Profile = (props) => {
               <InputBase            
                 value="  Marital State :-"
                 readOnly            
-                margin="normal"
+                
                 variant="outlined"
                 required 
                 fullWidth                                 
@@ -120,13 +133,13 @@ const Profile = (props) => {
             <Box height={40}>
                 
               <InputBase
-                 value="  Branch ID :-"
+                 value="  Branch Name :-"
                  readOnly            
-                 margin="normal"
+                
                  variant="outlined"
                  required 
                  fullWidth                                 
-                 name="branch_id"                  
+                 name="branch_name"                  
                  type="text"             
                  className={classes.textField}
                  
@@ -138,7 +151,7 @@ const Profile = (props) => {
                 <InputBase            
                   value="  Job Title :-"
                   readOnly            
-                  margin="normal"
+                  
                   variant="outlined"
                   required 
                   fullWidth                                 
@@ -154,7 +167,7 @@ const Profile = (props) => {
                 <InputBase            
                   value="  Employment Status :-"
                   readOnly            
-                  margin="normal"
+                 
                   variant="outlined"
                   required 
                   fullWidth                                 
@@ -170,7 +183,7 @@ const Profile = (props) => {
                 <InputBase            
                   value="  Pay Grade :-"
                   readOnly            
-                  margin="normal"
+                  
                   variant="outlined"
                   required 
                   fullWidth                                 
@@ -186,7 +199,7 @@ const Profile = (props) => {
                 <InputBase            
                   value="  Department Name :-"
                   readOnly            
-                  margin="normal"
+                  
                   variant="outlined"
                   required 
                   fullWidth                                 
@@ -203,7 +216,7 @@ const Profile = (props) => {
                 <InputBase            
                   value="  Phone No. :-"
                   readOnly            
-                  margin="normal"
+                  
                   variant="outlined"
                   required 
                   fullWidth                                 
@@ -217,13 +230,61 @@ const Profile = (props) => {
               <Box height={40}>
                 
                 <InputBase            
-                  value="  Address :-"
+                  value="  Country :-"
                   readOnly            
-                  margin="normal"
+                  
                   variant="outlined"
                   required 
                   fullWidth                                 
-                  name="address"                  
+                  name="country"                  
+                  type="text"             
+                  className={classes.textField}
+            
+                />
+              </Box>
+
+              <Box height={40}>
+                
+                <InputBase            
+                  value="  District :-"
+                  readOnly            
+                  
+                  variant="outlined"
+                  required 
+                  fullWidth                                 
+                  name="district"                  
+                  type="text"             
+                  className={classes.textField}
+            
+                />
+              </Box>
+
+              <Box height={40}>
+                
+                <InputBase            
+                  value="  City :-"
+                  readOnly            
+                  
+                  variant="outlined"
+                  required 
+                  fullWidth                                 
+                  name="city"                  
+                  type="text"             
+                  className={classes.textField}
+            
+                />
+              </Box>
+
+              <Box height={40}>
+                
+                <InputBase            
+                  value="  Street :-"
+                  readOnly            
+                  
+                  variant="outlined"
+                  required 
+                  fullWidth                                 
+                  name="street"                  
                   type="text"             
                   className={classes.textField}
             
@@ -235,7 +296,7 @@ const Profile = (props) => {
                 <InputBase            
                   value="  Email :-"
                   readOnly            
-                  margin="normal"
+                 
                   variant="outlined"
                   required 
                   fullWidth                                 
