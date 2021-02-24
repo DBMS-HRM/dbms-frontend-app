@@ -1,19 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
+import {userActions} from "./user";
+import {userTActions} from "./user";
 
 import user from "./user";
 
 /**
  * Actions
  */
-import {userActions} from "./user";
+
+export const actions = {
+    user: userActions
+}
 
 /**
  * Asynchronous actions
  */
-import {userTActions} from "./user";
-export const actions = {
-    user: userActions
-}
+
 export const tActions = {
     user: userTActions
 }
