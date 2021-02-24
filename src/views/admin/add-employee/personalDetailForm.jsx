@@ -1,16 +1,38 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import {Container} from '@material-ui/core';
-import {
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import {makeStyles} from "@material-ui/core/styles";
 import CustomInputField from "../../../components/CustomInput";
-// import DateFnsUtils from '@date-io/date-fns';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const country = [
+    {
+      value: 'sriLanka',
+      label: 'Sri Lanka',
+    },
+    {
+      value: 'bangladesh',
+      label: 'Bangladesh',
+    },
+    {
+      value: 'pakistan',
+      label: 'Pakistan',
+    },
+    
+  ];
+
+  const maritialStatus = [
+    {
+      value: 'yes',
+      label: 'Yes',
+    },
+    {
+      value: 'no',
+      label: 'No',
+    },
+    
+  ];
 
 const useStyles = makeStyles({
     container: {
@@ -21,21 +43,25 @@ const useStyles = makeStyles({
 });
 
 export default function PersonalDetailForm() {
-    const classes = useStyles();
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const classes = useStyles();    
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const [ctype, setCountryType] = React.useState('sriLanka');
+        const handleChange_countryType = (event) => {
+            setCountryType(event.target.value);
     };
+
+    const [mtype, setMaritalStatus] = React.useState('no');
+        const handleChange_maritalStatus = (event) => {
+            setMaritalStatus(event.target.value);
+    };
+
     return (
         <Container className={classes.container}>
-            <Typography variant="h6" gutterBottom>
-                Add employee
-            </Typography>
+            
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                     <CustomInputField
-                        required = {false}
+                        required = {true}
                         error = {false}
                         id="firstName"
                         name="firstName"
@@ -43,9 +69,9 @@ export default function PersonalDetailForm() {
                         fullWidth = {true}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6}> 
                     <CustomInputField
-                        required = {false}
+                        required = {true}
                         error = {false}
                         id="lastName"
                         name="lastName"
@@ -54,113 +80,96 @@ export default function PersonalDetailForm() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    {/*<KeyboardDatePicker*/}
-                    {/*    disableToolbar*/}
-                    {/*    variant="inline"*/}
-                    {/*    format="MM/dd/yyyy"*/}
-                    {/*    margin="normal"*/}
-                    {/*    id="date-picker-inline"*/}
-                    {/*    label="Date picker inline"*/}
-                    {/*    value={selectedDate}*/}
-                    {/*    onChange={handleDateChange}*/}
-                    {/*    KeyboardButtonProps={{*/}
-                    {/*        'aria-label': 'change date',*/}
-                    {/*    }}*/}
-                    {/*/>*/}
+                    Date of Birth
+                    <TextField
+                        required         
+                        type="date"
+                        id="dateOfBirth"
+                        name="dateOfBirth"                       
+                        fullWidth = {true}                
+                    
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}> 
+                    <TextField
+                        select
+                        required = {true}
+                        error = {false}
+                        id="maritalStatus"
+                        name="maritalStatus"
+                        label="Marital Status"
+                        value={mtype}       
+                        onChange={handleChange_maritalStatus}                        
+                        fullWidth = {true}
+                        >
+                        {maritialStatus.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
+                <Grid item xs={12} sm={6}> 
+                    <TextField
+                        select
+                        required = {true}
+                        error = {false}
+                        id="country"
+                        name="country"
+                        label="Country"
+                        value={ctype}       
+                        onChange={handleChange_countryType}                        
+                        fullWidth = {true}
+                        >
+                        {country.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <CustomInputField
-                        required = {false}
+                        required = {true}
                         error = {false}
-                        id="maritialStatus"
-                        name="maritialStatus"
-                        label="Maritial Status"
+                        id="district"
+                        name="district"
+                        label="District"
                         fullWidth = {true}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <CustomInputField
-                        required = {false}
+                        required = {true}
                         error = {false}
-                        id="lastName"
-                        name="lastName"
-                        label="Last name"
-                        fullWidth = {true}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <CustomInputField
-                        required = {false}
-                        error = {false}
-                        id="email"
-                        name="email"
-                        label="Email"
-                        fullWidth = {true}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <CustomInputField
-                        required = {false}
-                        error = {false}
-                        id="mobileNumber"
-                        name="mobileNumber"
-                        label="Mobile Number"
+                        id="city"
+                        name="city"
+                        label="City"
                         fullWidth = {true}
                     />
                 </Grid>
 
                 <Grid item xs={12}>
-                    <TextField
-                        required
-                        id="address1"
-                        name="address1"
-                        label="Address line 1"
-                        fullWidth
-                        autoComplete="shipping address-line1"
+                    <CustomInputField
+                        required = {true}
+                        error = {false}
+                        id="street1"
+                        name="street1"
+                        label="Street line 1"
+                        fullWidth = {true}
                     />
                 </Grid>
+
                 <Grid item xs={12}>
-                    <TextField
-                        id="address2"
-                        name="address2"
-                        label="Address line 2"
-                        fullWidth
-                        autoComplete="shipping address-line2"
+                    <CustomInputField
+                        required = {false}
+                        error = {false}
+                        id="street2"
+                        name="street2"
+                        label="Street line 2"
+                        fullWidth = {true}
                     />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="city"
-                        name="city"
-                        label="City"
-                        fullWidth
-                        autoComplete="shipping address-level2"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="zip"
-                        name="zip"
-                        label="Zip / Postal code"
-                        fullWidth
-                        autoComplete="shipping postal-code"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="country"
-                        name="country"
-                        label="Country"
-                        fullWidth
-                        autoComplete="shipping country"
-                    />
-                </Grid>
+                </Grid>               
             </Grid>
         </Container>
 

@@ -1,4 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
+import {userActions} from "./user";
+import {userTActions} from "./user";
 
 import user from "./user";
 
@@ -11,7 +13,7 @@ export default configureStore({
 /**
  * Actions
  */
-import {userActions} from "./user";
+
 export const actions = {
     user: userActions
 }
@@ -19,7 +21,7 @@ export const actions = {
 /**
  * Asynchronous actions
  */
-import {userTActions} from "./user";
+
 export const tActions = {
     user: userTActions
 }

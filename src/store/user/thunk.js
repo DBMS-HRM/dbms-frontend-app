@@ -2,7 +2,6 @@ import thunk from "redux-thunk";
 import api from "../../api";
 import {userActions} from "./index";
 
-const {setUserData, setToken} = userActions
 
 export function adminLogin(username, password) {
     return async (dispatch) => {
@@ -13,8 +12,8 @@ export function adminLogin(username, password) {
 
         // Login success
         const {token, userData} = data
-        dispatch(setToken(token))
-        dispatch(setUserData(userData))
+        dispatch(userActions.setToken(token))
+        dispatch(userActions.setUserData(userData))
 
         return res;
     };
