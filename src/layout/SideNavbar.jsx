@@ -35,13 +35,12 @@ const SideNavbar = () => {
                     </NavText>
                 </NavItem>
                 <NavItem eventKey="profile" onClick={() => history.push(`/${accountType}/profile`)} >
-                    <Link to="/employee/profile" />
-                        <NavIcon style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                            <NoteAddIcon />
-                        </NavIcon>
-                        <NavText>
-                            Profile
-                        </NavText>
+                    <NavIcon style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <NoteAddIcon />
+                    </NavIcon>
+                    <NavText>
+                        Profile
+                    </NavText>
                 </NavItem>
             </Nav>
         </SideNav>
