@@ -2,6 +2,7 @@ import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -13,7 +14,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { InputBase,spacing } from '@material-ui/core';
-import logo from "../../../JupLogo.svg";
+import { borderColor, borderRadius } from '@material-ui/system';
+import { AddToHomeScreen } from '@material-ui/icons';
+import FaceIcon from '@material-ui/icons/Face';
+import logo from "../JupLogo.svg";
 
 
 const useStyles = makeStyles((theme) =>({
@@ -97,7 +101,7 @@ const SignIn = (props) => {
             
             placeholder="Username"
             type="Text"
-            // margin="normal"
+            margin="normal"
             variant="outlined"                                             
             required
             fullWidth
@@ -114,7 +118,7 @@ const SignIn = (props) => {
           <InputBase
             
             placeholder="Password"            
-            // margin="normal"
+            margin="normal"
             variant="outlined"
             required
             fullWidth
