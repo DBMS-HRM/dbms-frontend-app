@@ -7,8 +7,8 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     layout: {
-        margin: '64px 0 64px 64px',
-        minHeight: 'calc(100vh - 176px)'
+        margin: '64px 0 0 64px',
+        minHeight: 'calc(100vh - 112px)'
     }
 }))
 
