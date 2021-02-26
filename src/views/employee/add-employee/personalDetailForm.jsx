@@ -42,24 +42,18 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PersonalDetailForm(props) {
-    const classes = useStyles();
-    const maritalStatusWrapper = React.createRef()
-    const countrySelectWrapper = React.createRef()
+export default function PersonalDetailForm() {
+    const classes = useStyles();    
 
-    // const [ctype, setCountryType] = React.useState('sriLanka');
-    //     // props.city = ctype
-    //     const handleChange_countryType = (event) => {
-    //         // props.setCity(event.target.value)
-    //         setCountryType(event.target.value);
-    // };
-    //
-    // const [mtype, setMaritalStatus] = React.useState('no');
-    //     // props.maritalStatus = mtype
-    //     const handleChange_maritalStatus = (event) => {
-    //         // props.setMaritalStatus(event.target.value)
-    //         setMaritalStatus(event.target.value);
-    // };
+    const [ctype, setCountryType] = React.useState('sriLanka');
+        const handleChange_countryType = (event) => {
+            setCountryType(event.target.value);
+    };
+
+    const [mtype, setMaritalStatus] = React.useState('no');
+        const handleChange_maritalStatus = (event) => {
+            setMaritalStatus(event.target.value);
+    };
 
     return (
         <Container className={classes.container}>
@@ -73,8 +67,6 @@ export default function PersonalDetailForm(props) {
                         name="firstName"
                         label="First name"
                         fullWidth = {true}
-                        value={props.firstName}
-                        handleChange={props.setFirstName}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}> 
@@ -85,8 +77,6 @@ export default function PersonalDetailForm(props) {
                         name="lastName"
                         label="Last name"
                         fullWidth = {true}
-                        value={props.lastName}
-                        handleChange={props.setLastName}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -96,23 +86,20 @@ export default function PersonalDetailForm(props) {
                         type="date"
                         id="dateOfBirth"
                         name="dateOfBirth"                       
-                        fullWidth = {true}
-                        value={props.dateOfBirth}
-                        onChange={e=>props.setDateOfBirth(e.target.value)}
+                        fullWidth = {true}                
                     
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}> 
                     <TextField
                         select
-                        ref={maritalStatusWrapper}
                         required = {true}
                         error = {false}
                         id="maritalStatus"
                         name="maritalStatus"
                         label="Marital Status"
-                        value={props.maritalStatus}
-                        onChange={e=>props.setMaritalStatus(e.target.value)}
+                        value={mtype}       
+                        onChange={handleChange_maritalStatus}                        
                         fullWidth = {true}
                         >
                         {maritialStatus.map((option) => (
@@ -125,14 +112,13 @@ export default function PersonalDetailForm(props) {
                 <Grid item xs={12} sm={6}> 
                     <TextField
                         select
-                        ref={countrySelectWrapper}
                         required = {true}
                         error = {false}
                         id="country"
                         name="country"
                         label="Country"
-                        value={props.country}
-                        onChange={e=>props.setCountry(e.target.value)}
+                        value={ctype}       
+                        onChange={handleChange_countryType}                        
                         fullWidth = {true}
                         >
                         {country.map((option) => (
@@ -150,8 +136,6 @@ export default function PersonalDetailForm(props) {
                         name="district"
                         label="District"
                         fullWidth = {true}
-                        value={props.district}
-                        handleChange={props.setDistrict}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -162,8 +146,6 @@ export default function PersonalDetailForm(props) {
                         name="city"
                         label="City"
                         fullWidth = {true}
-                        value={props.city}
-                        handleChange={props.setCity}
                     />
                 </Grid>
 
@@ -175,8 +157,6 @@ export default function PersonalDetailForm(props) {
                         name="street1"
                         label="Street line 1"
                         fullWidth = {true}
-                        value={props.street1}
-                        handleChange={props.setStreet1}
                     />
                 </Grid>
 
@@ -188,8 +168,6 @@ export default function PersonalDetailForm(props) {
                         name="street2"
                         label="Street line 2"
                         fullWidth = {true}
-                        value={props.street2}
-                        handleChange={props.setStreet2}
                     />
                 </Grid>               
             </Grid>

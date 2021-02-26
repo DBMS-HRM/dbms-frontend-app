@@ -5,9 +5,12 @@ import SignIn from "./sign-in";
 import Layout from "../../layout";
 import EmployeeDetails from "./employee-details";
 import AddEmployee from "./add-employee";
+import {useSelector} from "react-redux";
+import {selectUser} from "../../store/user";
 
 export default function Admin() {
     let {path} = useRouteMatch();
+    let userAccountType = useSelector(selectUser).accountType
     return (
       <Switch>
           <Route path={`${path}/sign-in`} component={SignIn} />

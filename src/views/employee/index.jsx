@@ -6,6 +6,7 @@ import SignIn from "./sign-in";
 import Profile from "./profile";
 import AddLeave from "./addLeave";
 import Layout from "../../layout";
+import AddEmployee from "./add-employee"
 
 export default function Employee() {
     let {path} = useRouteMatch();
@@ -16,7 +17,8 @@ export default function Employee() {
             <Layout>
                 <Route path={`${path}/dashboard`} component={Index} />
                 <Route path={`${path}/profile`} component={Profile} />
-                <Route path={`${path}/addLeave`} component={AddLeave} />
+                <Route path={`${path}/add-leave`} component={AddLeave} />
+                <Route path={`${path}/add-employee`} component={AddEmployee} />
             </Layout>
         </Switch>
     )

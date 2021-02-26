@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PersonalDetailForm(props) {
+export default function PersonalDetailForm() {
     const classes = useStyles();
     
     const [atype, setAccountType] = React.useState('managerialEmployee');
@@ -52,8 +52,6 @@ export default function PersonalDetailForm(props) {
                         name="username"
                         label="Username"
                         fullWidth = {true}
-                        value={props.username}
-                        handleChange={props.setUsername}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -65,8 +63,6 @@ export default function PersonalDetailForm(props) {
                         name="password"
                         label="Password"
                         fullWidth = {true}
-                        value={props.password}
-                        onChange={e=>props.setPassword(e.target.value)}
                     />
                 </Grid>
                
@@ -78,8 +74,6 @@ export default function PersonalDetailForm(props) {
                         name="emailAddress"
                         label="Email Address"
                         fullWidth = {true}
-                        value={props.email}
-                        handleChange={props.setEmail}
                     />
                 </Grid>
                 
@@ -92,9 +86,9 @@ export default function PersonalDetailForm(props) {
                         id="accountType"
                         name="accountType"
                         label="Account Type"
+                        value={atype}       
+                        onChange={handleChange_accountType}                        
                         fullWidth = {true}
-                        value={props.accountType}
-                        onChange={e=>props.setAccountType(e.target.value)}
                         >
                         {accountType.map((option) => (
                             <MenuItem key={option.value} value={option.value}>

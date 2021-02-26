@@ -104,7 +104,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PersonalDetailForm(props) {
+export default function PersonalDetailForm() {
     const classes = useStyles();
     const [ptype, setPayGradeType] = React.useState('level1');
     const handleChange_payGrade = (event) => {
@@ -138,8 +138,6 @@ export default function PersonalDetailForm(props) {
                         name="branchName"
                         label="Branch name"
                         fullWidth = {true}
-                        value={props.branchName}
-                        handleChange={props.setBranchName}
                     />
                 </Grid>
 
@@ -151,8 +149,8 @@ export default function PersonalDetailForm(props) {
                         id="jobTitle"
                         name="jobTitle"
                         label="job Title"
-                        value={props.jobTitle}
-                        onChange={e=>props.setJobTitle(e.target.value)}
+                        value={jtype}       
+                        onChange={handleChange_jobTitle}                        
                         fullWidth = {true}
                         >
                         {jobTitle.map((option) => (
@@ -171,8 +169,8 @@ export default function PersonalDetailForm(props) {
                         id="payGrade"
                         name="payGrade"
                         label="Pay Grade"
-                        value={props.payGrade}
-                        onChange={e=>props.setPayGrade(e.target.value)}
+                        value={ptype}       
+                        onChange={handleChange_payGrade}                        
                         fullWidth = {true}
                         >
                         {payGrade.map((option) => (
@@ -191,8 +189,8 @@ export default function PersonalDetailForm(props) {
                         id="employeementStatus"
                         name="employeementStatus"
                         label="Employeement Status"
-                        value={props.employmentStatus}
-                        onChange={e=>props.setEmploymentStatus(e.target.value)}
+                        value={stype}       
+                        onChange={handleChange_employeementStatus}                        
                         fullWidth = {true}
                         >
                         {employeementStatus.map((option) => (
@@ -211,8 +209,8 @@ export default function PersonalDetailForm(props) {
                         id="department"
                         name="department"
                         label="Department"
-                        value={props.departmentName}
-                        onChange={e=>props.setDepartmentName(e.target.value)}
+                        value={dtype}       
+                        onChange={handleChange_department}                        
                         fullWidth = {true}
                         >
                         {department.map((option) => (

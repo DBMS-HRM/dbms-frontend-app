@@ -4,6 +4,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
+import {useSelector} from "react-redux";
+import {selectUser} from "../store/user";
 
 
 const UpperNavbar = () => {
@@ -38,6 +40,8 @@ const UpperNavbar = () => {
         }
     }));
 
+    const user = useSelector(selectUser)
+
     const classes = useStyles();
     return (
         <AppBar position="static" elevation={0} className={classes.appBar}>
@@ -53,7 +57,7 @@ const UpperNavbar = () => {
                 </IconButton>
                 <IconButton color="inherit">
                     <Avatar className={classes.avatar}>
-                        <Typography className={classes.avatarText}>R</Typography>
+                        <Typography className={classes.avatarText}>{user.email[0]}</Typography>
                     </Avatar>
                 </IconButton>
             </Toolbar>

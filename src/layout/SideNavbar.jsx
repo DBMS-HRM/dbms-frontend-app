@@ -14,8 +14,8 @@ import {useHistory} from "react-router";
 
 const SideNavbar = () => {
     const history = useHistory();
-    const accountType = useSelector(state => state.user.user.accountType)
-
+    const user = useSelector(selectUser)
+    const accountType = user.accountType
 
     return (
         <SideNav
@@ -34,12 +34,12 @@ const SideNavbar = () => {
                         Home
                     </NavText>
                 </NavItem>
-                <NavItem eventKey="profile" onClick={() => history.push(`/${accountType}/profile`)} >
+                <NavItem eventKey="profile" onClick={() => history.push(`/${accountType}/add-employee`)} >
                     <NavIcon style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <NoteAddIcon />
                     </NavIcon>
                     <NavText>
-                        Profile
+                        Add Employee
                     </NavText>
                 </NavItem>
             </Nav>
