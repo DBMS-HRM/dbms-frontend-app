@@ -1,6 +1,7 @@
 import thunk from "redux-thunk";
 import api from "../../api";
 import {userActions} from "./index";
+import {setAuthToken} from "../../api/client";
 
 export function adminLogin(username, password) {
     return async (dispatch) => {
@@ -11,6 +12,7 @@ export function adminLogin(username, password) {
         window.localStorage.setItem("accessToken", JSON.stringify(data.token))
         window.localStorage.setItem("userData", JSON.stringify(data.data))
         // Login success
+        setAuthToken(userActions.setToken(data.token.access))
         dispatch(userActions.setToken(data.token))
         dispatch(userActions.setUserData(data.data))
 
@@ -27,6 +29,7 @@ export function employeeLogin(username, password) {
         window.localStorage.setItem("accessToken", JSON.stringify(data.token))
         window.localStorage.setItem("userData", JSON.stringify(data.data))
         // Login success
+        setAuthToken(userActions.setToken(data.token.access))
         dispatch(userActions.setToken(data.token))
         dispatch(userActions.setUserData(data.data))
 
@@ -35,7 +38,7 @@ export function employeeLogin(username, password) {
 }
 
 export function addEmployee(formData) {
-    return async (dispatch) => {
+    return async () => {
         const [res, data] = await api.user.add.employee(formData)
         if (res.status !== 200) {
             return res;

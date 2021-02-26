@@ -13,6 +13,10 @@ import EmployeeAccountForm from './employeeAccountForm';
 import ExtraForm from './extraForm';
 import {Container} from "@material-ui/core";
 import user from "../../../api/modules/user";
+import ButtonLoading from "../../../components/ButtonLoading";
+import {userTActions} from "../../../store/user";
+import {toast} from "react-toastify";
+import {useDispatch} from "react-redux";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,21 +59,22 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Personal', 'Company', 'Employee Account', 'Extra'];
 
-async function submitForm() {
-
-}
+let formData;
+let loading;
 
 export default function AddEmployee() {
     const fullDate = new Date()
     const date = fullDate.getMonth()+1
     const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0"+date : date}-${fullDate.getDate()}`
 
+    const dispatch = useDispatch()
+
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [dateOfBirth, setDateOfBirth] = useState(today)
-    const [maritalStatus, setMaritalStatus] = useState('')
+    const [dateOfBirth, setDateOfBirth] = useState('')
+    const [maritalStatus, setMaritalStatus] = useState(false)
     const [country, setCountry] = useState('sriLanka')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [district, setDistrict] = useState('')
@@ -106,6 +111,17 @@ export default function AddEmployee() {
         password: password,
         email: email,
         accountType: accountType,
+    }
+
+    async function submitForm() {
+        loading = true
+        const res = dispatch(userTActions.addEmployee(formData))
+        loading = false
+        if(res.status === 200) {
+            toast.success("Successfully added an employee !!!")
+            return
+        }
+        toast.error(res.message)
     }
 
     function getStepContent(step) {
@@ -157,7 +173,6 @@ export default function AddEmployee() {
                     <Typography component="h1" variant="h4" align="center">
                         Add Employee
                     </Typography>
-                    <Button onClick={() => {console.log(formData)}}>Test</Button>
                     <Stepper activeStep={activeStep} className={classes.stepper}>
                         {steps.map((label) => (
                             <Step key={label}>
@@ -195,12 +210,11 @@ export default function AddEmployee() {
                                     <Button
                                         variant="contained"
                                         color="primary"
-                                        onClick={handleNext}
+                                        onClick={activeStep === steps.length - 1 ? submitForm : handleNext}
                                         className={classes.button}
                                     >
                                         {activeStep === steps.length - 1 ? 'Add Employee' : 'Next'}
                                     </Button>
-                                    <Button onClick={() => {console.log(formData)}}>Test</Button>
                                 </div>
                             </React.Fragment>
                         )}

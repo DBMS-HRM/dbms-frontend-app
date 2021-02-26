@@ -8,15 +8,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const country = [
     {
-      value: 'sriLanka',
+      value: 'Sri Lanka',
       label: 'Sri Lanka',
     },
     {
-      value: 'bangladesh',
+      value: 'Bangladesh',
       label: 'Bangladesh',
     },
     {
-      value: 'pakistan',
+      value: 'Pakistan',
       label: 'Pakistan',
     },
     
@@ -24,11 +24,11 @@ const country = [
 
   const maritialStatus = [
     {
-      value: 'yes',
+      value: true,
       label: 'Yes',
     },
     {
-      value: 'no',
+      value: false,
       label: 'No',
     },
     

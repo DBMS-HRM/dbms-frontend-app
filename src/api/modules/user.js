@@ -17,7 +17,7 @@ export default {
     add: {
         async employee(formData) {
             return extractBodyResolve(
-                axios.post("/api/user/register/employee", formData)
+                axios.post("/api/user/register/managerial-employee", formData)
             )
         }
     },

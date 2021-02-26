@@ -10,15 +10,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const accountType = [
     {
-      value: 'managerialEmployee',
+      value: 'Managerial Employee',
       label: 'Managerial Employee',
     },
     {
-      value: 'supervisor',
+      value: 'Supervisor',
       label: 'Supervisor',
     },
     {
-      value: 'employee',
+      value: 'Employee',
       label: 'Employee',
     },
     

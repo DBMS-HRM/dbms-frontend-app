@@ -1,11 +1,12 @@
 import React from "react";
-import {AppBar, Avatar, colors, IconButton, Toolbar, Typography, Box} from "@material-ui/core";
+import {AppBar, colors, IconButton, Toolbar, Typography, Box} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
 import {useSelector} from "react-redux";
 import {selectUser} from "../store/user";
+import Avatar from "react-avatar";
 
 
 const UpperNavbar = () => {
@@ -30,11 +31,6 @@ const UpperNavbar = () => {
             fontFamily: "'Rationale', sans-serif",
             flexGrow: 1
         },
-        avatar: {
-            width: '24px',
-            height: '24px',
-            backgroundColor: colors.red["200"]
-        },
         avatarText: {
             fontSize: '12px',
         }
@@ -56,9 +52,7 @@ const UpperNavbar = () => {
                     <AddAlertIcon/>
                 </IconButton>
                 <IconButton color="inherit">
-                    <Avatar className={classes.avatar}>
-                        <Typography className={classes.avatarText}>{user.email[0]}</Typography>
-                    </Avatar>
+                    <Avatar name={user.username} size={40} round={true} />
                 </IconButton>
             </Toolbar>
         </AppBar>

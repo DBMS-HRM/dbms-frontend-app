@@ -10,89 +10,89 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const payGrade = [
     {
-      value: 'level1',
+      value: 'Level 1',
       label: 'Level 1',
     },
     {
-      value: 'level2',
-      label: 'Level2',
+      value: 'Level 2',
+      label: 'Level 2',
     },
     {
-      value: 'level3',
+      value: 'Level 3',
       label: 'Level 3',
     },
     {
-      value: 'level4',
+      value: 'Level 4',
       label: 'Level 4',
     },
   ];
 
   const jobTitle = [
     {
-      value: 'HRManager',
+      value: 'HR Manager',
       label: 'HR Manager',
     },
     {
-      value: 'QAEngineer',
+      value: 'QA Engineer',
       label: 'QA Engineer',
     },
     {
-      value: 'accountant',
+      value: 'Accountant',
       label: 'Accountant',
     },
     {
-      value: 'softwareEngineer',
+      value: 'Software Engineer',
       label: 'Software Engineer',
     },
   ];
 
   const employeementStatus = [
     {
-      value: 'internFullTime',
+      value: 'Intern Full Time',
       label: 'Intern Full Time',
     },
     {
-      value: 'internPartTime',
+      value: 'Intern Part Time',
       label: 'Intern Part Time',
     },
     {
-      value: 'contractFullTime',
+      value: 'Contract Full Time',
       label: 'Contract Full Time',
     },
     {
-      value: 'contractPartTime',
+      value: 'Contract Part Time',
       label: 'Contract Part Time',
     },
     {
-        value: 'permanent',
+        value: 'Permanent',
         label: 'Permanent',
     },
     {
-        value: 'freelance',
+        value: 'Freelance',
         label: 'Freelance',
     },
   ];
 
   const department = [
     {
-      value: 'hr',
+      value: 'HR',
       label: 'HR',
     },
     {
-      value: 'financial',
+      value: 'Financial',
       label: 'Financial',
     },
     {
-      value: 'ict',
+      value: 'ICT',
       label: 'ICT',
     },
     {
-      value: 'security',
+      value: 'Security',
       label: 'Security',
     },
     {
-       value: 'qualityAssuarance',
-       label: 'Quality Assuarance',
+       value: 'Quality Assurance',
+       label: 'Quality Assurance',
     },
   ];
 

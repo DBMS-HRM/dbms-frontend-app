@@ -15,10 +15,10 @@ export default function Employee() {
         <Switch>
             <Route path={`${path}/sign-in`} component={SignIn} />
             <Layout>
-                <Route path={`${path}/dashboard`} component={Index} />
                 <Route path={`${path}/profile`} component={Profile} />
                 <Route path={`${path}/add-leave`} component={AddLeave} />
                 <Route path={`${path}/add-employee`} component={AddEmployee} />
+                <Route exact path={`${path}`} component={Index} />
             </Layout>
         </Switch>
     )

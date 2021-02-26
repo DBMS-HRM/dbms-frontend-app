@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 /**
  * Asynchronous actions
  */
-import {adminLogin, employeeLogin} from "./thunk";
+import {adminLogin, employeeLogin, addEmployee} from "./thunk";
 
 export const userSlice = createSlice({
     name: 'user',
@@ -43,6 +43,7 @@ export  const userActions = {
 }
 export  const userTActions = {
     adminLogin,
-    employeeLogin
+    employeeLogin,
+    addEmployee
 }
 
