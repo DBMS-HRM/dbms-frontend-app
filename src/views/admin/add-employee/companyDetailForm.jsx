@@ -10,58 +10,39 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const payGrade = [
     {
-      value: 'Level 1',
-      label: 'Level 1',
+        value: 'Level 1',
+        label: 'Level 1',
     },
     {
-      value: 'Level 2',
-      label: 'Level 2',
+        value: 'Level 2',
+        label: 'Level 2',
     },
     {
-      value: 'Level 3',
-      label: 'Level 3',
+        value: 'Level 3',
+        label: 'Level 3',
     },
     {
-      value: 'Level 4',
-      label: 'Level 4',
+        value: 'Level 4',
+        label: 'Level 4',
     },
-  ];
+];
 
-  const jobTitle = [
+const employeementStatus = [
     {
-      value: 'HR Manager',
-      label: 'HR Manager',
+        value: 'Intern Full Time',
+        label: 'Intern Full Time',
     },
     {
-      value: 'QA Engineer',
-      label: 'QA Engineer',
+        value: 'Intern Part Time',
+        label: 'Intern Part Time',
     },
     {
-      value: 'Accountant',
-      label: 'Accountant',
+        value: 'Contract Full Time',
+        label: 'Contract Full Time',
     },
     {
-      value: 'Software Engineer',
-      label: 'Software Engineer',
-    },
-  ];
-
-  const employeementStatus = [
-    {
-      value: 'Intern Full Time',
-      label: 'Intern Full Time',
-    },
-    {
-      value: 'Intern Part Time',
-      label: 'Intern Part Time',
-    },
-    {
-      value: 'Contract Full Time',
-      label: 'Contract Full Time',
-    },
-    {
-      value: 'Contract Part Time',
-      label: 'Contract Part Time',
+        value: 'Contract Part Time',
+        label: 'Contract Part Time',
     },
     {
         value: 'Permanent',
@@ -71,30 +52,50 @@ const payGrade = [
         value: 'Freelance',
         label: 'Freelance',
     },
-  ];
+];
 
-  const department = [
+const department = [
     {
-      value: 'HR',
-      label: 'HR',
+        value: 'HR',
+        label: 'HR',
+        jobTitles: [{
+            value: 'HR Manager',
+            label: 'HR Manager',
+        }],
     },
     {
-      value: 'Financial',
-      label: 'Financial',
+        value: 'Financial',
+        label: 'Financial',
+        jobTitles: [{
+            value: 'Accountant',
+            label: 'Accountant',
+        }]
     },
     {
-      value: 'ICT',
-      label: 'ICT',
+        value: 'ICT',
+        label: 'ICT',
+        jobTitles: [{
+            value: 'Software Engineer',
+            label: 'Software Engineer',
+        }]
     },
     {
-      value: 'Security',
-      label: 'Security',
+        value: 'Security',
+        label: 'Security',
+        jobTitles: [{
+            value: 'Security Officer',
+            label: 'Security Officer',
+        }]
     },
     {
-       value: 'Quality Assurance',
-       label: 'Quality Assurance',
+        value: 'Quality Assurance',
+        label: 'Quality Assurance',
+        jobTitles: [{
+            value: 'QA Engineer',
+            label: 'QA Engineer',
+        }]
     },
-  ];
+];
 
 const useStyles = makeStyles({
     container: {
@@ -112,116 +113,124 @@ export default function PersonalDetailForm(props) {
     };
 
     const [jtype, setJobTitleType] = React.useState('HRManager');
-        const handleChange_jobTitle = (event) => {
-            setJobTitleType(event.target.value);
+    const handleChange_jobTitle = (event) => {
+        setJobTitleType(event.target.value);
     };
 
     const [stype, setEmployeementStatusType] = React.useState('internFullTime');
-        const handleChange_employeementStatus = (event) => {
-            setEmployeementStatusType(event.target.value);
+    const handleChange_employeementStatus = (event) => {
+        setEmployeementStatusType(event.target.value);
     };
 
     const [dtype, setDepartmentType] = React.useState('hr');
-        const handleChange_department = (event) => {
-            setDepartmentType(event.target.value);
+    const handleChange_department = (event) => {
+        setDepartmentType(event.target.value);
     };
-    
+
+    let jobTitle = [];
+    department.forEach(item => {
+        if (item.value === props.departmentName) {
+            jobTitle = item.jobTitles
+        }
+    })
+    console.log(jobTitle)
+
     return (
         <Container className={classes.container}>
-            
+
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                     <CustomInputField
-                        required = {false}
-                        error = {false}
+                        required={false}
+                        error={false}
                         id="branchName"
                         name="branchName"
                         label="Branch name"
-                        fullWidth = {true}
+                        fullWidth={true}
                         value={props.branchName}
                         handleChange={props.setBranchName}
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}> 
-                    <TextField
-                        select
-                        required = {true}
-                        error = {false}
-                        id="jobTitle"
-                        name="jobTitle"
-                        label="job Title"
-                        value={props.jobTitle}
-                        onChange={e=>props.setJobTitle(e.target.value)}
-                        fullWidth = {true}
-                        >
-                        {jobTitle.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </Grid>
-
                 <Grid item xs={12} sm={6}>
                     <TextField
                         select
-                        required = {true}
-                        error = {false}
-                        id="payGrade"
-                        name="payGrade"
-                        label="Pay Grade"
-                        value={props.payGrade}
-                        onChange={e=>props.setPayGrade(e.target.value)}
-                        fullWidth = {true}
-                        >
-                        {payGrade.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        select
-                        required = {true}
-                        error = {false}
-                        id="employeementStatus"
-                        name="employeementStatus"
-                        label="Employeement Status"
-                        value={props.employmentStatus}
-                        onChange={e=>props.setEmploymentStatus(e.target.value)}
-                        fullWidth = {true}
-                        >
-                        {employeementStatus.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        select
-                        required = {true}
-                        error = {false}
+                        required={true}
+                        error={false}
                         id="department"
                         name="department"
                         label="Department"
                         value={props.departmentName}
-                        onChange={e=>props.setDepartmentName(e.target.value)}
-                        fullWidth = {true}
-                        >
+                        onChange={e => props.setDepartmentName(e.target.value)}
+                        fullWidth={true}
+                    >
                         {department.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                                {option.label}
                             </MenuItem>
                         ))}
                     </TextField>
-                </Grid>         
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        select
+                        required={true}
+                        error={false}
+                        id="jobTitle"
+                        name="jobTitle"
+                        label="job Title"
+                        value={props.jobTitle}
+                        onChange={e => props.setJobTitle(e.target.value)}
+                        fullWidth={true}
+                    >
+                        {jobTitle.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        select
+                        required={true}
+                        error={false}
+                        id="payGrade"
+                        name="payGrade"
+                        label="Pay Grade"
+                        value={props.payGrade}
+                        onChange={e => props.setPayGrade(e.target.value)}
+                        fullWidth={true}
+                    >
+                        {payGrade.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        select
+                        required={true}
+                        error={false}
+                        id="employeementStatus"
+                        name="employeementStatus"
+                        label="Employeement Status"
+                        value={props.employmentStatus}
+                        onChange={e => props.setEmploymentStatus(e.target.value)}
+                        fullWidth={true}
+                    >
+                        {employeementStatus.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
             </Grid>
         </Container>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import UpperNavbar from "../layout/UpperNavbar";
-import SideNavbar from "../layout/SideNavbar";
+import SideNavbar from "./sideNavbar/SideNavbar";
 import {Box} from "@material-ui/core";
 import Footer from "../layout/Footer";
 import {makeStyles} from "@material-ui/core/styles";

@@ -85,7 +85,7 @@ export default function AddEmployee() {
     const [jobTitle, setJobTitle] = useState('')
     const [payGrade, setPayGrade] = useState('')
     const [employmentStatus, setEmploymentStatus] = useState('')
-    const [departmentName, setDepartmentName] = useState('')
+    const [departmentName, setDepartmentName] = useState('HR')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
