@@ -5,7 +5,6 @@ import {Container} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import CustomInputField from "../../../components/CustomInput";
 import MenuItem from '@material-ui/core/MenuItem';
-import AddInputField from "../../../components/AddInputField";
 
 const country = [
     {
@@ -192,11 +191,7 @@ export default function PersonalDetailForm(props) {
                         value={props.street2}
                         handleChange={props.setStreet2}
                     />
-                </Grid>
-
-                <Grid item xs={12}>
-                    <AddInputField name="phoneNumber" value={props.phoneNumbers} setValues={props.setPhoneNumbers} />
-                </Grid>
+                </Grid>               
             </Grid>
         </Container>
 
