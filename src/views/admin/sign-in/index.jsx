@@ -20,6 +20,7 @@ import {useHistory} from "react-router";
 import {useDispatch} from "react-redux";
 import {Redirect} from "react-router-dom";
 import ButtonLoading from "../../../components/ButtonLoading";
+import {toast} from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -76,6 +77,9 @@ const SignIn = (props) => {
             setUsername("")
             setPassword("")
             history.push("/admin")
+        }
+        else {
+            toast.error(response.message)
         }
     }
 

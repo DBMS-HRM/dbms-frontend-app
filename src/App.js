@@ -8,8 +8,6 @@ import {toast, ToastContainer} from "react-toastify";
 import {setAuthToken} from "./api/client";
 
 import 'react-toastify/dist/ReactToastify.css';
-
-toast.configure();
 function App() {
     const dispatch = useDispatch()
     const token = JSON.parse(window.localStorage.getItem("accessToken"))
@@ -18,9 +16,12 @@ function App() {
     dispatch(userActions.setToken(token))
     dispatch(userActions.setUserData(userData))
     return (
-        <MuiThemeProvider theme={theme}>
-            <Router/>
-        </MuiThemeProvider>
+        <div>
+            <ToastContainer />
+            <MuiThemeProvider theme={theme}>
+                <Router/>
+            </MuiThemeProvider>
+        </div>
     );
 }
 

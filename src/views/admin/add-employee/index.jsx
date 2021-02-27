@@ -75,8 +75,8 @@ export default function AddEmployee() {
     const [lastName, setLastName] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [maritalStatus, setMaritalStatus] = useState(false)
-    const [country, setCountry] = useState('sriLanka')
-    const [phoneNumber, setPhoneNumber] = useState('')
+    const [country, setCountry] = useState('')
+    const [phoneNumbers, setPhoneNumbers] = useState({})
     const [district, setDistrict] = useState('')
     const [city, setCity] = useState('')
     const [street1, setStreet1] = useState('')
@@ -97,7 +97,7 @@ export default function AddEmployee() {
         dateOfBirth: dateOfBirth,
         maritalStatus: maritalStatus,
         country: country,
-        phoneNumber: phoneNumber,
+        phoneNumber: phoneNumbers,
         district: district,
         city: city,
         street1: street1,
@@ -142,6 +142,7 @@ export default function AddEmployee() {
                                            city={city} setCity={setCity}
                                            street1={street1} setStreet1={setStreet1}
                                            street2={street2} setStreet2={setStreet2}
+                                           phoneNumbers={phoneNumbers} setPhoneNumbers={setPhoneNumbers}
                 />;
             case 1:
                 return <CompanyDetailForm branchName={branchName} setBranchName={setBranchName}

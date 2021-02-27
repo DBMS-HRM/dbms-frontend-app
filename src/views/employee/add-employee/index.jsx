@@ -75,7 +75,7 @@ export default function AddEmployee() {
     const [lastName, setLastName] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [maritalStatus, setMaritalStatus] = useState(false)
-    const [country, setCountry] = useState('sriLanka')
+    const [country, setCountry] = useState('Sri Lanka')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [district, setDistrict] = useState('')
     const [city, setCity] = useState('')
