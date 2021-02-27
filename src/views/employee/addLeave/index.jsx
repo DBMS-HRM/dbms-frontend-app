@@ -97,7 +97,7 @@ const AddLeave = (props) => {
     <img src={logo} style={{ position: "absolute", top: "180vh", left: "50%" }} />
     
     <Grid >
-        <Paper elevation={50} variant={"outlined"} 
+        <Paper variant={"outlined"} 
             style={{padding :20,
             height:'185vh',
             width:'60vw',         
@@ -121,8 +121,7 @@ const AddLeave = (props) => {
             <InputBase
                 value="  SECTION I - TO BE COMPLETED BY THE EMPLOYEE"
                 readOnly            
-                type="Text"
-                margin="normal"
+                type="Text"                
                 variant="outlined"                                             
                 fullWidth                    
                 className={classes.textField}
@@ -134,8 +133,7 @@ const AddLeave = (props) => {
                     required            
                     label="Employee Name" 
                     type="Text"             
-                    placeholder="Employee Name"
-                                        
+                    placeholder="Employee Name"                                        
                     className={classes.app}
                 />
                 </Grid>
@@ -261,8 +259,7 @@ const AddLeave = (props) => {
             <InputBase
                 value="  SECTION II - TO BE COMPLETED BY THE COMPANY"
                 readOnly            
-                type="Text"
-                margin="normal"                                                             
+                type="Text"                                                                             
                 fullWidth                    
                 className={classes.textField}
             />
