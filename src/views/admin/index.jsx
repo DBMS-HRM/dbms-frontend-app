@@ -4,7 +4,7 @@ import {useRouteMatch} from "react-router";
 import SignIn from "./sign-in";
 import Layout from "../../layout";
 import EmployeeDetails from "../employee/employee-details";
-import AddEmployee from "./add-employee";
+import AddEmployee from "../employee/add-employee";
 import Dashboard from "./dashboard";
 import {useSelector} from "react-redux";
 import {selectUser} from "../../store/user";

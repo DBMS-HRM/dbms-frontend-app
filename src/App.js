@@ -4,9 +4,12 @@ import {MuiThemeProvider} from "@material-ui/core";
 import Router from "./router";
 import {useDispatch} from "react-redux";
 import {userActions} from "./store/user";
-import {ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import {setAuthToken} from "./api/client";
 
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 function App() {
     const dispatch = useDispatch()
     const token = JSON.parse(window.localStorage.getItem("accessToken"))

@@ -1,9 +1,6 @@
 import React from "react";
 
-import SideNav, {Toggle, Nav, NavItem, NavIcon, NavText} from '@trendmicro/react-sidenav';
-
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
@@ -12,15 +9,9 @@ import GroupIcon from '@material-ui/icons/Group';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 
 import {selectUser} from "../../store/user";
-
-import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {useHistory} from "react-router";
-import Drawer from "./drawer";
 import MiniDrawer from "./drawer";
 import {useTheme} from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
 
 const SideNavbar = () => {
 
@@ -114,30 +105,6 @@ const SideNavbar = () => {
     console.log(route, routeMap)
 
     return (
-        // <SideNav
-        //     onSelect={(selected) => {
-        //         // Add your code here
-        //     }}
-        //     style={{backgroundColor: '#00617E', zIndex: '50', position: 'fixed', left: 0, top: 0}}
-        // >
-        //     <Toggle/>
-        //     <Nav defaultSelected="Home" style={{marginTop: "3rem"}}>
-        //         {Object.keys(routeList).map(navItem => (
-        //             <NavItem eventKey={routeList[navItem].text} onClick={() => history.push(routeList[navItem].route)}  key={routeList[navItem].text}>
-        //                 <NavIcon style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        //                     {routeList[navItem].icon}
-        //                 </NavIcon>
-        //                 <NavText>
-        //                     <div style={{marginRight: '8px'}}>
-        //                         {routeList[navItem].text}
-        //                     </div>
-        //                 </NavText>
-        //             </NavItem>
-        //             )
-        //         )
-        //         }
-        //     </Nav>
-        // </SideNav>
         <div>
             <MiniDrawer routeList={routeList} />
         </div>

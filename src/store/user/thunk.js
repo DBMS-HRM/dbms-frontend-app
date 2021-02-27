@@ -37,6 +37,16 @@ export function employeeLogin(username, password) {
     };
 }
 
+export function addManagerialEmployee(formData) {
+    return async () => {
+        const [res, data] = await api.user.add.managerialEmployee(formData)
+        if (res.status !== 200) {
+            return res;
+        }
+        return res;
+    }
+}
+
 export function addEmployee(formData) {
     return async () => {
         const [res, data] = await api.user.add.employee(formData)

@@ -75,7 +75,7 @@ const SignIn = (props) => {
         if(response.status === 200 ) {
             setUsername("")
             setPassword("")
-            history.push("/admin/dashboard")
+            history.push("/admin")
         }
     }
 

@@ -115,7 +115,13 @@ export default function AddEmployee() {
 
     async function submitForm() {
         loading = true
-        const res = dispatch(userTActions.addEmployee(formData))
+        let res;
+        if(jobTitle==="Managerial Employee") {
+            res = dispatch(userTActions.addManagerialEmployee(formData))
+        }
+        else {
+            res = dispatch(userTActions.addEmployee(formData))
+        }
         loading = false
         if(res.status === 200) {
             toast.success("Successfully added an employee !!!")

@@ -10,15 +10,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const accountType = [
     {
-      value: 'managerialEmployee',
+      value: 'Managerial Employee',
       label: 'Managerial Employee',
     },
     {
-      value: 'supervisor',
+      value: 'Supervisor',
       label: 'Supervisor',
     },
     {
-      value: 'employee',
+      value: 'Employee',
       label: 'Employee',
     },
     
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PersonalDetailForm() {
+export default function PersonalDetailForm(props) {
     const classes = useStyles();
     
     const [atype, setAccountType] = React.useState('managerialEmployee');
@@ -52,6 +52,8 @@ export default function PersonalDetailForm() {
                         name="username"
                         label="Username"
                         fullWidth = {true}
+                        value={props.username}
+                        handleChange={props.setUsername}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -63,6 +65,8 @@ export default function PersonalDetailForm() {
                         name="password"
                         label="Password"
                         fullWidth = {true}
+                        value={props.password}
+                        onChange={e=>props.setPassword(e.target.value)}
                     />
                 </Grid>
                
@@ -74,6 +78,8 @@ export default function PersonalDetailForm() {
                         name="emailAddress"
                         label="Email Address"
                         fullWidth = {true}
+                        value={props.email}
+                        handleChange={props.setEmail}
                     />
                 </Grid>
                 
@@ -86,9 +92,9 @@ export default function PersonalDetailForm() {
                         id="accountType"
                         name="accountType"
                         label="Account Type"
-                        value={atype}       
-                        onChange={handleChange_accountType}                        
                         fullWidth = {true}
+                        value={props.accountType}
+                        onChange={e=>props.setAccountType(e.target.value)}
                         >
                         {accountType.map((option) => (
                             <MenuItem key={option.value} value={option.value}>

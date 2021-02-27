@@ -20,7 +20,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import {useHistory, useLocation, useRouteMatch} from "react-router";
 import {MenuList} from "@material-ui/core";
 
-const drawerWidth = 240;
+const drawerWidth = 340;
 
 export default function MiniDrawer(props) {
 
@@ -129,7 +129,9 @@ export default function MiniDrawer(props) {
                     {Object.keys(props.routeList).map(navItem => (
                         <ListItem selected={path.pathname === props.routeList[navItem].route} button key={props.routeList[navItem].text} onClick={() => history.push(props.routeList[navItem].route)}  >
                             <ListItemIcon>{props.routeList[navItem].icon}</ListItemIcon>
+                            {/*<div style={{color: myTheme.palette.primary.contrastText, maxWidth: "100%"}}>{props.routeList[navItem].text}*/}
                             <ListItemText style={{color: myTheme.palette.primary.contrastText}} primary={props.routeList[navItem].text} />
+                            {/*</div>*/}
                         </ListItem>
                     ))}
                 </MenuList>
