@@ -89,7 +89,6 @@ const SideNavbar = () => {
     const adminAccountTypes = {"Super Admin": routes.admin.super, "Admin": routes.admin.normal}
 
     const accountType = useSelector(selectUser).accountType
-    console.log(accountType)
     let route;
     let routeMap;
     let routeList;
@@ -102,7 +101,6 @@ const SideNavbar = () => {
         route = routes.employee.normal
     }
     routeList = {...route,...routeMap[accountType]}
-    console.log(route, routeMap)
 
     return (
         <div>

@@ -29,7 +29,7 @@ export function employeeLogin(username, password) {
         window.localStorage.setItem("accessToken", JSON.stringify(data.token))
         window.localStorage.setItem("userData", JSON.stringify(data.data))
         // Login success
-        setAuthToken(userActions.setToken(data.token.access.payload))
+        setAuthToken(data.token.access)
         dispatch(userActions.setToken(data.token))
         dispatch(userActions.setUserData(data.data))
 
@@ -64,5 +64,15 @@ export function addAdmin(formData) {
             return res;
         }
         return res;
+    }
+}
+
+export function getEmployee() {
+    return async () => {
+        const [res, data] = await api.user.get.employee()
+        if (res.status !== 200) {
+            return [res,data];
+        }
+        return [res,data];
     }
 }
