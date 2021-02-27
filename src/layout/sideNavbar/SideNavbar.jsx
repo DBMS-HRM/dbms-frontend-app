@@ -25,15 +25,15 @@ const SideNavbar = () => {
                     text: "Home",
                     icon: <DashboardIcon style={{color: myTheme.palette.primary.contrastText}} />
                 },
-                addEmployee: {
-                    route: "/admin/add-employee",
-                    text: "Add Employee",
-                    icon: <GroupAddIcon style={{color: myTheme.palette.primary.contrastText}}/>
-                },
                 editAbsenceRelatedFunc: {
                     route: "/employee/edit-absence-related-functionalities",
                     text: "Edit Absence Related Functionalities",
                     icon: <LibraryAddCheckIcon style={{color: myTheme.palette.primary.contrastText}}/>
+                },
+                addEmployee: {
+                    route: "/admin/add-employee",
+                    text: "Add Employee",
+                    icon: <GroupAddIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
             },
             super: {

@@ -20,7 +20,6 @@ function App() {
     return (
         <MuiThemeProvider theme={theme}>
             <Router/>
-            <ToastContainer />
         </MuiThemeProvider>
     );
 }

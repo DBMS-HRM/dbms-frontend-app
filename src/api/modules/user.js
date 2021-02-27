@@ -24,6 +24,11 @@ export default {
             return extractBodyResolve(
                 axios.post("/api/user/register/employee", formData)
             )
+        },
+        async admin(formData) {
+            return extractBodyResolve(
+                axios.post("/api/user/register/admin", formData)
+            )
         }
     },
     get: {
