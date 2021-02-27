@@ -5,6 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { InputBase,spacing } from '@material-ui/core';
 import logo from "../../../JupLogo.svg";
 import logo1 from "../../../humanResourse.png";
+import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {userTActions} from "../../../store/user";
+import {toast} from "react-toastify";
 
 
 
@@ -35,8 +39,50 @@ const useStyles = makeStyles((theme) =>({
   }
   
 }));
+
 const Profile = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch()
+  const [data, setData] = useState({
+    accountType: "",
+    branchName: "",
+    city: "",
+    country: "",
+    dateOfBirth: "",
+    departmentName: "",
+    district: "",
+    emailAddress: "",
+    employeeId: "",
+    employmentStatus: "",
+    firstName: "",
+    jobTitle: "",
+    lastName: "",
+    maritalStatus: false,
+    payGrade: "",
+    phoneNumbers: [],
+    status: false,
+    street_1: "",
+    street_2: "",
+    supervisorId: "",
+    username: "",
+  })
+  let loading = false
+
+  useEffect(() => {
+    async function getEmployeeDetails() {
+      loading = true
+      const [res,fetchedData] = await dispatch(userTActions.getEmployee())
+      loading = false
+      if(res.status !== 200) {
+        toast.error(res.message)
+        return
+      }
+      console.log(fetchedData)
+      setData({...fetchedData.data})
+    }
+    getEmployeeDetails()
+  },[])
+
   return (
     
     <Box className={classes.box}>
@@ -59,7 +105,7 @@ const Profile = (props) => {
                 
               <InputBase
             
-                value="  Employee ID  :-"
+                value={"  Employee ID  :- "+data.employeeId}
                 readOnly          
                 variant="outlined"
                 required 
@@ -73,7 +119,7 @@ const Profile = (props) => {
             <Box height={40}>
                
               <InputBase
-                value="  First Name     :-"
+                value={"  First Name     :- "+data.firstName}
                 readOnly           
                 variant="outlined"
                 required 
@@ -88,7 +134,7 @@ const Profile = (props) => {
             <Box height={40}>
                
               <InputBase
-                value="  Last Name     :-"
+                value={"  Last Name     :- "+data.lastName}
                 readOnly           
                 variant="outlined"
                 required 
@@ -103,7 +149,7 @@ const Profile = (props) => {
             <Box height={40}>
                 
               <InputBase
-                value="  Date of Birth :-"
+                value={"  Date of Birth :- "+data.dateOfBirth}
                 readOnly            
                 
                 variant="outlined"
@@ -117,7 +163,7 @@ const Profile = (props) => {
                
             <Box height={80}>
               <InputBase            
-                value="  Marital State :-"
+                value={"  Marital State :- "+data.maritalStatus}
                 readOnly            
                 
                 variant="outlined"
@@ -133,7 +179,7 @@ const Profile = (props) => {
             <Box height={40}>
                 
               <InputBase
-                 value="  Branch Name :-"
+                 value={"  Branch Name :- "+data.branchName}
                  readOnly            
                 
                  variant="outlined"
@@ -149,7 +195,7 @@ const Profile = (props) => {
               <Box height={40}>
                 
                 <InputBase            
-                  value="  Job Title :-"
+                  value={"  Job Title :- "+data.jobTitle }
                   readOnly            
                   
                   variant="outlined"
@@ -165,7 +211,7 @@ const Profile = (props) => {
               <Box height={40}>
                 
                 <InputBase            
-                  value="  Employment Status :-"
+                  value={"  Employment Status :- "+data.employmentStatus}
                   readOnly            
                  
                   variant="outlined"
@@ -181,7 +227,7 @@ const Profile = (props) => {
               <Box height={40}>
                 
                 <InputBase            
-                  value="  Pay Grade :-"
+                  value={"  Pay Grade :- "+data.payGrade}
                   readOnly            
                   
                   variant="outlined"
@@ -197,7 +243,7 @@ const Profile = (props) => {
               <Box height={80}>
                 
                 <InputBase            
-                  value="  Department Name :-"
+                  value={"  Department Name :- "+data.departmentName}
                   readOnly            
                   
                   variant="outlined"
@@ -211,26 +257,26 @@ const Profile = (props) => {
               </Box>
 
               <Box className={classes.smallFont} height={40}>Emergency Details</Box>
-              <Box height={40}>
-                
-                <InputBase            
-                  value="  Phone No. :-"
-                  readOnly            
-                  
-                  variant="outlined"
-                  required 
-                  fullWidth                                 
-                  name="phone_no"                  
-                  type="text"             
-                  className={classes.textField}
-            
-                />
-              </Box>
+            {/*{data.phoneNumbers.map(item => <Box height={40}>*/}
+
+            {/*  <InputBase*/}
+            {/*      value={"  Phone No. :- " + item}*/}
+            {/*      readOnly*/}
+
+            {/*      variant="outlined"*/}
+            {/*      required*/}
+            {/*      fullWidth*/}
+            {/*      name="phone_no"*/}
+            {/*      type="text"*/}
+            {/*      className={classes.textField}*/}
+
+            {/*  />*/}
+            {/*</Box>)}*/}
 
               <Box height={40}>
                 
                 <InputBase            
-                  value="  Country :-"
+                  value={"  Country :- "+data.country }
                   readOnly            
                   
                   variant="outlined"
@@ -246,7 +292,7 @@ const Profile = (props) => {
               <Box height={40}>
                 
                 <InputBase            
-                  value="  District :-"
+                  value={"  District :- "+data.district}
                   readOnly            
                   
                   variant="outlined"
@@ -262,7 +308,7 @@ const Profile = (props) => {
               <Box height={40}>
                 
                 <InputBase            
-                  value="  City :-"
+                  value={"  City :- "+data.city}
                   readOnly            
                   
                   variant="outlined"
@@ -278,7 +324,7 @@ const Profile = (props) => {
               <Box height={40}>
                 
                 <InputBase            
-                  value="  Street :-"
+                  value={"  Street :- "+data.city}
                   readOnly            
                   
                   variant="outlined"
@@ -294,7 +340,7 @@ const Profile = (props) => {
               <Box height={40}>
                 
                 <InputBase            
-                  value="  Email :-"
+                  value={"  Email :- "+data.emailAddress}
                   readOnly            
                  
                   variant="outlined"

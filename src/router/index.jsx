@@ -3,21 +3,22 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import Employee from "../views/employee";
 import Admin from "../views/admin";
 import Report from "../views/reports";
+import {useSelector} from "react-redux";
+import {selectUser} from "../store/user";
 
 export default function AppRouter() {
-
 
     return (
         <BrowserRouter>
             <Switch>
                 <Route exact path="/">
-                    <Redirect to="/employee/sign-in" />
+                    <Redirect to="/employee/sign-in"/>
                 </Route>
                 <Route path="/admin">
-                    <Admin />                    
+                    <Admin />
                 </Route>
                 <Route path="/employee">
-                    <Employee />                    
+                    <Employee />
                 </Route>
                 <Route path="/reports">
                     <Report />

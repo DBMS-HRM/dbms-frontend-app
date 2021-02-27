@@ -7,9 +7,13 @@ import jupiter from '../jupiter.svg'
 import {useSelector} from "react-redux";
 import {selectUser} from "../store/user";
 import Avatar from "react-avatar";
+import {useHistory} from "react-router";
 
+const employeeAccountTypes = ["Managerial Employee", "Supervisor", "Employee"]
+const adminAccountTypes = ["Super Admin", "Admin"]
 
 const UpperNavbar = () => {
+    const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
@@ -37,6 +41,13 @@ const UpperNavbar = () => {
     }));
 
     const user = useSelector(selectUser)
+    let routerRoot;
+    if(adminAccountTypes.includes(user.accountType)) {
+        routerRoot = "/admin"
+    }
+    else {
+        routerRoot = "/employee"
+    }
 
     const classes = useStyles();
     return (
@@ -51,8 +62,8 @@ const UpperNavbar = () => {
                 <IconButton color="inherit">
                     <AddAlertIcon/>
                 </IconButton>
-                <IconButton color="inherit">
-                    <Avatar name={user.username} size={40} round={true} />
+                <IconButton color="inherit" onClick={() => history.push(`${routerRoot}/profile`)}>
+                    <Avatar name={user ? user.username : ""} size={40} round={true} />
                 </IconButton>
             </Toolbar>
         </AppBar>
