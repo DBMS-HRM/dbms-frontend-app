@@ -64,6 +64,8 @@ const LeaveTable = (props) => {
                 dataRow.push(item.requestedDate)
                 if(props.leaveType!=="Pending") {
                     dataRow.push(item.reveiwedDate)
+                } else {
+                    dataRow.push(item.leaveId)
                 }
                 dataRows.push(dataRow)
             })
@@ -79,7 +81,7 @@ const LeaveTable = (props) => {
                 key={props.leaveType}
                 title={"Employee Details"}
                 data={rows}
-                columns={props.advancedColumns}s
+                columns={props.advancedColumns}
                 options={{
                     download: false,
                     filter: false,

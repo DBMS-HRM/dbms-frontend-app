@@ -63,9 +63,6 @@ let formData;
 let loading;
 
 export default function AddEmployee() {
-    const fullDate = new Date()
-    const date = fullDate.getMonth()+1
-    const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0"+date : date}-${fullDate.getDate()}`
 
     const dispatch = useDispatch()
 

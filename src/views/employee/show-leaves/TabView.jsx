@@ -10,6 +10,9 @@ import LeaveTable from "./LeaveTable";
 import api from "../../../api";
 import {toast} from "react-toastify";
 import Avatar from "react-avatar";
+import {IconButton} from "@material-ui/core";
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import {useHistory} from "react-router";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -62,55 +65,82 @@ function CustomTabPanel(props) {
     );
 }
 
-let advancedColumns = [
-    {name: "name", label: "Name",
-        options: {
-            customBodyRender: (value) => {
-                return (
-                    <Box>
-                        <Avatar  name={value} round={true} size={36} />
-                        <span style={{marginLeft: "1rem", fontWeight: "500", color: "#323C47"}}>{value}</span>
-                    </Box>
-                );
-            }
-        }
-    },
-    {name: "department", label: "Department"},
-    {name: "jobTitle", label: "Job Title"},
-    {name: "payGrade", label: "Pay Grade"},
-    {name: "employmentStatus", label: "Employment Status"},
-    {name: "requestedDate", label: "Requested Date"},
-]
 
-export default function TabView() {
+export default function TabView(props) {
     const classes = useStyles();
+    const history = useHistory();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
+    let advancedColumns = [
+        {name: "name", label: "Name",
+            options: {
+                customBodyRender: (value) => {
+                    return (
+                        <Box>
+                            <Avatar  name={value} round={true} size={36} />
+                            <span style={{marginLeft: "1rem", fontWeight: "500", color: "#323C47"}}>{value}</span>
+                        </Box>
+                    );
+                }
+            }
+        },
+        {name: "jobTitle", label: "Job Title"},
+        {name: "payGrade", label: "Pay Grade"},
+        {name: "employmentStatus", label: "Employment Status"},
+        {name: "requestedDate", label: "Requested Date"},
+    ]
+    if(props.view === "my") {
+        advancedColumns.splice(0,1)
+    }
+
     let advancedColumnsApproved = [...advancedColumns, {name: "approvedDate", label: "Approved Date"}]
     let advancedColumnsRejected = [...advancedColumns, {name: "rejectedDate", label: "Rejected Date"}]
+    advancedColumns.push(
+        {name: "actions", label: "Actions",
+            options: {
+                customBodyRender: (value) => {
+                    return (
+                        <Box>
+                            <IconButton onClick={() => history.push(`/employee/approve-leaves/${value}`)} >
+                                <VisibilityIcon />
+                            </IconButton>
+                        </Box>
+                    );
+                }
+            }
+        })
 
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Pending" {...a11yProps(0)} />
-                    <Tab label="Approved" {...a11yProps(1)} />
-                    <Tab label="Rejected" {...a11yProps(2)} />
+                    {
+                        props.view === 'my' ? null :
+                            <React.Fragment>
+                                <Tab label="Approved" {...a11yProps(1)} />
+                                <Tab label="Rejected" {...a11yProps(2)} />
+                            </React.Fragment>
+                    }
                 </Tabs>
             </AppBar>
             <CustomTabPanel style={{display: "block"}} value={value} index={0}>
                 <LeaveTable key={"Pending"} leaveType={"Pending"} advancedColumns={advancedColumns} />
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-                <LeaveTable key={"Approved"} leaveType={"Approved"} advancedColumns={advancedColumnsApproved} />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-                <LeaveTable key={"Rejected"} leaveType={"Rejected"} advancedColumns={advancedColumnsRejected} />
-            </CustomTabPanel>
+            {props.view === 'my' ? null :
+                <React.Fragment>
+                    <CustomTabPanel value={value} index={1}>
+                        <LeaveTable key={"Approved"} leaveType={"Approved"} advancedColumns={advancedColumnsApproved}/>
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={2}>
+                        <LeaveTable key={"Rejected"} leaveType={"Rejected"} advancedColumns={advancedColumnsRejected} />
+                    </CustomTabPanel>
+                </React.Fragment>
+            }
         </div>
     );
 }

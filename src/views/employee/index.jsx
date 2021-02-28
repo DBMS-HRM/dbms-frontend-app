@@ -4,11 +4,13 @@ import {Route, Switch} from "react-router-dom";
 import Index from "./dashboard";
 import SignIn from "./sign-in";
 import Profile from "./profile";
-import AddLeave from "./addLeave";
+import AddLeave from "./add-leave";
 import Layout from "../../layout";
 import AddEmployee from "./add-employee"
 import EmployeeDetails from "./employee-details";
 import ShowLeaves from "./show-leaves";
+import ApproveLeave from "./approve-leaves";
+import ShowMyLeaves from "./show-leaves/my";
 
 export default function Employee() {
     let {path} = useRouteMatch();
@@ -24,7 +26,9 @@ export default function Employee() {
                         <Route path={`${path}/add-leave`} component={AddLeave} />
                         <Route path={`${path}/add-employee`} component={AddEmployee} />
                         <Route path={`${path}/details`} component={EmployeeDetails} />
+                        <Route path={`${path}/show-leaves-requested`} component={ShowMyLeaves} />
                         <Route path={`${path}/show-leaves`} component={ShowLeaves} />
+                        <Route path={`${path}/approve-leaves/:leaveId`} component={ApproveLeave} />
                         <Route exact path={`${path}`} component={Index} />
                     </Layout>
                     :
