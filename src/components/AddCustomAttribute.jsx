@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import Box from "@material-ui/core/Box";
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import {Button, IconButton, TextField} from "@material-ui/core";
 import CustomTextFields from './CustomTextField';
 
@@ -39,10 +38,18 @@ export default function AddCustomAttribute(props) {
                 Object.keys(state).map(item => (
                     <Box key={item}>
                         <CustomTextFields></CustomTextFields>
+                        <Button                             
+                            variant="contained" 
+                            >Add
+                        </Button>
+                        
                         <IconButton onClick={() => removeInput(item)}>
-                            <RemoveCircleIcon/>
+                        <Button 
+                            variant="contained"
+                            >Delete
+                        </Button>
                         </IconButton>
-                    </Box>
+                     </Box>
                 ))
             }
              
@@ -51,7 +58,7 @@ export default function AddCustomAttribute(props) {
                     color="primary"
                     variant="contained"
                     color="primary"
-                    >+ ADD </Button>
+                    >+ Add field</Button>
             </IconButton>
         </Box>
     )
