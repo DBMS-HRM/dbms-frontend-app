@@ -80,7 +80,7 @@ export default function AddAdmin() {
     let loading = false
     async function submitForm() {
         loading = true
-        const res = dispatch(userTActions.addAdmin(formData))
+        const res = await dispatch(userTActions.addAdmin(formData))
         loading = false
         if(res.status === 200) {
             toast.success("Successfully added an admin !!!")

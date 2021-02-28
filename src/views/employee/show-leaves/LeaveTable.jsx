@@ -6,6 +6,7 @@ import {Box} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {userTActions} from "../../../store/user";
 import {toast} from "react-toastify";
+import api from "../../../api";
 
 const theme = createMuiTheme({
     overrides: {
@@ -39,34 +40,15 @@ const theme = createMuiTheme({
     }
 })
 
-const advancedColumns = [
-    {name: "name", label: "Name",
-        options: {
-            customBodyRender: (value) => {
-                return (
-                    <Box>
-                        <Avatar  name={value} round={true} size={36} />
-                        <span style={{marginLeft: "1rem", fontWeight: "500", color: "#323C47"}}>{value}</span>
-                    </Box>
-                );
-            }
-        }
-    },
-    {name: "branch", label: "Branch"},
-    {name: "department", label: "Department"},
-    {name: "jobTitle", label: "Job Title"},
-    {name: "employmentStatus", label: "Employment Status"},
-    {name: "payGrade", label: "Pay Grade"},
-]
+const LeaveTable = (props) => {
 
-const EmployeeTableAdvance = () => {
     let loading = false
-    let dispatch = useDispatch()
     let [rows, setData] = useState([])
+
     useEffect(() => {
         async function getEmployees() {
             loading = true
-            const [res,fetchedData] = await dispatch(userTActions.getEmployeesAll())
+            const [res,fetchedData] = await api.leave.get.leaves(props.leaveType)
             loading = false
             if(res.status !== 200) {
                 toast.error(res.message)
@@ -76,11 +58,15 @@ const EmployeeTableAdvance = () => {
             fetchedData.data.map(item => {
                 let dataRow = []
                 dataRow.push(`${item.firstName} ${item.lastName}`)
-                dataRow.push(item.branchName)
-                dataRow.push(item.departmentName)
                 dataRow.push(item.jobTitle)
-                dataRow.push(item.employmentStatus)
                 dataRow.push(item.payGrade)
+                dataRow.push(item.employmentStatus)
+                dataRow.push(item.requestedDate)
+                if(props.leaveType!=="Pending") {
+                    dataRow.push(item.reveiwedDate)
+                } else {
+                    dataRow.push(item.leaveId)
+                }
                 dataRows.push(dataRow)
             })
             setData([...dataRows])
@@ -88,12 +74,14 @@ const EmployeeTableAdvance = () => {
         getEmployees()
     },[])
 
+
     return (
         <MuiThemeProvider theme={theme}>
             <MUIDataTable
+                key={props.leaveType}
                 title={"Employee Details"}
                 data={rows}
-                columns={advancedColumns}
+                columns={props.advancedColumns}
                 options={{
                     download: false,
                     filter: false,
@@ -106,4 +94,4 @@ const EmployeeTableAdvance = () => {
     )
 }
 
-export default EmployeeTableAdvance;
+export default LeaveTable;

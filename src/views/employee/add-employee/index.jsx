@@ -120,7 +120,7 @@ export default function AddEmployee() {
             res = dispatch(userTActions.addManagerialEmployee(formData))
         }
         else {
-            res = dispatch(userTActions.addEmployee(formData))
+            res = await dispatch(userTActions.addEmployee(formData))
         }
         loading = false
         if(res.status === 200) {

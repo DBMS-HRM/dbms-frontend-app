@@ -63,9 +63,6 @@ let formData;
 let loading;
 
 export default function AddEmployee() {
-    const fullDate = new Date()
-    const date = fullDate.getMonth()+1
-    const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0"+date : date}-${fullDate.getDate()}`
 
     const dispatch = useDispatch()
 
@@ -117,7 +114,7 @@ export default function AddEmployee() {
         loading = true
         let res;
         if(jobTitle==="Managerial Employee") {
-            res = dispatch(userTActions.addManagerialEmployee(formData))
+            res = await dispatch(userTActions.addManagerialEmployee(formData))
         }
         else {
             res = dispatch(userTActions.addEmployee(formData))

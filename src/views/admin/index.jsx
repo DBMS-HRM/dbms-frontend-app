@@ -6,6 +6,7 @@ import Layout from "../../layout";
 import AddEmployee from "./add-employee";
 import Dashboard from "./dashboard";
 import AddAdmin from "./add-admin";
+import CustomFields from "./custom-employee-attributes";
 
 export default function Admin() {
     let {path} = useRouteMatch();
@@ -18,6 +19,7 @@ export default function Admin() {
                   <Layout>
                       <Route path={`${path}/add-employee`} component={AddEmployee} />
                       <Route path={`${path}/add-admin`} component={AddAdmin} />
+                      <Route path={`${path}/custom-fields`} component={CustomFields} />
                       <Route exact path={path} component={Dashboard} />
                   </Layout>
                   :

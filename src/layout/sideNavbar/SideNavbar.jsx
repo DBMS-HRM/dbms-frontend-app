@@ -23,7 +23,7 @@ const SideNavbar = () => {
                 home: {
                     route: "/admin",
                     text: "Home",
-                    icon: <DashboardIcon style={{color: myTheme.palette.primary.contrastText}} />
+                    icon: <DashboardIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
                 editAbsenceRelatedFunc: {
                     route: "/employee/edit-absence-related-functionalities",
@@ -79,32 +79,39 @@ const SideNavbar = () => {
                     route: "/employee/show-leaves",
                     text: "Show Leaves",
                     icon: <ListAltIcon style={{color: myTheme.palette.primary.contrastText}}/>
-                }
+                },
             },
         },
 
     }
 
-    const employeeAccountTypes = {"Managerial Employee": routes.employee.managerial, "Supervisor":routes.employee.supervisor, "Employee":routes.employee.normal}
+    const employeeAccountTypes = {
+        "Managerial Employee": routes.employee.managerial,
+        "Supervisor": routes.employee.supervisor,
+        "Employee": routes.employee.normal
+    }
     const adminAccountTypes = {"Super Admin": routes.admin.super, "Admin": routes.admin.normal}
-
-    const accountType = useSelector(selectUser).accountType
+    const user = useSelector(selectUser)
+    const accountType = user.accountType
     let route;
     let routeMap;
+    let supervisorRoutes = [];
     let routeList;
-    if(Object.keys(adminAccountTypes).includes(accountType)) {
+    if (Object.keys(adminAccountTypes).includes(accountType)) {
         routeMap = adminAccountTypes
         route = routes.admin.normal
-    }
-    else {
+    } else {
         routeMap = employeeAccountTypes
         route = routes.employee.normal
     }
-    routeList = {...route,...routeMap[accountType]}
+    if (user.supervisor) {
+        supervisorRoutes = employeeAccountTypes["Supervisor"]
+    }
+    routeList = {...route, ...routeMap[accountType], ...supervisorRoutes}
 
     return (
         <div>
-            <MiniDrawer routeList={routeList} />
+            <MiniDrawer routeList={routeList}/>
         </div>
     )
 }

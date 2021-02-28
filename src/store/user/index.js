@@ -9,7 +9,8 @@ import {
     addEmployee,
     addManagerialEmployee,
     addAdmin,
-    getEmployee
+    getEmployee,
+    getEmployeesAll
 } from "./thunk";
 
 export const userSlice = createSlice({
@@ -19,10 +20,15 @@ export const userSlice = createSlice({
             access: ''
         },
         user: {
+            username: '',
             userId: '',
-            accountType: '',
             email: '',
             status: null,
+            accountType: '',
+            supervisor: false,
+        },
+        routerRoots: {
+
         }
     },
     reducers: {
@@ -54,6 +60,7 @@ export  const userTActions = {
     addEmployee,
     addManagerialEmployee,
     addAdmin,
-    getEmployee
+    getEmployee,
+    getEmployeesAll
 }
 
