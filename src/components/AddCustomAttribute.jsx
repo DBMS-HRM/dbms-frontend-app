@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Box from "@material-ui/core/Box";
-import {Button, IconButton, TextField} from "@material-ui/core";
+import {Button, Grid, IconButton, TextField} from "@material-ui/core";
 import CustomTextFields from './CustomTextField';
 
 let count = 1
@@ -34,6 +34,7 @@ export default function AddCustomAttribute(props) {
 
     return (
         <Box>
+            <Grid>
             {
                 Object.keys(state).map(item => (
                     <Box key={item}>
@@ -52,7 +53,7 @@ export default function AddCustomAttribute(props) {
                      </Box>
                 ))
             }
-             
+            </Grid> 
             <IconButton onClick={addInput}>
             <Button 
                     color="primary"
