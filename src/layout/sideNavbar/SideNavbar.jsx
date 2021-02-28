@@ -7,6 +7,7 @@ import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import GroupIcon from '@material-ui/icons/Group';
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import SubjectIcon from '@material-ui/icons/Subject';
 
 import {selectUser} from "../../store/user";
 import {useSelector} from "react-redux";
@@ -51,6 +52,11 @@ const SideNavbar = () => {
                     text: "Home",
                     icon: <DashboardIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
+                myLeaves: {
+                    route: "/employee/show-leaves-requested",
+                    text: "My Leaves",
+                    icon: <SubjectIcon style={{color: myTheme.palette.primary.contrastText}}/>
+                },
                 addLeave: {
                     route: "/employee/add-leave",
                     text: "Add Leave",
@@ -77,7 +83,7 @@ const SideNavbar = () => {
             supervisor: {
                 showLeaves: {
                     route: "/employee/show-leaves",
-                    text: "Show Leaves",
+                    text: "Subordinates Leaves",
                     icon: <ListAltIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
             },

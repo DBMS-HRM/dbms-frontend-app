@@ -18,6 +18,11 @@ export default {
                 axios.get(`/api/leave/get-remaining-leaves?userId=${query}`)
             )
         },
+        async remainingSubordinateLeaves(employeeId) {
+            return extractBodyResolve(
+                axios.get(`/api/leave/get-remaining-leaves/${employeeId}`)
+            )
+        }
     },
     add: {
         async leave(formData) {
@@ -29,7 +34,7 @@ export default {
     update: {
         async leave(formData, query) {
             return extractBodyResolve(
-                axios.put(`/api/leave/change-leave-status/${query}`,formData)
+                axios.put(`/api/leave/change-leave-status/${query}`, formData)
             )
         },
     }

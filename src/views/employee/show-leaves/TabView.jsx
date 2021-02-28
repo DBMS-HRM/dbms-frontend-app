@@ -105,7 +105,7 @@ export default function TabView(props) {
                 customBodyRender: (value) => {
                     return (
                         <Box>
-                            <IconButton onClick={() => history.push(`/employee/approve-leaves/${value}`)} >
+                            <IconButton onClick={() => history.push(`/employee/approve-leaves${value}`)} >
                                 <VisibilityIcon />
                             </IconButton>
                         </Box>
