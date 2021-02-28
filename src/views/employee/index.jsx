@@ -28,7 +28,7 @@ export default function Employee() {
                         <Route path={`${path}/details`} component={EmployeeDetails} />
                         <Route path={`${path}/show-leaves-requested`} component={ShowMyLeaves} />
                         <Route path={`${path}/show-leaves`} component={ShowLeaves} />
-                        <Route path={`${path}/approve-leaves/:leaveId`} component={ApproveLeave} />
+                        <Route path={`${path}/approve-leaves/:leaveId/:employeeId`} component={ApproveLeave} />
                         <Route exact path={`${path}`} component={Index} />
                     </Layout>
                     :

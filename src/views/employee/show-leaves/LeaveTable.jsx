@@ -65,7 +65,7 @@ const LeaveTable = (props) => {
                 if(props.leaveType!=="Pending") {
                     dataRow.push(item.reveiwedDate)
                 } else {
-                    dataRow.push(item.leaveId)
+                    dataRow.push(`/${item.leaveId}/${item.employeeId}`)
                 }
                 dataRows.push(dataRow)
             })

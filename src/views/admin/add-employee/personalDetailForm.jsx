@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import {Container} from '@material-ui/core';
+import {Container, Typography} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import CustomInputField from "../../../components/CustomInput";
 import MenuItem from '@material-ui/core/MenuItem';
@@ -195,7 +195,8 @@ export default function PersonalDetailForm(props) {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <AddInputField name="phoneNumber" value={props.phoneNumbers} setValues={props.setPhoneNumbers} />
+                    <Typography>Phone Numbers</Typography>
+                    <AddInputField name="phoneNumber" value={props.phoneNumbers} setValues={props.setPhoneNumbers} setCustomValues={props.setCustomPhoneNumbers} />
                 </Grid>
             </Grid>
         </Container>

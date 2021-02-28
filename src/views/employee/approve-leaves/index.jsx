@@ -15,7 +15,7 @@ import logo from "../../../JupLogo.svg";
 import {createRef, useEffect, useRef, useState} from "react";
 import api from "../../../api";
 import {toast} from "react-toastify";
-import {useHistory, useParams} from "react-router";
+import {useHistory, useLocation, useParams} from "react-router";
 
 const useStyles = makeStyles(() =>({
     root: {
@@ -70,18 +70,20 @@ const ApproveLeave = () => {
     const fullDate = new Date()
     const date = fullDate.getMonth()+1
     const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0"+date : date}-${fullDate.getDate()}`
-    const {leaveId} = useParams();
+    const {leaveId, employeeId} = useParams()
 
     const classes = useStyles();
     const history = useHistory()
     const [approve, setApprove] = useState(false);
     const [reject, setReject] = useState(false);
     const [data, setData] = useState({leaveType: '', leaveDate: ''})
+    const [remainingLeaves, setRemainingLeaves] = useState(0)
 
     useEffect(() => {
         async function getData() {
             loading = true
             const [res, fetchedData] = await api.leave.get.leave(leaveId)
+            const [res2, fetchedData2] = await api.leave.get.remainingSubordinateLeaves(employeeId)
             if(fetchedData) {
                 const customData = fetchedData.data[0]
                 setData({leaveType: customData.leaveType, leaveDate: customData.requestedDate.substring(0,10)})
@@ -89,10 +91,18 @@ const ApproveLeave = () => {
                 if(res.status !== 200) {
                     toast.error(res.message)
                 }
+                if(fetchedData2) {
+                    console.log(fetchedData2)
+                    setRemainingLeaves(fetchedData2.data[0][customData.leaveType.toLowerCase()])
+                }
             }
         }
         getData()
     }, [])
+
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
 
     async function submitForm() {
         let status = approve ? "Approved" : "Rejected"
@@ -216,6 +226,16 @@ const ApproveLeave = () => {
                                 }} color="primary" />}
                                 label="Reject"
                                 className={classes.header}
+                            />
+                        </Box>
+
+                        <Box mx={-20} mt={3}>
+                            <Typography>{`Remaining ${data.leaveType} Leaves`}</Typography>
+                            <TextField
+                                disabled
+                                type="text"
+                                className={classes.app}
+                                value={remainingLeaves}
                             />
                         </Box>
 

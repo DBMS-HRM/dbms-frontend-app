@@ -105,7 +105,7 @@ export default function TabView(props) {
                 customBodyRender: (value) => {
                     return (
                         <Box>
-                            <IconButton onClick={() => history.push(`/employee/approve-leaves/${value}`)} >
+                            <IconButton onClick={() => history.push(`/employee/approve-leaves${value}`)} >
                                 <VisibilityIcon />
                             </IconButton>
                         </Box>
@@ -117,16 +117,18 @@ export default function TabView(props) {
     return (
         <div className={classes.root}>
             <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                    <Tab label="Pending" {...a11yProps(0)} />
-                    {
-                        props.view === 'my' ? null :
-                            <React.Fragment>
-                                <Tab label="Approved" {...a11yProps(1)} />
-                                <Tab label="Rejected" {...a11yProps(2)} />
-                            </React.Fragment>
-                    }
-                </Tabs>
+                {
+                    props.view === 'my' ?
+                        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                            <Tab label="Pending" {...a11yProps(0)} />
+                        </Tabs>
+                        :
+                        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                            <Tab label="Pending" {...a11yProps(0)} />
+                            <Tab label="Approved" {...a11yProps(1)} />
+                            <Tab label="Rejected" {...a11yProps(2)} />
+                        </Tabs>
+                }
             </AppBar>
             <CustomTabPanel style={{display: "block"}} value={value} index={0}>
                 <LeaveTable key={"Pending"} leaveType={"Pending"} advancedColumns={advancedColumns} />
