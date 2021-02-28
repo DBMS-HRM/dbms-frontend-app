@@ -56,14 +56,6 @@ const employeementStatus = [
 
 const department = [
     {
-        value: 'HR',
-        label: 'HR',
-        jobTitles: [{
-            value: 'HR Manager',
-            label: 'HR Manager',
-        }],
-    },
-    {
         value: 'Financial',
         label: 'Financial',
         jobTitles: [{

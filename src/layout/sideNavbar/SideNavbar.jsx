@@ -27,7 +27,7 @@ const SideNavbar = () => {
                     icon: <DashboardIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
                 editAbsenceRelatedFunc: {
-                    route: "/employee/edit-absence-related-functionalities",
+                    route: "/admin/custom-fields",
                     text: "Edit Absence Related Functionalities",
                     icon: <LibraryAddCheckIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },

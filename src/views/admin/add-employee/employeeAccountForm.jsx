@@ -13,14 +13,6 @@ const accountType = [
       value: 'Managerial Employee',
       label: 'Managerial Employee',
     },
-    {
-      value: 'Supervisor',
-      label: 'Supervisor',
-    },
-    {
-      value: 'Employee',
-      label: 'Employee',
-    },
     
   ];
 
