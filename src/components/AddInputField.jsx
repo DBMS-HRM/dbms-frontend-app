@@ -8,7 +8,7 @@ let count = 1
 
 export default function AddInputField(props) {
 
-    const [state, setState] = useState({[`${props.name}1`] :''})
+    const [state, setState] = useState(props.value)
 
     function handleChange(e) {
         setState({
@@ -16,6 +16,9 @@ export default function AddInputField(props) {
             [e.target.name]: e.target.value
         })
         props.setValues(state)
+        let customData = []
+        Object.values(state).forEach(item => {customData.push(item)})
+        props.setCustomValues(customData)
     }
 
 
@@ -25,12 +28,14 @@ export default function AddInputField(props) {
             ...state,
             [`${props.name}${count}`]: ''
         })
+        props.setValues(state)
     }
 
     function removeInput(input) {
         const newState = {...state}
         delete newState[input]
         setState({...newState})
+        props.setValues(newState)
     }
 
     return (

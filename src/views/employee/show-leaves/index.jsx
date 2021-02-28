@@ -20,7 +20,7 @@ const ShowLeaves = () => {
     return (
           <Container className={classes.container} >
               <Box style={{marginTop: '4rem'}}>
-                  <TabView />
+                  <TabView view="normal" />
               </Box>
           </Container>
 
