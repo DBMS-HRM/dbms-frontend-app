@@ -37,7 +37,11 @@ export default {
                 axios.get("/api/user/my-profile")
             )
         },
-
+        async employeeAll() {
+            return extractBodyResolve(
+                axios.get("/api/user/get-employees")
+            )
+        },
         employeeFull(userId) {
 
         }

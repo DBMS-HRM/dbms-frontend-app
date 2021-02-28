@@ -117,7 +117,7 @@ export default function AddEmployee() {
         loading = true
         let res;
         if(jobTitle==="Managerial Employee") {
-            res = dispatch(userTActions.addManagerialEmployee(formData))
+            res = await dispatch(userTActions.addManagerialEmployee(formData))
         }
         else {
             res = dispatch(userTActions.addEmployee(formData))

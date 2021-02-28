@@ -76,3 +76,13 @@ export function getEmployee() {
         return [res,data];
     }
 }
+
+export function getEmployeesAll() {
+    return async () => {
+        const [res, data] = await api.user.get.employeeAll()
+        if (res.status !== 200) {
+            return [res,data];
+        }
+        return [res,data];
+    }
+}

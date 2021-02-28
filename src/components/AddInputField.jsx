@@ -45,7 +45,6 @@ export default function AddInputField(props) {
                     </Box>
                 ))
             }
-            <Button onClick={() => console.log(state)}>Test</Button>
             <IconButton onClick={addInput}>
                 <AddCircleIcon/>
             </IconButton>
