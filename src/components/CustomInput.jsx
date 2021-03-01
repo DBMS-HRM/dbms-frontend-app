@@ -13,6 +13,8 @@ const CustomInputField = (props) => {
             fullWidth={props.fullWidth}
             autoComplete={props.autoComplete}
             helperText= {props.helperText}
+            value={props.value}
+            onChange={e => props.handleChange(e.target.value)}
         />
     );
 }

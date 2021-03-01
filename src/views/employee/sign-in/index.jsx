@@ -19,6 +19,7 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router";
 import ButtonLoading from "../../../components/ButtonLoading";
+import {toast} from "react-toastify";
 
 
 const useStyles = makeStyles((theme) =>({
@@ -71,7 +72,11 @@ const SignIn = (props) => {
     const response = await dispatch(userTActions.employeeLogin(username, password))
     setLoading(false)
     if(response.status === 200 ) {
-      history.push("/employee/dashboard")
+      history.push("/employee")
+    }
+    else {
+      console.log(response.message)
+      toast.error(response.message)
     }
   }
 

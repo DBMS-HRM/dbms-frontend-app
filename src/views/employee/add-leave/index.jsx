@@ -15,22 +15,26 @@ import logo from "../../../JupLogo.svg";
 import MenuItem from '@material-ui/core/MenuItem';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import {useState} from "react";
+import {func} from "prop-types";
+import api from "../../../api";
+import {toast} from "react-toastify";
 
 const leaveType = [
     {
-      value: 'annual',
+      value: 'Annual',
       label: 'Annual',
     },
     {
-      value: 'casual',
+      value: 'Casual',
       label: 'Casual',
     },
     {
-      value: 'maternity',
+      value: 'Maternity',
       label: 'Maternity',
     },
     {
-      value: 'no-pay',
+      value: 'No-pay',
       label: 'No-pay',
     },
   ];
@@ -80,24 +84,41 @@ const useStyles = makeStyles((theme) =>({
   } 
 
 }));
-
-
+let loading = false
 
 
 const AddLeave = (props) => {
-  const classes = useStyles();
-  const [ltype, setLeaveType] = React.useState('no-pay');
+
+    const fullDate = new Date()
+    const date = fullDate.getMonth()+1
+    const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0"+date : date}-${fullDate.getDate()}`
+
+    const classes = useStyles();
+    const [ltype, setLeaveType] = useState('no-pay');
+    const [check, setCheck] = useState(false)
+    const [formData, setFormData] = useState({leaveType: '', leaveDate: today})
 
   const handleChange = (event) => {
     setLeaveType(event.target.value);
   };
+    async function submitForm(formData) {
+        loading = true
+        const [res, data] = await api.leave.add.leave(formData)
+        loading = false
+        if(res.status !== 200) {
+            toast.error(res.message)
+            return
+        }
+        setFormData({...formData, leaveType: ''})
+        toast.success("Successfully requested a leave !!!")
+    }
   
   return (
     <Box className={classes.box}>
     <img src={logo} style={{ position: "absolute", top: "180vh", left: "50%" }} />
     
     <Grid >
-        <Paper elevation={50} variant={"outlined"} 
+        <Paper variant={"outlined"} 
             style={{padding :20,
             height:'185vh',
             width:'60vw',         
@@ -121,55 +142,12 @@ const AddLeave = (props) => {
             <InputBase
                 value="  SECTION I - TO BE COMPLETED BY THE EMPLOYEE"
                 readOnly            
-                type="Text"
-                margin="normal"
+                type="Text"                
                 variant="outlined"                                             
                 fullWidth                    
                 className={classes.textField}
             />
             </Box>
-            <Grid container spacing={2} >
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required            
-                    label="Employee Name" 
-                    type="Text"             
-                    placeholder="Employee Name"
-                                        
-                    className={classes.app}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required            
-                    label="Employee ID" 
-                    type="Text"              
-                    placeholder="Employee ID"                    
-                    className={classes.app}
-                />
-                </Grid>
-            </Grid>
-
-            <Grid container spacing={3} >
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required            
-                    label="Department"  
-                    type="Text"             
-                    placeholder="Department"                    
-                    className={classes.app}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required            
-                    label="Phone No." 
-                    type="Text"              
-                    placeholder="Phone No."                    
-                    className={classes.app}
-                />
-                </Grid>
-            </Grid>
         </Box>
 
         <Box mt={5} mx={-20}>
@@ -181,9 +159,9 @@ const AddLeave = (props) => {
             <TextField          
             select
             required
-            label="Select"            
-            value={ltype}       
-            onChange={handleChange}
+            label="Select"
+            value={formData.leaveType}
+            onChange={e=>setFormData({...formData, leaveType: e.target.value})}
             className={classes.app}
             >
             {leaveType.map((option) => (
@@ -196,7 +174,7 @@ const AddLeave = (props) => {
 
         <Box mt={5} mx={-20}>
             <Typography className={classes.header} style={{fontSize:'120%'}}>
-            Dates of Absense 
+            Date of Absense
             </Typography>
         </Box>
 
@@ -204,25 +182,12 @@ const AddLeave = (props) => {
         
         <Grid container spacing={2} >
             <Grid item xs={12} sm={6}>
-                <Typography className={classes.header} style={{fontSize:'90%'}}>
-                    Absence From 
-                </Typography>
                 <TextField
                     required           
-                    type="datetime-local"                    
+                    type="date"
                     className={classes.app}
-                />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-                <Typography className={classes.header} style={{fontSize:'90%'}}>
-                    Absence To
-                </Typography>
-
-                <TextField
-                    required           
-                    type="datetime-local"          
-                    className={classes.app}
+                    value={formData.leaveDate}
+                    onChange={e=>setFormData({...formData, leaveDate: e.target.value})}
                 />
             </Grid>
         </Grid>
@@ -242,7 +207,7 @@ const AddLeave = (props) => {
 
         <Box mt={8} mx={18}>
             <FormControlLabel
-                control={<Checkbox value="agree" color="primary" />}
+                control={<Checkbox value={check} onChange={() => setCheck(!check)} color="primary" />}
                 label="I agree"
                 required
                 className={classes.header}
@@ -261,8 +226,7 @@ const AddLeave = (props) => {
             <InputBase
                 value="  SECTION II - TO BE COMPLETED BY THE COMPANY"
                 readOnly            
-                type="Text"
-                margin="normal"                                                             
+                type="Text"                                                                             
                 fullWidth                    
                 className={classes.textField}
             />
@@ -295,7 +259,7 @@ const AddLeave = (props) => {
         </Box>
 
         <Box mt={6}>
-            <Button type="submit" fullWidth variant="contained"  className={classes.root}>
+            <Button disabled={!check} type="submit" fullWidth variant="contained"  className={classes.root} onClick={() => submitForm(formData)}>
                 Submit
             </Button>
         </Box>

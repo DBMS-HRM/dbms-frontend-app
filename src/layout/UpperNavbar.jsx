@@ -1,12 +1,19 @@
 import React from "react";
-import {AppBar, Avatar, colors, IconButton, Toolbar, Typography, Box} from "@material-ui/core";
+import {AppBar, colors, IconButton, Toolbar, Typography, Box} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
+import {useSelector} from "react-redux";
+import {selectUser} from "../store/user";
+import Avatar from "react-avatar";
+import {useHistory} from "react-router";
 
+const employeeAccountTypes = ["Managerial Employee", "Supervisor", "Employee"]
+const adminAccountTypes = ["Super Admin", "Admin"]
 
 const UpperNavbar = () => {
+    const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
@@ -28,15 +35,19 @@ const UpperNavbar = () => {
             fontFamily: "'Rationale', sans-serif",
             flexGrow: 1
         },
-        avatar: {
-            width: '24px',
-            height: '24px',
-            backgroundColor: colors.red["200"]
-        },
         avatarText: {
             fontSize: '12px',
         }
     }));
+
+    const user = useSelector(selectUser)
+    let routerRoot;
+    if(adminAccountTypes.includes(user.accountType)) {
+        routerRoot = "/admin"
+    }
+    else {
+        routerRoot = "/employee"
+    }
 
     const classes = useStyles();
     return (
@@ -51,10 +62,8 @@ const UpperNavbar = () => {
                 <IconButton color="inherit">
                     <AddAlertIcon/>
                 </IconButton>
-                <IconButton color="inherit">
-                    <Avatar className={classes.avatar}>
-                        <Typography className={classes.avatarText}>R</Typography>
-                    </Avatar>
+                <IconButton color="inherit" onClick={() => history.push(`${routerRoot}/profile`)}>
+                    <Avatar name={user ? user.username : ""} size={40} round={true} />
                 </IconButton>
             </Toolbar>
         </AppBar>

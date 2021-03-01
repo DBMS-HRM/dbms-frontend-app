@@ -15,13 +15,33 @@ export default {
         }
     },
     add: {
-
+        async managerialEmployee(formData) {
+            return extractBodyResolve(
+                axios.post("/api/user/register/managerial-employee", formData)
+            )
+        },
+        async employee(formData) {
+            return extractBodyResolve(
+                axios.post("/api/user/register/employee", formData)
+            )
+        },
+        async admin(formData) {
+            return extractBodyResolve(
+                axios.post("/api/user/register/admin", formData)
+            )
+        }
     },
     get: {
-        employee() {
-
+        async employee() {
+            return extractBodyResolve(
+                axios.get("/api/user/my-profile")
+            )
         },
-
+        async employeeAll() {
+            return extractBodyResolve(
+                axios.get("/api/user/get-employees")
+            )
+        },
         employeeFull(userId) {
 
         }

@@ -3,7 +3,15 @@ import {createSlice} from "@reduxjs/toolkit";
 /**
  * Asynchronous actions
  */
-import {adminLogin, employeeLogin} from "./thunk";
+import {
+    adminLogin,
+    employeeLogin,
+    addEmployee,
+    addManagerialEmployee,
+    addAdmin,
+    getEmployee,
+    getEmployeesAll
+} from "./thunk";
 
 export const userSlice = createSlice({
     name: 'user',
@@ -12,10 +20,15 @@ export const userSlice = createSlice({
             access: ''
         },
         user: {
+            username: '',
             userId: '',
-            accountType: '',
             email: '',
             status: null,
+            accountType: '',
+            supervisor: false,
+        },
+        routerRoots: {
+
         }
     },
     reducers: {
@@ -33,6 +46,8 @@ export const userSlice = createSlice({
  */
 export default userSlice.reducer
 
+export const selectUser = state => state.user.user
+
 /**
  * Actions
  */
@@ -41,6 +56,11 @@ export  const userActions = {
 }
 export  const userTActions = {
     adminLogin,
-    employeeLogin
+    employeeLogin,
+    addEmployee,
+    addManagerialEmployee,
+    addAdmin,
+    getEmployee,
+    getEmployeesAll
 }
 

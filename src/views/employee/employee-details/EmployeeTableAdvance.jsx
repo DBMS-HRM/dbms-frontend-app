@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import MUIDataTable from 'mui-datatables'
 import Avatar from "react-avatar";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 import {Box} from "@material-ui/core";
+import {useDispatch} from "react-redux";
+import {userTActions} from "../../../store/user";
+import {toast} from "react-toastify";
 
 const theme = createMuiTheme({
     overrides: {
@@ -49,19 +52,42 @@ const advancedColumns = [
             }
         }
     },
-    {name: "email", label: "Email"},
-    {name: "role", label: "Role"}
+    {name: "branch", label: "Branch"},
+    {name: "department", label: "Department"},
+    {name: "jobTitle", label: "Job Title"},
+    {name: "employmentStatus", label: "Employment Status"},
+    {name: "payGrade", label: "Pay Grade"},
 ]
 
-const rows = [
-    ['Lindsey Stroud', 'lindsey.stroud@gmail.com', 'Manager'],
-    ['Nicci Troiani', 'nicci.troiani@gmail.com', 'Manager'],
-    ['Rebecca Moore', 'george.fields@gmail.com', 'CEO'],
-    ['George Fields', 'rebecca.moore@gmail.com', 'Manager'],
-    ['Jane Doe', 'jane.doe@gmail.com', 'Engineer'],
-];
-
 const EmployeeTableAdvance = () => {
+    let loading = false
+    let dispatch = useDispatch()
+    let [rows, setData] = useState([])
+    useEffect(() => {
+        async function getEmployees() {
+            loading = true
+            const [res,fetchedData] = await dispatch(userTActions.getEmployeesAll())
+            loading = false
+            if(res.status !== 200) {
+                toast.error(res.message)
+                return
+            }
+            let dataRows = []
+            fetchedData.data.map(item => {
+                let dataRow = []
+                dataRow.push(`${item.firstName} ${item.lastName}`)
+                dataRow.push(item.branchName)
+                dataRow.push(item.departmentName)
+                dataRow.push(item.jobTitle)
+                dataRow.push(item.employmentStatus)
+                dataRow.push(item.payGrade)
+                dataRows.push(dataRow)
+            })
+            setData([...dataRows])
+        }
+        getEmployees()
+    },[])
+
     return (
         <MuiThemeProvider theme={theme}>
             <MUIDataTable

@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import logo from "../../../JupLogo.svg";
+import api from "../../../api";
+import {useSelector} from "react-redux";
+import {selectUser} from "../../../store/user";
+import {toast} from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -41,6 +45,30 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = (props) => {
   const classes = useStyles();
+  const [leaves, setLeaves] = useState({
+    annual: 0,
+    maternity: 0,
+    nopay: 0,
+    casual: 0
+  })
+  const user = useSelector(selectUser)
+
+  let loading = false
+  useEffect(() => {
+    loading = true
+    async function getData() {
+      loading = false
+      const [res, data] = await api.leave.get.remainingLeaves(user.userId)
+      if(data) {
+        setLeaves({...data.data[0]})
+        loading = true
+        if(res.status !== 200) {
+          toast.error(res.message)
+        }
+      }
+    }
+    getData()
+  },[])
 
   return (
     <Box className={classes.mainContainer}>
@@ -58,11 +86,11 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              10
+              {leaves.annual}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={50}
+              value={parseInt(leaves.annual)}
               className={classes.bar}
             />
           </Box>
@@ -77,11 +105,11 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              10
+              {leaves.casual}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={50}
+              value={parseInt(leaves.casual)}
               className={classes.bar}
             />
           </Box>
@@ -98,11 +126,11 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              5
+              {leaves.maternity}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={50}
+              value={parseInt(leaves.maternity)}
               className={classes.bar}
             />
           </Box>
@@ -117,11 +145,11 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              50
+              {leaves.nopay}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={50}
+              value={parseInt(leaves.nopay)}
               className={classes.bar}
             />
           </Box>

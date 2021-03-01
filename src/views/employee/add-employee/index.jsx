@@ -63,6 +63,9 @@ let formData;
 let loading;
 
 export default function AddEmployee() {
+    const fullDate = new Date()
+    const date = fullDate.getMonth()+1
+    const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0"+date : date}-${fullDate.getDate()}`
 
     const dispatch = useDispatch()
 
@@ -72,9 +75,8 @@ export default function AddEmployee() {
     const [lastName, setLastName] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [maritalStatus, setMaritalStatus] = useState(false)
-    const [country, setCountry] = useState('')
-    const [customPhoneNumbers, setCustomPhoneNumbers] = useState([])
-    const [phoneNumbers, setPhoneNumbers] = useState({"phoneNumber1": ''})
+    const [country, setCountry] = useState('Sri Lanka')
+    const [phoneNumber, setPhoneNumber] = useState('')
     const [district, setDistrict] = useState('')
     const [city, setCity] = useState('')
     const [street1, setStreet1] = useState('')
@@ -95,7 +97,7 @@ export default function AddEmployee() {
         dateOfBirth: dateOfBirth,
         maritalStatus: maritalStatus,
         country: country,
-        phoneNumber: customPhoneNumbers,
+        phoneNumber: phoneNumber,
         district: district,
         city: city,
         street1: street1,
@@ -115,10 +117,10 @@ export default function AddEmployee() {
         loading = true
         let res;
         if(jobTitle==="Managerial Employee") {
-            res = await dispatch(userTActions.addManagerialEmployee(formData))
+            res = dispatch(userTActions.addManagerialEmployee(formData))
         }
         else {
-            res = dispatch(userTActions.addEmployee(formData))
+            res = await dispatch(userTActions.addEmployee(formData))
         }
         loading = false
         if(res.status === 200) {
@@ -140,8 +142,6 @@ export default function AddEmployee() {
                                            city={city} setCity={setCity}
                                            street1={street1} setStreet1={setStreet1}
                                            street2={street2} setStreet2={setStreet2}
-                                           phoneNumbers={phoneNumbers} setPhoneNumbers={setPhoneNumbers}
-                                           setCustomPhoneNumbers={setCustomPhoneNumbers}
                 />;
             case 1:
                 return <CompanyDetailForm branchName={branchName} setBranchName={setBranchName}
