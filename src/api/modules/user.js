@@ -32,9 +32,14 @@ export default {
         }
     },
     get: {
-        async employee() {
+        async myProfile() {
             return extractBodyResolve(
                 axios.get("/api/user/my-profile")
+            )
+        },
+        async employee(employeeId) {
+            return extractBodyResolve(
+                axios.get(`/api/user/view-profile/${employeeId}`)
             )
         },
         async employeeAll() {
@@ -45,5 +50,17 @@ export default {
         employeeFull(userId) {
 
         }
+    },
+    update: {
+        async myProfile() {
+            return extractBodyResolve(
+                axios.put("/api/user/my-profile")
+            )
+        },
+        async employee(employeeId) {
+            return extractBodyResolve(
+                axios.put(`/api/user/view-profile/${employeeId}`)
+            )
+        },
     }
 }

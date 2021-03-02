@@ -9,15 +9,16 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import { InputBase,spacing } from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {InputBase, spacing} from '@material-ui/core';
 import logo from "../../../JupLogo.svg";
 import {createRef, useEffect, useRef, useState} from "react";
 import api from "../../../api";
 import {toast} from "react-toastify";
 import {useHistory, useLocation, useParams} from "react-router";
+import {getDate, getToday} from "../../../helpers/functions";
 
-const useStyles = makeStyles(() =>({
+const useStyles = makeStyles(() => ({
     root: {
         background: 'linear-gradient(45deg, #4489A7 30%, #F3F5F6 90%)',
         border: '1px solid white',
@@ -28,12 +29,12 @@ const useStyles = makeStyles(() =>({
     },
 
     textField: {
-        border:'1px solid #064758',
+        border: '1px solid #064758',
         background: '#0B7C9A',
-        color:'#C7E8F1',
+        color: '#C7E8F1',
     },
 
-    header:{
+    header: {
         color: '#045375',
         borderColor: 'white'
     },
@@ -44,21 +45,21 @@ const useStyles = makeStyles(() =>({
         alignItems: "center",
         width: "94vw",
         height: "210vh",
-        backgroundColor:'#D4E6F9',
+        backgroundColor: '#D4E6F9',
     },
 
-    app:{
-        background:'#DAEAEF',
-        width:'44ch',
-        borderBottom:'1px solid #045375',
+    app: {
+        background: '#DAEAEF',
+        width: '44ch',
+        borderBottom: '1px solid #045375',
 
-    } ,
+    },
 
-    txt:{
-        border:'1px solid #064758',
+    txt: {
+        border: '1px solid #064758',
         background: '#0B7C9A',
-        color:'#C7E8F1',
-        height:'200%'
+        color: '#C7E8F1',
+        height: '200%'
     }
 
 }));
@@ -68,15 +69,15 @@ let loading = false
 const ApproveLeave = () => {
 
     const fullDate = new Date()
-    const date = fullDate.getMonth()+1
-    const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0"+date : date}-${fullDate.getDate()}`
+    const date = fullDate.getMonth() + 1
+    const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0" + date : date}-${fullDate.getDate()}`
     const {leaveId, employeeId} = useParams()
 
     const classes = useStyles();
     const history = useHistory()
     const [approve, setApprove] = useState(false);
     const [reject, setReject] = useState(false);
-    const [data, setData] = useState({leaveType: '', leaveDate: ''})
+    const [data, setData] = useState({leaveType: '', fromDate: '', toDate: ''})
     const [remainingLeaves, setRemainingLeaves] = useState(0)
 
     useEffect(() => {
@@ -84,19 +85,24 @@ const ApproveLeave = () => {
             loading = true
             const [res, fetchedData] = await api.leave.get.leave(leaveId)
             const [res2, fetchedData2] = await api.leave.get.remainingSubordinateLeaves(employeeId)
-            if(fetchedData) {
+            if (fetchedData) {
                 const customData = fetchedData.data[0]
-                setData({leaveType: customData.leaveType, leaveDate: customData.requestedDate.substring(0,10)})
+                setData({
+                    leaveType: customData.leaveType,
+                    fromDate: getDate(customData.fromDate),
+                    toDate: getDate(customData.toDate)
+                })
                 loading = false
-                if(res.status !== 200) {
+                if (res.status !== 200) {
                     toast.error(res.message)
                 }
-                if(fetchedData2) {
+                if (fetchedData2) {
                     console.log(fetchedData2)
                     setRemainingLeaves(fetchedData2.data[0][customData.leaveType.toLowerCase()])
                 }
             }
         }
+
         getData()
     }, [])
 
@@ -109,7 +115,7 @@ const ApproveLeave = () => {
         loading = true
         const [res, fetchedData] = await api.leave.update.leave({leaveStatus: status}, leaveId)
         loading = false
-        if(res.status !== 200) {
+        if (res.status !== 200) {
             toast.error(res.message)
             return
         }
@@ -120,18 +126,19 @@ const ApproveLeave = () => {
 
     return (
         <Box className={classes.box}>
-            <img src={logo} style={{ position: "absolute", top: "180vh", left: "50%" }} />
+            <img src={logo} style={{position: "absolute", top: "180vh", left: "50%"}}/>
 
-            <Grid >
+            <Grid>
                 <Paper variant={"outlined"}
-                       style={{padding :20,
-                           height:'185vh',
-                           width:'60vw',
-                           margin:"2% auto"
+                       style={{
+                           padding: 20,
+                           height: '185vh',
+                           width: '60vw',
+                           margin: "2% auto"
 
                        }}>
                     <Container component="main" maxWidth="xs">
-                        <CssBaseline />
+                        <CssBaseline/>
 
 
                         <Grid align='center'>
@@ -141,8 +148,8 @@ const ApproveLeave = () => {
                         </Grid>
 
 
-                        <Box mt={8} mx={-20} >
-                            <Box height={50} >
+                        <Box mt={8} mx={-20}>
+                            <Box height={50}>
 
                                 <InputBase
                                     value="  SECTION I - TO BE COMPLETED BY THE EMPLOYEE"
@@ -156,7 +163,7 @@ const ApproveLeave = () => {
                         </Box>
 
                         <Box mt={5} mx={-20}>
-                            <Typography className={classes.header} style={{fontSize:'120%'}}>
+                            <Typography className={classes.header} style={{fontSize: '120%'}}>
                                 Type of Absence Requested
                             </Typography>
                         </Box>
@@ -170,19 +177,30 @@ const ApproveLeave = () => {
                         </Box>
 
                         <Box mt={5} mx={-20}>
-                            <Typography className={classes.header} style={{fontSize:'120%'}}>
-                                Date of Absence
+                            <Typography className={classes.header} style={{fontSize: '120%'}}>
+                                Dates of Absence
                             </Typography>
                         </Box>
 
                         <Box mx={-20} mt={1}>
-                            <Grid container spacing={2} >
+                            <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         required
                                         type="date"
+                                        label="From Date"
                                         className={classes.app}
-                                        value={data.leaveDate}
+                                        value={data.fromDate}
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        type="date"
+                                        label="To Date"
+                                        className={classes.app}
+                                        value={data.toDate}
                                         disabled
                                     />
                                 </Grid>
@@ -207,23 +225,23 @@ const ApproveLeave = () => {
                             />
                         </Box>
 
-                        <Box mt={3} mx={-10} >
+                        <Box mt={3} mx={-10}>
                             <FormControlLabel
                                 control={<Checkbox checked={approve} onChange={() => {
                                     setApprove(true);
                                     setReject(false)
-                                }} color="primary" />}
+                                }} color="primary"/>}
                                 label="Approved"
                                 className={classes.header}
                             />
                         </Box>
 
-                        <Box  mx={-10} >
+                        <Box mx={-10}>
                             <FormControlLabel
                                 control={<Checkbox checked={reject} onChange={() => {
                                     setReject(true)
                                     setApprove(false)
-                                }} color="primary" />}
+                                }} color="primary"/>}
                                 label="Reject"
                                 className={classes.header}
                             />
@@ -244,12 +262,12 @@ const ApproveLeave = () => {
                                 disabled
                                 type="date"
                                 className={classes.app}
-                                value={today}
+                                value={getToday()}
                             />
                         </Box>
 
                         <Box mt={6}>
-                            <Button disabled={!approve &&  !reject}
+                            <Button disabled={!approve && !reject}
                                     fullWidth
                                     variant="contained"
                                     className={classes.root}

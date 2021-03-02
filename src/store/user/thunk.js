@@ -3,6 +3,8 @@ import api from "../../api";
 import {userActions} from "./index";
 import {setAuthToken} from "../../api/client";
 
+//***************************   login   ***************************************
+
 export function adminLogin(username, password) {
     return async (dispatch) => {
         const [res, data] = await api.user.login.admin(username, password)
@@ -37,6 +39,8 @@ export function employeeLogin(username, password) {
     };
 }
 
+//***************************   add   ******************************************
+
 export function addManagerialEmployee(formData) {
     return async () => {
         const [res, data] = await api.user.add.managerialEmployee(formData)
@@ -67,9 +71,11 @@ export function addAdmin(formData) {
     }
 }
 
-export function getEmployee() {
+//***************************   get   ******************************************
+
+export function getEmployee(employeeId) {
     return async () => {
-        const [res, data] = await api.user.get.employee()
+        const [res, data] = await api.user.get.employee(employeeId)
         if (res.status !== 200) {
             return [res,data];
         }
@@ -84,5 +90,17 @@ export function getEmployeesAll() {
             return [res,data];
         }
         return [res,data];
+    }
+}
+
+//***************************  Update   ******************************************
+
+export function updateEmployee(employeeId) {
+    return async () => {
+        const [res, data] = await api.user.update.employee(employeeId)
+        if (res.status !== 200) {
+            return res;
+        }
+        return res;
     }
 }

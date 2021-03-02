@@ -149,6 +149,7 @@ export default function AddEmployee() {
                                           payGrade={payGrade} setPayGrade={setPayGrade}
                                           employmentStatus={employmentStatus} setEmploymentStatus={setEmploymentStatus}
                                           departmentName={departmentName} setDepartmentName={setDepartmentName}
+                                          type="add"
 
                 />;
             case 2:
@@ -156,6 +157,7 @@ export default function AddEmployee() {
                                             password={password} setPassword={setPassword}
                                             email={email} setEmail={setEmail}
                                             accountType={accountType} setAccountType={setAccountType}
+                                            type="add"
                 />;
             case 3:
                 return <ExtraForm />;

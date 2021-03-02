@@ -14,10 +14,6 @@ const accountType = [
       label: 'Managerial Employee',
     },
     {
-      value: 'Supervisor',
-      label: 'Supervisor',
-    },
-    {
       value: 'Employee',
       label: 'Employee',
     },
@@ -56,19 +52,19 @@ export default function PersonalDetailForm(props) {
                         handleChange={props.setUsername}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                {props.type!=="view"?<Grid item xs={12} sm={6}>
                     <TextField
-                        required = {true}
-                        error = {false}
+                        required={true}
+                        error={false}
                         type="password"
                         id="password"
                         name="password"
                         label="Password"
-                        fullWidth = {true}
+                        fullWidth={true}
                         value={props.password}
-                        onChange={e=>props.setPassword(e.target.value)}
+                        onChange={e => props.setPassword(e.target.value)}
                     />
-                </Grid>
+                </Grid>:null}
                
                 <Grid item xs={12} sm={6}>
                     <CustomInputField

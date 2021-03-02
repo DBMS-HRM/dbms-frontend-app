@@ -103,6 +103,16 @@ export default function PersonalDetailForm(props) {
     const handleChange_payGrade = (event) => {
         setPayGradeType(event.target.value);
     };
+    if(props.type === "view") {
+        department.push({
+            value: 'HR',
+            label: 'HR',
+            jobTitles: [{
+                value: 'HR Manager',
+                label: 'HR Manager',
+            }]
+        })
+    }
 
     const [jtype, setJobTitleType] = React.useState('HRManager');
     const handleChange_jobTitle = (event) => {
