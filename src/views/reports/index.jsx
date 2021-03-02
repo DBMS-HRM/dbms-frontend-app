@@ -1,5 +1,1 @@
-import React from "react";
-
-export default function Report() {
-
-}
+import React from "react"
