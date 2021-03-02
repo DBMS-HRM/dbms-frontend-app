@@ -56,7 +56,7 @@ const TotalLeaveTable = (props) => {
         let dataRow = [];
 
         dataRow.push(row.departmentName);
-        dataRow.push(row.annual);
+        dataRow.push(row.anual);
         dataRow.push(row.casual);
         dataRow.push(row.maternity);
         dataRow.push(row.noPay);

@@ -22,7 +22,7 @@ export default function LeaveReport() {
       <Box style={{ marginTop: "10%" }}>
         <TextField
             label="Starting Date"
-          type="date"
+            type="date"
             value={dates.startingDate}
             onChange={e=>setDates({...dates, startingDate: e.target.value})}
         />
