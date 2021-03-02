@@ -27,7 +27,7 @@ const Dropdown = (props) => {
           <em>None</em>
         </MenuItem>
         {props.dropdown.map((item) => {
-          <MenuItem value={item} onClick={}>
+          <MenuItem value={item}>
             {item}
           </MenuItem>;
         })}

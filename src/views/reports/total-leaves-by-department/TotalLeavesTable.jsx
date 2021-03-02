@@ -74,8 +74,6 @@ const TotalLeaveTable = (props) => {
 
   return (
     <MuiThemeProvider>
-      
-
       <MUIDataTable
         title={"Total Leaves by Department"}
         data={data}
