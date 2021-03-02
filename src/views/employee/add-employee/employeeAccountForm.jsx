@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -6,6 +6,7 @@ import {Container} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import CustomInputField from "../../../components/CustomInput";
 import MenuItem from '@material-ui/core/MenuItem';
+import api from "../../../api";
 
 
 const accountType = [
@@ -30,11 +31,21 @@ const useStyles = makeStyles({
 
 export default function PersonalDetailForm(props) {
     const classes = useStyles();
-    
+    const [loading,setLoading] = useState(false)
     const [atype, setAccountType] = React.useState('managerialEmployee');
+    const [supervisors, setSupervisors] = useState([])
         const handleChange_accountType = (event) => {
             setAccountType(event.target.value);
     };
+
+    useEffect(() => {
+        async function getData() {
+            setLoading(true)
+            const [res,data] = await api.user.get.potentialSupervisors()
+            setLoading(false)
+            console.log(res, data)
+        }
+    },[])
 
     return (
         <Container className={classes.container}>
@@ -100,6 +111,24 @@ export default function PersonalDetailForm(props) {
                             </MenuItem>
                         ))}
                     </TextField>
+                </Grid>
+                <Grid container item >
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            select
+                            required={true}
+                            error={false}
+                            fullWidth={true}
+                            value={props.accountType}
+                            onChange={e => props.setAccountType(e.target.value)}
+                        >
+                            {accountType.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </Grid>
                 </Grid>
             </Grid>
         </Container>

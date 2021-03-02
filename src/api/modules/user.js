@@ -1,5 +1,5 @@
 import axios from "axios";
-import {extractBodyResolve} from "../client";
+import {extractBodyResolve, extractDataResolve} from "../client";
 
 export default {
     login: {
@@ -53,7 +53,7 @@ export default {
             )
         },
         async potentialSupervisors() {
-            return extractBodyResolve(
+            return extractDataResolve(
                 axios.get("/api/user/get-supervisors")
             )
         }

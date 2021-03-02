@@ -27,6 +27,11 @@ export default {
             return extractBodyResolve(
                 axios.get(`/api/leave/get-remaining-leaves/${employeeId}`)
             )
+        },
+        async leaveConfigs() {
+            return extractBodyResolve(
+                axios.get("/api/leave/get-supervisors")
+            )
         }
     },
     add: {
