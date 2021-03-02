@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import OrderByTable from "./OrderByTable";
 import Dropdown from "./Dropdown"
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   container: {
@@ -12,22 +13,18 @@ const useStyles = makeStyles({
   },
 });
 
-const drop = {
-  labelName: "Order By",
-  dropdown: [
-    "Department",
-    "Pay Grade",
-    "Job Title"
-  ]
-}
 
 export default function OrderByReport() {
   const classes = useStyles;
+
+  let [item, setItem] = useState("departmentName");
+
+
   return (
     <Container className={classes.container}>
       <Box style={{ marginTop: "10%" }}>
-        <Dropdown labelName={drop.labelName} dropdown={drop.dropdown}/>
-        <OrderByTable groupBy={}/>
+        <Dropdown item={item} setItem={setItem} />
+        <OrderByTable groupBy={item}/>
       </Box>
     </Container>
   );

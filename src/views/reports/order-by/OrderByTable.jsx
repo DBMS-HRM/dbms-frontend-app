@@ -56,7 +56,7 @@ const OrderByTable = (props) => {
 
       fetchedData.data.map((record) => {
         headingTemp.push(record.heading);
-        empData = record.records;
+        let empData = record.records;
         data.push(empData);
       });
 
@@ -69,7 +69,7 @@ const OrderByTable = (props) => {
       setDataHeadings(headingTemp);
     }
     getEmployees();
-  }, []);
+  }, [props.groupBy]);
 
   // const columns = [
   //   {
@@ -100,20 +100,20 @@ const OrderByTable = (props) => {
 
   return (
     <MuiThemeProvider theme={theme}>
-      {heading.map((value, index) => {
+      {headings.map((value, index) => (
         <MUIDataTable
-          title={heading[index]}
-          data={data[index]}
-          columns={columns}
+          title={headings[index]}
+          data={rows[index]}
+          columns={column}
           options={{
-            download: false,
+            download: true,
             filter: false,
-            print: false,
+            print: true,
             viewColumns: false,
             selectableRows: false,
           }}
-        />;
-      })}
+        />
+      ))}
     </MuiThemeProvider>
   );
 };
