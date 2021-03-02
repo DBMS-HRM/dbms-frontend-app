@@ -43,9 +43,13 @@ export default function PersonalDetailForm(props) {
             setLoading(true)
             const [res,data] = await api.user.get.potentialSupervisors()
             setLoading(false)
-            console.log(res, data)
+            if(res.status === 200) {
+                setSupervisors(data)
+                console.log(supervisors)
+            }
         }
-    },[])
+        getData()
+    },[supervisors])
 
     return (
         <Container className={classes.container}>
@@ -122,11 +126,11 @@ export default function PersonalDetailForm(props) {
                             value={props.accountType}
                             onChange={e => props.setAccountType(e.target.value)}
                         >
-                            {accountType.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
+                            {/*{supervisors.map((option) => (*/}
+                            {/*    <MenuItem key={option.employeeId} value={option.employeeId}>*/}
+                            {/*        {`${option.firstName}` `${option.lastName}`}*/}
+                            {/*    </MenuItem>*/}
+                            {/*))}*/}
                         </TextField>
                     </Grid>
                 </Grid>
