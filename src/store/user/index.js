@@ -11,7 +11,11 @@ import {
     addAdmin,
     getEmployee,
     getEmployeesAll,
-    updateEmployee
+    getCustomEmployeeAttributes,
+    updateEmployee,
+    updateMyProfile,
+    updatePassword,
+    updateMyPassword
 } from "./thunk";
 
 export const userSlice = createSlice({
@@ -64,6 +68,10 @@ export  const userTActions = {
     addAdmin,
     getEmployee,
     getEmployeesAll,
-    updateEmployee
+    getCustomEmployeeAttributes,
+    updateEmployee,
+    updateMyProfile,
+    updatePassword,
+    updateMyPassword
 }
 

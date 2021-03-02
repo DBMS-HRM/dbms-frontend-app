@@ -108,25 +108,26 @@ export default function ViewEmployee() {
                 toast.error(res.message)
             }
             if(data) {
-                setFirstName(data.data.firstName)
-                setLastName(data.data.lastName)
-                setDateOfBirth(getDate(data.data.dateOfBirth))
-                setMaritalStatus(data.data.maritalStatus)
-                setCountry(data.data.country)
-                setDistrict(data.data.district)
-                setCity(data.data.city)
-                if(data.data.street_1) setStreet1(data.data.street_1)
-                if(data.data.street_2) setStreet2(data.data.street_2)
-                setBranchName(data.data.branchName)
-                setDepartmentName(data.data.departmentName)
-                setJobTitle(data.data.jobTitle)
-                setPayGrade(data.data.payGrade)
-                setEmploymentStatus(data.data.employmentStatus)
-                setUsername(data.data.username)
-                setEmail(data.data.emailAddress)
-                setAccountType(data.data.accountType)
+                let fetchedData = data.data
+                setFirstName(fetchedData.firstName)
+                setLastName(fetchedData.lastName)
+                setDateOfBirth(getDate(fetchedData.dateOfBirth))
+                setMaritalStatus(fetchedData.maritalStatus)
+                setCountry(fetchedData.country)
+                setDistrict(fetchedData.district)
+                setCity(fetchedData.city)
+                if(fetchedData.street1) setStreet1(fetchedData.street1)
+                if(fetchedData.street2) setStreet2(fetchedData.street2)
+                setBranchName(fetchedData.branchName)
+                setDepartmentName(fetchedData.departmentName)
+                setJobTitle(fetchedData.jobTitle)
+                setPayGrade(fetchedData.payGrade)
+                setEmploymentStatus(fetchedData.employmentStatus)
+                setUsername(fetchedData.username)
+                setEmail(fetchedData.emailAddress)
+                setAccountType(fetchedData.accountType)
                 let phoneNumbersFetched = {}
-                data.data.phoneNumbers.map((item,index) => {
+                if (fetchedData.phoneNumbers) fetchedData.phoneNumbers.map((item,index) => {
                     phoneNumbersFetched[`phoneNumber${index+1}`] = item
                 })
                 setPhoneNumbers(phoneNumbersFetched)
@@ -162,7 +163,18 @@ export default function ViewEmployee() {
         let res = await dispatch(userTActions.updateEmployee(employeeId))
         loading = false
         if(res.status === 200) {
-            toast.success("Successfully added an employee !!!")
+            toast.success("Successfully updated the employee account!!!")
+            return
+        }
+        toast.error(res.message)
+    }
+
+    async function resetPassword() {
+        loading = true
+        let res = await dispatch(userTActions.updatePassword(employeeId, {newPassword: newPassword}))
+        loading = false
+        if(res.status === 200) {
+            toast.success("Successfully updated the employee account!!!")
             return
         }
         toast.error(res.message)
@@ -279,6 +291,7 @@ export default function ViewEmployee() {
                                     <Box>
                                         <Box>
                                             <TextField
+                                                type='password'
                                                 variant='outlined'
                                                 label='New Password'
                                                 style={{marginTop: '1rem'}}
@@ -287,7 +300,7 @@ export default function ViewEmployee() {
                                             />
                                         </Box>
                                         <Box style={{marginTop: '1rem', display: 'flex', justifyContent: 'flex-end'}} >
-                                            <Button variant="contained" color="primary" >Submit</Button>
+                                            <Button variant="contained" color="primary" onClick={resetPassword} >Submit</Button>
                                         </Box>
                                     </Box> :
                                     null

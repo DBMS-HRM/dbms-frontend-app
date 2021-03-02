@@ -93,11 +93,51 @@ export function getEmployeesAll() {
     }
 }
 
+export function getCustomEmployeeAttributes() {
+    return async () => {
+        const [res, data] = await api.user.get.customEmployeeAttributes()
+        if (res.status !== 200) {
+            return [res,data];
+        }
+        return [res,data];
+    }
+}
+
 //***************************  Update   ******************************************
 
 export function updateEmployee(employeeId) {
     return async () => {
         const [res, data] = await api.user.update.employee(employeeId)
+        if (res.status !== 200) {
+            return res;
+        }
+        return res;
+    }
+}
+
+export function updateMyProfile(formData) {
+    return async () => {
+        const [res, data] = await api.user.update.myProfile(formData)
+        if (res.status !== 200) {
+            return res;
+        }
+        return res;
+    }
+}
+
+export function updatePassword(employeeId, formData) {
+    return async () => {
+        const [res, data] = await api.user.update.resetPassword(employeeId, formData)
+        if (res.status !== 200) {
+            return res;
+        }
+        return res;
+    }
+}
+
+export function updateMyPassword(formData) {
+    return async () => {
+        const [res, data] = await api.user.update.changeMyPassword(formData)
         if (res.status !== 200) {
             return res;
         }

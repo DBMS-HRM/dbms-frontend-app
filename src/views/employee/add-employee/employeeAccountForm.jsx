@@ -41,15 +41,16 @@ export default function PersonalDetailForm(props) {
             
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
-                    <CustomInputField
+                    <TextField
                         required = {true}
                         error = {false}
+                        disabled={props.type==='view'}
                         id="username"
                         name="username"
                         label="Username"
                         fullWidth = {true}
                         value={props.username}
-                        handleChange={props.setUsername}
+                        onChange={e => props.setUsername(e.target.value)}
                     />
                 </Grid>
                 {props.type!=="view"?<Grid item xs={12} sm={6}>
@@ -78,27 +79,28 @@ export default function PersonalDetailForm(props) {
                         handleChange={props.setEmail}
                     />
                 </Grid>
-                
+
 
                 <Grid item xs={12} sm={6}>
                     <TextField
                         select
-                        required = {true}
-                        error = {false}
+                        required={true}
+                        error={false}
+                        disabled={props.type==='view'}
                         id="accountType"
                         name="accountType"
                         label="Account Type"
-                        fullWidth = {true}
+                        fullWidth={true}
                         value={props.accountType}
-                        onChange={e=>props.setAccountType(e.target.value)}
-                        >
+                        onChange={e => props.setAccountType(e.target.value)}
+                    >
                         {accountType.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                                {option.label}
                             </MenuItem>
                         ))}
                     </TextField>
-                </Grid>               
+                </Grid>
             </Grid>
         </Container>
 
