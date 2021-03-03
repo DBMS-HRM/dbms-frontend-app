@@ -158,7 +158,7 @@ const departments = (state) => state.departments
 const branches = (state) => state.branches
 const userLeaveConfig = (state) => {
     const payGrades = leaveConfig(state)
-    return payGrades[state.user.payGrade] || null
+    return payGrades[state.user.user.payGrade] || null
 }
 
 export const metaSelectors = {
