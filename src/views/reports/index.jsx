@@ -9,6 +9,9 @@ import CustomFields from "../admin/custom-employee-attributes";
 import Dashboard from "../admin/dashboard";
 import OrderByReport from "./order-by";
 import LeaveReport from "./total-leaves-by-department";
+
+import HomePage from "../homepage"
+
 import {employeeAccountTypes} from "../../helpers/variables";
 
 export default function Router () {
@@ -23,6 +26,7 @@ export default function Router () {
                     <Layout>
                         <Route path={`${path}/order-by`} component={OrderByReport} />
                         <Route path={`${path}/total-leaves-by-department`} component={LeaveReport} />
+                        <Route path={`${path}/homepage`} component={HomePage} />
                     </Layout>
                     :
                     <Redirect to={`employee/sign-in`} />
