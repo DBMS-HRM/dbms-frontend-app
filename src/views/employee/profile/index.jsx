@@ -12,6 +12,7 @@ import {toast} from "react-toastify";
 import {getDate} from "../../../helpers/functions";
 import AddInputField from "../../../components/AddInputField";
 import MenuItem from "@material-ui/core/MenuItem";
+import api from "../../../api";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,7 +78,7 @@ const Profile = (props) => {
     useEffect(() => {
         async function getEmployeeDetails() {
             loading = true
-            const [res, fetchedData] = await dispatch(userTActions.getEmployee())
+            const [res, fetchedData] = await api.user.get.myProfile()
             loading = false
             if (res.status !== 200) {
                 toast.error(res.message)
