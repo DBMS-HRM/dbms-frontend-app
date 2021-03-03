@@ -103,8 +103,8 @@ const AddLeave = (props) => {
                     </Typography>
                     
                     <Box mt={5}>                  
-                    <Typography  className={classes.borderss}>
-                    SECTION I - To be completed by the employee
+                    <Typography  >
+                    SECTION I - TO BE COMPLETED BY THE EMPLOYEE
                     </Typography>
                     </Box>
                     <Box mt={5}>  
