@@ -15,6 +15,7 @@ import {employeeAccountTypes} from "../../helpers/variables";
 import {useSelector} from "react-redux";
 import {selectToken, selectUser} from "../../store/user";
 import ViewEmployee from "./edit-employee-details";
+import CustomFields from "../admin/custom-employee-attributes";
 
 export default function Employee() {
     let {path} = useRouteMatch();

@@ -8,13 +8,16 @@ import {toast, ToastContainer} from "react-toastify";
 import {setAuthToken} from "./api/client";
 
 import 'react-toastify/dist/ReactToastify.css';
+import {customActions} from "./store/custom";
 function App() {
     const dispatch = useDispatch()
     const token = JSON.parse(window.localStorage.getItem("accessToken"))
     const userData = JSON.parse(window.localStorage.getItem("userData"))
+    const customAttributes = JSON.parse(window.localStorage.getItem("customAttributes"))
     if(token) setAuthToken(token.access)
     dispatch(userActions.setToken(token))
     dispatch(userActions.setUserData(userData))
+    dispatch(customActions.setCustomAttributes(customAttributes))
     return (
         <div>
             <ToastContainer />

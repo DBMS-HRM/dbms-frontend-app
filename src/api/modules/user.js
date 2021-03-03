@@ -34,7 +34,12 @@ export default {
             return extractBodyResolve(
                 axios.post("/api/user/set-supervisor", formData)
             )
-        }
+        },
+        async newCustomAttribute(formData) {
+            return extractBodyResolve(
+                axios.post("/api/user/insert-custom-attributes", formData)
+            )
+        },
     },
     get: {
         async myProfile() {
@@ -53,7 +58,7 @@ export default {
             )
         },
         async customEmployeeAttributes() {
-            return extractBodyResolve(
+            return extractDataResolve(
                 axios.get("/api/user/get-custom-attributes")
             )
         },
@@ -61,7 +66,7 @@ export default {
             return extractDataResolve(
                 axios.get("/api/user/get-supervisors")
             )
-        }
+        },
     },
     update: {
         async myProfile(formData) {
@@ -82,6 +87,13 @@ export default {
         async changeMyPassword(formData) {
             return extractBodyResolve(
                 axios.put(`/api/user/update-employee-password`,formData)
+            )
+        },
+    },
+    delete: {
+        async removeCustomAttribute(columnName) {
+            return extractBodyResolve(
+                axios.delete(`/api/user/delete-custom-attributes/${columnName}`)
             )
         },
     }

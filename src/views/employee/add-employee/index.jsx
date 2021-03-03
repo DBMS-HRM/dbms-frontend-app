@@ -72,7 +72,6 @@ export default function AddEmployee() {
     const today = `${fullDate.getFullYear()}-${date.toString().length === 1 ? "0"+date : date}-${fullDate.getDate()}`
 
     const dispatch = useDispatch()
-    const [supervisorId, setSupervisorId] = useState('')
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -83,6 +82,7 @@ export default function AddEmployee() {
     const [country, setCountry] = useState('Sri Lanka')
     const [customPhoneNumbers, setCustomPhoneNumbers] = useState([])
     const [phoneNumbers, setPhoneNumbers] = useState({"phoneNumber1": ''})
+    const [supervisor, setSupervisor] = useState('')
     const [district, setDistrict] = useState('')
     const [city, setCity] = useState('')
     const [street1, setStreet1] = useState('')
@@ -117,6 +117,7 @@ export default function AddEmployee() {
         password: password,
         email: email,
         accountType: accountType,
+        supervisorId: supervisor
     }
 
     async function submitForm() {
@@ -157,6 +158,7 @@ export default function AddEmployee() {
                                           payGrade={payGrade} setPayGrade={setPayGrade}
                                           employmentStatus={employmentStatus} setEmploymentStatus={setEmploymentStatus}
                                           departmentName={departmentName} setDepartmentName={setDepartmentName}
+                                          supervisor={supervisor} setSupervisor={setSupervisor}
                                           type="add"
 
                 />;

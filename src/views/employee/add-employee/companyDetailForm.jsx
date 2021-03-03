@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -6,6 +6,9 @@ import {Container} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import CustomInputField from "../../../components/CustomInput";
 import MenuItem from '@material-ui/core/MenuItem';
+import api from "../../../api";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 
 const payGrade = [
@@ -103,6 +106,30 @@ export default function PersonalDetailForm(props) {
     const handleChange_payGrade = (event) => {
         setPayGradeType(event.target.value);
     };
+
+
+    const [supervisors, setSupervisors] = useState({})
+
+    useEffect(() => {
+        async function getData() {
+            const [res,data] = await api.user.get.potentialSupervisors()
+            if(res.status === 200) {
+                let customSupervisors = {}
+                data.map(item => {
+                    customSupervisors[item.employeeId] = {
+                        firstName: item.firstName,
+                        lastName: item.lastName,
+                        jobTitle: item.jobTitle,
+                        payGrade: item.payGrade,
+                        subordinateCount: item.subordinateCount
+                    }
+                })
+                setSupervisors(customSupervisors)
+            }
+        }
+        getData()
+    },[])
+
     if(props.type === "view") {
         department.push({
             value: 'HR',
@@ -232,6 +259,56 @@ export default function PersonalDetailForm(props) {
                             </MenuItem>
                         ))}
                     </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                    <Box>
+                        <Box mb={4}>
+                            <Typography variant="h6">
+                                Set Supervisor to Employee
+                            </Typography>
+                        </Box>
+                        <Box>
+
+                            <TextField
+                                select
+                                required={true}
+                                error={false}
+                                name="potentialSupervisors"
+                                label="Potential Supervisors"
+                                fullWidth={true}
+                                value={props.supervisor}
+                                onChange={e => props.setSupervisor(e.target.value)}
+                            >
+                                {
+                                    Object.keys(supervisors).map(item => (
+                                        <MenuItem key={item} value={item}>
+                                            {`${supervisors[item].firstName} ${supervisors[item].lastName}`}
+                                        </MenuItem>
+                                    ))
+                                }
+                                <div>
+
+                                </div>
+                            </TextField>
+                            {
+                                supervisors[props.supervisor] ?
+                                    <Box>
+                                        <Box mt={3}>
+                                            <Typography>Job Title</Typography>
+                                            <TextField value={supervisors[props.supervisor].jobTitle} disabled />
+                                        </Box>
+                                        <Box mt={3}>
+                                            <Typography>Pay Grade</Typography>
+                                            <TextField value={supervisors[props.supervisor].payGrade} disabled />
+                                        </Box>
+                                        <Box mt={3}>
+                                            <Typography>Subordinate Count</Typography>
+                                            <TextField value={supervisors[props.supervisor].subordinateCount} disabled />
+                                        </Box>
+                                    </Box> : null
+                            }
+                        </Box>
+                    </Box>
                 </Grid>
             </Grid>
         </Container>

@@ -3,13 +3,15 @@ import {userActions} from "./user";
 import {userTActions} from "./user";
 
 import user from "./user";
+import custom, {customActions, customTActions} from "./custom"
 
 /**
  * Actions
  */
 
 export const actions = {
-    user: userActions
+    user: userActions,
+    custom: customActions
 }
 
 /**
@@ -17,11 +19,13 @@ export const actions = {
  */
 
 export const tActions = {
-    user: userTActions
+    user: userTActions,
+    custom:customTActions
 }
 
 export default configureStore({
     reducer: {
-        user
+        user,
+        custom
     }
 })

@@ -2,6 +2,7 @@ import thunk from "redux-thunk";
 import api from "../../api";
 import {userActions} from "./index";
 import {setAuthToken} from "../../api/client";
+import {customTActions} from "../custom";
 
 //***************************   login   ***************************************
 
@@ -17,6 +18,7 @@ export function adminLogin(username, password) {
         setAuthToken(data.token.access)
         dispatch(userActions.setToken(data.token))
         dispatch(userActions.setUserData(data.data))
+        dispatch(customTActions.getCustomAttributes())
 
         return res;
     };

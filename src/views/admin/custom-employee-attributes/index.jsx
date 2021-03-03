@@ -38,16 +38,6 @@ export default function AddCustomField(props) {
     const [loading, setLoading] = useState(false)
     // const [attributes, setLo]
 
-    useEffect(() => {
-        setLoading(true);
-
-        (async function () {
-            const [res, data] = await api.user.get.customEmployeeAttributes()
-        })();
-
-
-        setLoading(false)
-    }, [])
     
     return (
         <Container className={classes.container} align={'center'} >

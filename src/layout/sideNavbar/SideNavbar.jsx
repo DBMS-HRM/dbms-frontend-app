@@ -65,11 +65,6 @@ const SideNavbar = () => {
             },
             managerial: {
                 normal: {
-                    customEmployeeAttributes: {
-                        route: "/employee/edit-custom-employee-attributes",
-                        text: "Edit Custom Employee Attributes",
-                        icon: <LibraryAddCheckIcon style={{color: myTheme.palette.primary.contrastText}}/>
-                    },
                     employeeDetails: {
                         route: "/employee/details",
                         text: "Employee Details",
