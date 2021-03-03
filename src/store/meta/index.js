@@ -90,9 +90,9 @@ export function updateLeaveConfig({payGrade, annualLeaves, casualLeaves, materni
             console.log("Error while updating leave config")
             return res;
         }
-        return res;
         console.log('Success')
         dispatch()
+        return res;
     }
 }
 
