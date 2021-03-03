@@ -7,6 +7,7 @@ import api from "../../../api";
 import {toast} from "react-toastify";
 import {useDispatch, useSelector, useStore} from "react-redux";
 import {actions,tActions, selectors} from "../../../store";
+import leave from "../../../api/modules/leave";
 
 
 const payGradeList = [
@@ -36,10 +37,10 @@ const payGrades = {
 }
 
 const leaveTypes = {
-    annual : "annualLeaves",
-    casual : "casualLeaves",
-    maternity : "maternityLeaves",
-    noPay : "nopayLeaves",
+    annual : "annual",
+    casual : "casual",
+    maternity : "maternity",
+    noPay : "nopay",
 }
 
 let loading = false
@@ -84,33 +85,41 @@ const LeaveConfig = (props) => {
     const [btnStatus, setBtnStatus] = useState(false);
     const [readOnly, setReadOnly] = useState(true);
 
-    const dispatch = useDispatch();
     const leaveConfig = useSelector(selectors.meta.leaveConfig);
 
     const $setLeaves = (pay_grade) => {
-        setMaternity(leaveConfig[payGrades[pay_grade][leaveTypes.maternity]])
-        setAnnual(leaveConfig[payGrades[pay_grade][leaveTypes.annual]])
-        setCasual(leaveConfig[payGrades[pay_grade][leaveTypes.casual]])
-        setNoPay(leaveConfig[payGrades[pay_grade][leaveTypes.noPay]])
+        console.log(leaveConfig[payGrades.level1][leaveTypes.maternity]);
+        setMaternity(leaveConfig[pay_grade][leaveTypes.maternity])
+        setAnnual(leaveConfig[pay_grade][leaveTypes.annual])
+        setCasual(leaveConfig[pay_grade][leaveTypes.casual])
+        setNoPay(leaveConfig[pay_grade][leaveTypes.noPay])
     }
 
     useEffect(() => {
-        $setLeaves(payGrades.level1);
+        console.log("Leave configs",leaveConfig);
+        if(Object.keys(leaveConfig).length != 0){
+            $setLeaves(payGrades.level1);
+        }
+
     }, [])
 
     function changePayGrade(event) {
         const payGrade = event.target.value;
         switch (payGrade){
             case payGrades.level1:
+                setPayGrade(payGrades.level1);
                 $setLeaves(payGrades.level1);
                 break;
             case payGrades.level2:
+                setPayGrade(payGrades.level2);
                 $setLeaves(payGrades.level2);
                 break;
             case payGrades.level3:
+                setPayGrade(payGrades.level3);
                 $setLeaves(payGrades.level3);
                 break;
             case payGrades.level4:
+                setPayGrade(payGrades.level4);
                 $setLeaves(payGrades.level4);
                 break;
             default:
@@ -119,7 +128,11 @@ const LeaveConfig = (props) => {
         }
     }
 
-
+    function changeReadOnly(){
+        console.log("Btn works");
+        setReadOnly(false);
+        setBtnStatus(true);
+    }
 
     return (
         <Container className={classes.container}>
@@ -165,9 +178,11 @@ const LeaveConfig = (props) => {
                                    value={annual}
                             defaultValue="50"
                             onChange={(event) => {}}
-                            InputProps={{
-                                readOnly:readOnly
-                            }}
+                                   disabled={readOnly}
+                             // aria-readonly={"false"}
+                            // InputProps={{
+                            //     readOnly:false
+                            // }}
                     />
                     </Grid>
 
@@ -216,7 +231,8 @@ const LeaveConfig = (props) => {
                     </Grid>
                 </Grid> 
                 <Box mt={5}>
-                <Button className={classes.root}                  
+                <Button className={classes.root}
+                    onClick={changeReadOnly}
                     variant="contained"                    
                     >Edit</Button>
                     </Box>
