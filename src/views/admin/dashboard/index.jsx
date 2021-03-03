@@ -3,6 +3,8 @@ import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import logo from "../../../JupLogo.svg";
+import {useSelector} from "react-redux";
+import {userSelectors} from "../../../store/user";
 
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
@@ -41,91 +43,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = (props) => {
     const classes = useStyles();
+    const user = useSelector(userSelectors.user)
 
     return (
         <Box className={classes.mainContainer}>
-            <Typography variant="h6" className={classes.content}>
-                Remaining Leaves
-            </Typography>
-            <Box className={classes.subContainer}>
-                <Box className={classes.box}>
-                    <Box className={classes.innerCont}>
-                        <Typography variant="h6" className={classes.content}>
-                            Annual
-                        </Typography>
-                        <Typography
-                            variant="h3"
-                            className={classes.content}
-                            style={{ marginTop: "10%" }}
-                        >
-                            10
-                        </Typography>
-                        <LinearProgress
-                            variant="determinate"
-                            value={50}
-                            className={classes.bar}
-                        />
-                    </Box>
-                </Box>
-                <Box className={classes.box}>
-                    <Box className={classes.innerCont}>
-                        <Typography variant="h6" className={classes.content}>
-                            Casual
-                        </Typography>
-                        <Typography
-                            variant="h3"
-                            className={classes.content}
-                            style={{ marginTop: "10%" }}
-                        >
-                            10
-                        </Typography>
-                        <LinearProgress
-                            variant="determinate"
-                            value={50}
-                            className={classes.bar}
-                        />
-                    </Box>
-                </Box>
+            <Box>
+                <Typography variant="h5">Welcome again!!!</Typography>
             </Box>
-            <Box className={classes.subContainer}>
-                <Box className={classes.box}>
-                    <Box className={classes.innerCont}>
-                        <Typography variant="h6" className={classes.content}>
-                            Maternity
-                        </Typography>
-                        <Typography
-                            variant="h3"
-                            className={classes.content}
-                            style={{ marginTop: "10%" }}
-                        >
-                            5
-                        </Typography>
-                        <LinearProgress
-                            variant="determinate"
-                            value={50}
-                            className={classes.bar}
-                        />
-                    </Box>
-                </Box>
-                <Box className={classes.box}>
-                    <Box className={classes.innerCont}>
-                        <Typography variant="h6" className={classes.content}>
-                            No-Pay
-                        </Typography>
-                        <Typography
-                            variant="h3"
-                            className={classes.content}
-                            style={{ marginTop: "10%" }}
-                        >
-                            50
-                        </Typography>
-                        <LinearProgress
-                            variant="determinate"
-                            value={50}
-                            className={classes.bar}
-                        />
-                    </Box>
-                </Box>
+            <Box>
+                <Typography>You have Logged in as {user.username}</Typography>
             </Box>
             <img src={logo} style={{ position: "fixed", top: "50%", left: "65%" }} />
         </Box>
