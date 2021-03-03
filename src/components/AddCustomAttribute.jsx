@@ -49,7 +49,13 @@ export default function AddCustomAttribute(props) {
     }
 
     async function addAttribute(formData) {
-        const [res,data] = await api.user.add.newCustomAttribute(formData)
+        const sendData = {
+            customColumn  : formData.customColumn,
+            dataType : formData.dataType,
+            defaultValue : formData.defaultValue || "",
+        };
+        console.log(sendData);
+        const [res,data] = await api.user.add.newCustomAttribute(sendData)
         if(res.status!==200) {
             toast.error(res.message)
             return
