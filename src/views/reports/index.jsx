@@ -10,7 +10,7 @@ import Dashboard from "../admin/dashboard";
 import OrderByReport from "./order-by";
 import LeaveReport from "./total-leaves-by-department";
 
-import HomePage from "./homepage"
+import HomePage from "../homepage"
 
 import {employeeAccountTypes} from "../../helpers/variables";
 

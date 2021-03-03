@@ -163,7 +163,10 @@ const SignIn = (props) => {
               Log In
             </ButtonLoading>
           </Box>
-          <Box mt={3}>
+          <Box mt={3} display="flex" justifyContent="center" width="100%">
+            <Box display="flex" justifyContent="center" width="100%">
+              <Button onClick={() => history.push("/")} style={{backgroundColor: 'white'}}>Home</Button>
+            </Box>
           </Box>
         </Box>
       </Box>
