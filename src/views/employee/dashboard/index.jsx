@@ -70,6 +70,8 @@ const Dashboard = (props) => {
     getData()
   },[])
 
+  const fixedLeaves = useSelector(selectors.meta.userLeaveConfig)
+
   return (
     <Box className={classes.mainContainer}>
       <Typography variant="h6" className={classes.content}>
@@ -90,7 +92,7 @@ const Dashboard = (props) => {
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={parseInt(leaves.annual)}
+              value={(parseInt(leaves.annual)/fixedLeaves.annual) * 100}
               className={classes.bar}
             />
           </Box>
@@ -109,7 +111,7 @@ const Dashboard = (props) => {
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={parseInt(leaves.casual)}
+              value={(parseInt(leaves.casual)/fixedLeaves.casual) * 100}
               className={classes.bar}
             />
           </Box>
@@ -130,7 +132,7 @@ const Dashboard = (props) => {
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={parseInt(leaves.maternity)}
+              value={(parseInt(leaves.maternity)/fixedLeaves.maternity) * 100}
               className={classes.bar}
             />
           </Box>
@@ -149,7 +151,7 @@ const Dashboard = (props) => {
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={parseInt(leaves.nopay)}
+              value={(parseInt(leaves.nopay)/fixedLeaves.nopay) * 100}
               className={classes.bar}
             />
           </Box>
