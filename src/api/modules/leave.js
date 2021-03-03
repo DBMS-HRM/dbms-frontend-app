@@ -48,6 +48,7 @@ export default {
             )
         },
         async leaveConfigs(data) {
+            console.log("this is data",data);
             return extractBodyResolve(
                 axios.put(`/api/leave/config-leaves`,
                     data)

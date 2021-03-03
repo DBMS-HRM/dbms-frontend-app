@@ -7,6 +7,7 @@ import AddEmployee from "./add-employee";
 import Dashboard from "./dashboard";
 import AddAdmin from "./add-admin";
 import CustomFields from "./custom-employee-attributes";
+import LeaveConfig from "./leave-config";
 
 export default function Admin() {
     let {path} = useRouteMatch();
@@ -21,6 +22,7 @@ export default function Admin() {
                       <Route path={`${path}/add-admin`} component={AddAdmin} />
                       <Route exact path={path} component={Dashboard} />
                       <Route path={`${path}/custom-fields`} component={CustomFields} />
+                      <Route path={`${path}/leave-config`} component={LeaveConfig} />
                   </Layout>
                   :
                   <Redirect to={`${path}/sign-in`} />

@@ -85,11 +85,12 @@ export function updateLeaveConfig({payGrade, annualLeaves, casualLeaves, materni
         const [res, data] = await api.leave.update.leaveConfigs(
             {payGrade, annualLeaves, casualLeaves, maternityLeaves, nopayLeaves}
             )
+        console.log("This is dispatcher",res);
         if (res.status !== 200) {
             console.log("Error while updating leave config")
             return res;
         }
-
+        return res;
         console.log('Success')
         dispatch()
     }

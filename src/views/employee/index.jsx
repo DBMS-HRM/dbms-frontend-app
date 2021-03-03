@@ -11,7 +11,6 @@ import EmployeeDetails from "./employee-details";
 import ShowLeaves from "./show-leaves";
 import ApproveLeave from "./approve-leaves";
 import ShowMyLeaves from "./show-leaves/my";
-import LeaveConfig from "./leave-config";
 import {employeeAccountTypes} from "../../helpers/variables";
 import {useSelector} from "react-redux";
 import {selectToken, selectUser} from "../../store/user";
@@ -36,8 +35,7 @@ export default function Employee() {
                         <Route path={`${path}/view-employee/:employeeId`} component={ViewEmployee} />
                         <Route path={`${path}/details`} component={EmployeeDetails} />
                         <Route path={`${path}/show-leaves-requested`} component={ShowMyLeaves} />
-                        <Route path={`${path}/show-leaves`} component={ShowLeaves} /> 
-                        <Route path={`${path}/leave-config`} component={LeaveConfig} />                        
+                        <Route path={`${path}/show-leaves`} component={ShowLeaves} />
                         <Route path={`${path}/approve-leaves/:leaveId/:employeeId`} component={ApproveLeave} />
 
                         {/*{*/}

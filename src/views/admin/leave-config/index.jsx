@@ -8,6 +8,10 @@ import {toast} from "react-toastify";
 import {useDispatch, useSelector, useStore} from "react-redux";
 import {actions,tActions, selectors} from "../../../store";
 import leave from "../../../api/modules/leave";
+import * as yup from "yup";
+import {useFormik} from "formik";
+import {updateLeaveConfig} from "../../../store/meta"
+import {userTActions} from "../../../store/user";
 
 
 const payGradeList = [
@@ -27,6 +31,11 @@ const payGradeList = [
        value: 'Level 4',
        label: 'Level 4',
       },
+    {
+        value: 'Level 5',
+        label: 'Level 5',
+    },
+
   ];
 
 const payGrades = {
@@ -34,6 +43,7 @@ const payGrades = {
     level2 : "Level 2",
     level3 : "Level 3",
     level4 : "Level 4",
+    level5 : "Level 5",
 }
 
 const leaveTypes = {
@@ -70,33 +80,71 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '33ch',
     },
-   
-     
 }));
+
+const validationSchema = yup.object({
+    annualLeaves: yup
+        .number('Not a valid leave date types'),
+    casualLeaves: yup
+        .number('Not a valid leave date types'),
+    maternityLeaves: yup
+        .number('Not a valid leave date types'),
+    nopayLeaves: yup
+        .number('Not a valid leave date types'),
+
+})
 
 const LeaveConfig = (props) => {
     const classes = useStyles();
     const payGradeSelectWrapper = React.createRef()
-    const [payGrade, setPayGrade] = useState("Level 1");
-    const [casual, setCasual] = useState();
-    const [annual, setAnnual] = useState();
-    const [maternity, setMaternity] = useState();
-    const [noPay, setNoPay] = useState();
-    const [btnStatus, setBtnStatus] = useState(false);
+    const [payGrade, setPayGrade] = useState('');
+    const [casualLeaves, setCasual] = useState('');
+    const [annualLeaves, setAnnual] = useState('');
+    const [maternityLeaves, setMaternity] = useState('');
+    const [nopayLeaves, setNoPay] = useState('');
+    const [btnStatus, setBtnStatus] = useState('Edit');
     const [readOnly, setReadOnly] = useState(true);
 
     const leaveConfig = useSelector(selectors.meta.leaveConfig);
+    const dispatch = useDispatch();
+    const formik = useFormik({
+        initialValues: {
+            annualLeaves: '',
+            casualLeaves : '',
+            maternityLeaves: '',
+            nopayLeaves:  '',
+        },
+
+        validationSchema: validationSchema,
+        onSubmit: async (formData) => {
+            formData.payGrade = payGrade;
+            const res = await dispatch(updateLeaveConfig(formData));
+            console.log(res);
+            if(res.status === 200) {
+                toast.success("Leave configs changed successfully")
+            }
+            else {
+                toast.error(res.message)
+            }
+        },
+    });
+
+    let formData = {
+        casualLeaves: casualLeaves,
+        maternityLeaves: maternityLeaves,
+        annualLeaves : annualLeaves,
+        nopayLeaves : nopayLeaves
+    }
 
     const $setLeaves = (pay_grade) => {
-        console.log(leaveConfig[payGrades.level1][leaveTypes.maternity]);
-        setMaternity(leaveConfig[pay_grade][leaveTypes.maternity])
-        setAnnual(leaveConfig[pay_grade][leaveTypes.annual])
-        setCasual(leaveConfig[pay_grade][leaveTypes.casual])
-        setNoPay(leaveConfig[pay_grade][leaveTypes.noPay])
+        setReadOnly(true);
+        formik.values.maternityLeaves = leaveConfig[pay_grade][leaveTypes.maternity];
+        formik.values.annualLeaves = leaveConfig[pay_grade][leaveTypes.annual];
+        formik.values.casualLeaves = leaveConfig[pay_grade][leaveTypes.casual];
+        formik.values.nopayLeaves = leaveConfig[pay_grade][leaveTypes.noPay];
     }
 
     useEffect(() => {
-        console.log("Leave configs",leaveConfig);
         if(Object.keys(leaveConfig).length != 0){
             $setLeaves(payGrades.level1);
         }
@@ -129,9 +177,7 @@ const LeaveConfig = (props) => {
     }
 
     function changeReadOnly(){
-        console.log("Btn works");
         setReadOnly(false);
-        setBtnStatus(true);
     }
 
     return (
@@ -142,7 +188,8 @@ const LeaveConfig = (props) => {
                     <Typography component="h1" variant="h4" align="center">
                         Leave Config
                     </Typography>
-                    <Box mt={3}>                  
+                    <Box mt={3}>
+                        <form onSubmit={formik.handleSubmit}>
                     <Grid container spacing={3}>
                     
                     <Grid item xs={12}  > 
@@ -172,70 +219,75 @@ const LeaveConfig = (props) => {
                     <Grid item xs={12} sm={6}>
                         <TextField className={classes.root}
                             variant="outlined"
-                            id="annual"
-                            name="annual"
+                            id="annualLeaves"
+                            name="annualLeaves"
                             label="Annual"
-                                   value={annual}
-                            defaultValue="50"
-                            onChange={(event) => {}}
-                                   disabled={readOnly}
-                             // aria-readonly={"false"}
-                            // InputProps={{
-                            //     readOnly:false
-                            // }}
+                           error={formik.touched.annualLeaves && Boolean(formik.errors.annualLeaves)}
+                           helperText={formik.touched.annualLeaves && formik.errors.annualLeaves}
+                           value={formik.values.annualLeaves}
+                           onChange={formik.handleChange}
+                           disabled={readOnly}
+                           type = "number"
                     />
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
                         <TextField className={classes.root}
                             variant="outlined"
-                            id="casual"
-                            name="casual"
+                            id="casualLeaves"
+                            name="casualLeaves"
                             label="Casual"
-                            value={casual}
-                            defaultValue="50"
-                            InputProps={{
-                                readOnly:readOnly
-                                
-                        }}
+                           error={formik.touched.casualLeaves && Boolean(formik.errors.casualLeaves)}
+                           helperText={formik.touched.casualLeaves && formik.errors.casualLeaves}
+                           value={formik.values.casualLeaves}
+                           onChange={formik.handleChange}
+                           disabled={readOnly}
+                           type = "number"
                     />
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
                         <TextField className={classes.root}
                             variant="outlined"
-                            id="maternity"
-                            name="maternity"
+                            id="maternityLeaves"
+                            name="maternityLeaves"
                             label="Maternity"
-                            value={maternity}
-                            defaultValue="50"
-                            InputProps={{
-                                readOnly:readOnly
-                                
-                            }}
+                           error={formik.touched.maternityLeaves && Boolean(formik.errors.maternityLeaves)}
+                           helperText={formik.touched.maternityLeaves && formik.errors.maternityLeaves}
+                           value={formik.values.maternityLeaves}
+                           onChange={formik.handleChange}
+                           disabled={readOnly}
+                           type = "number"
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField className={classes.root}
                             variant="outlined"
-                            id="noPay"
-                            name="noPay"
+                            id="nopayLeaves"
+                            name="nopayLeaves"
                             label="No-pay"
-                            defaultValue="50"
-                            value={noPay}
-                            InputProps={{
-                                readOnly:readOnly
-                                
-                            }}
+                           error={formik.touched.nopayLeaves && Boolean(formik.errors.nopayLeaves)}
+                           helperText={formik.touched.nopayLeaves && formik.errors.nopayLeaves}
+                           value={formik.values.nopayLeaves}
+                           onChange={formik.handleChange}
+                           disabled={readOnly}
+                           type = "number"
                         />
                     </Grid>
-                </Grid> 
-                <Box mt={5}>
-                <Button className={classes.root}
-                    onClick={changeReadOnly}
-                    variant="contained"                    
-                    >Edit</Button>
+                </Grid>
+                    <Box mt={5}>
+                        {(readOnly)? <Button className={classes.root}
+                                             onClick={changeReadOnly}
+                                             variant="contained"
+                        >Edit</Button> : <Button className={classes.root}
+                                                 variant="contained"
+                                                 type="submit"
+                        >Submit</Button> }
+
+
                     </Box>
+                    </form>
+
                 </Box>
             </Paper>
         </Box>
