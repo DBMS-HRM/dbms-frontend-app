@@ -62,10 +62,11 @@ const LeaveConfig = (props) => {
         <Container className={classes.container}>
             <main className={classes.layout}>
                 <Box mt={12}>           
-                <Paper className={classes.paper}>
+                <Paper className={classes.paper}>                    
                     <Typography component="h1" variant="h4" align="center">
                         Leave Config
                     </Typography>
+                    <Box mt={3}>                  
                     <Grid container spacing={3}>
                     
                     <Grid item xs={12}  > 
@@ -147,8 +148,10 @@ const LeaveConfig = (props) => {
                     variant="contained"                    
                     >Edit</Button>
                     </Box>
+                </Box>
             </Paper>
         </Box>
+        
     </main> 
 </Container>
 );
