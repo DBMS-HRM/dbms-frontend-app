@@ -70,7 +70,7 @@ const Dashboard = (props) => {
     getData()
   },[])
 
-  const fixedLeaves = useSelector(selectors.meta.userLeaveConfig)
+  const fixedLeaves = useSelector(selectors.meta.userLeaveConfig) 
 
   return (
     <Box className={classes.mainContainer}>
@@ -88,11 +88,11 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              {leaves.annual}
+              {leaves.annual || 0}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={(parseInt(leaves.annual)/fixedLeaves.annual) * 100}
+              value={((parseInt(leaves.annual) || 0)/(fixedLeaves.annual) || 1) * 100}
               className={classes.bar}
             />
           </Box>
@@ -107,11 +107,11 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              {leaves.casual}
+              {leaves.casual || 0}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={(parseInt(leaves.casual)/fixedLeaves.casual) * 100}
+              value={((parseInt(leaves.casual) || 0)/(fixedLeaves.casual) || 1) * 100}
               className={classes.bar}
             />
           </Box>
@@ -128,11 +128,11 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              {leaves.maternity}
+              {leaves.maternity || 0}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={(parseInt(leaves.maternity)/fixedLeaves.maternity) * 100}
+              value={((parseInt(leaves.maternity) || 0)/(fixedLeaves.maternity) || 1) * 100}
               className={classes.bar}
             />
           </Box>
@@ -147,11 +147,11 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              {leaves.nopay}
+              {leaves.nopay || 0}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={(parseInt(leaves.nopay)/fixedLeaves.nopay) * 100}
+              value={((parseInt(leaves.nopay) || 0)/(fixedLeaves.nopay) || 1) * 100}
               className={classes.bar}
             />
           </Box>
