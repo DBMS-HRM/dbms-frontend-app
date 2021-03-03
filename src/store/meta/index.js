@@ -138,7 +138,8 @@ export function updateLeaveConfig({payGrade, annualLeaves, casualLeaves, materni
 }
 
 export const metaTActions = {
-    fetchMetaData
+    fetchMetaData,
+    updateLeaveConfig
 }
 
 
