@@ -80,6 +80,21 @@ export function fetchMetaData() {
     };
 }
 
+export function updateLeaveConfig({payGrade, annualLeaves, casualLeaves, maternityLeaves, nopayLeaves}) {
+    return async (dispatch) => {
+        const [res, data] = await api.leave.update.leaveConfigs(
+            {payGrade, annualLeaves, casualLeaves, maternityLeaves, nopayLeaves}
+            )
+        if (res.status !== 200) {
+            console.log("Error while updating leave config")
+            return res;
+        }
+
+        console.log('Success')
+        dispatch()
+    }
+}
+
 export const metaTActions = {
     fetchMetaData
 }
