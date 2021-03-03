@@ -4,8 +4,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
-import {useDispatch, useSelector} from "react-redux";
-import {selectUser, userActions} from "../store/user";
+import {useSelector} from "react-redux";
+import {selectors} from "../store";
 import Avatar from "react-avatar";
 import {useHistory} from "react-router";
 import Button from "@material-ui/core/Button";
@@ -42,6 +42,7 @@ const UpperNavbar = () => {
         }
     }));
 
+    const user = useSelector(selectors.user.user)
     function signOut() {
         dispatch(userActions.setToken(''))
         dispatch(userActions.setUserData(''))
