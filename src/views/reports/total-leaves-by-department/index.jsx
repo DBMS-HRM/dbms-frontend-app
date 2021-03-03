@@ -22,8 +22,8 @@ const useStyles = makeStyles({
 export default function LeaveReport() {
   const classes = useStyles();
   const [dates, setDates] = useState({
-    fromDate: "",
-    toDate: "",
+    fromDate: "2020-02-01",
+    toDate: "2025-02-01",
   });
   return (
     <Container className={classes.container}>
@@ -41,7 +41,7 @@ export default function LeaveReport() {
           <TextField
             type="date"
             value={dates.toDate}
-            onChange={(e) => setDates({ ...dates, toDate: e.target.value })}
+            onChange={(e) => setDates({ ...dates, toDate: (dates.fromDate < dates.toDate) ? e.target.value : "2025-02-01" })}
           />
         </Box>
       </Box>

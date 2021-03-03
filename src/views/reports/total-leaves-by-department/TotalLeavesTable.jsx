@@ -68,12 +68,12 @@ const TotalLeaveTable = (props) => {
     }
 
     getLeaveTable();
-  }, []);
+  }, [props.fromDate, props.toDate]);
 
   let columns = ["Department Name", "Annual", "Casual", "Maternity", "No Pay"];
 
   return (
-    <MuiThemeProvider>
+    <MuiThemeProvider theme={theme}>
       <MUIDataTable
         title={"Total Leaves by Department"}
         data={data}

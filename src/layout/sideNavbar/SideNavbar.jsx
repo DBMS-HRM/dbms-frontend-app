@@ -8,6 +8,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import GroupIcon from '@material-ui/icons/Group';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import SubjectIcon from '@material-ui/icons/Subject';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
 import {selectUser} from "../../store/user";
 import {useSelector} from "react-redux";
@@ -69,6 +70,16 @@ const SideNavbar = () => {
                         route: "/employee/details",
                         text: "Employee Details",
                         icon: <GroupIcon style={{color: myTheme.palette.primary.contrastText}}/>
+                    },
+                    orderByReport: {
+                        route: "/reports/order-by",
+                        text: "Order By Report",
+                        icon: <ReceiptIcon style={{color: myTheme.palette.primary.contrastText}} />
+                    },
+                    leaveReport: {
+                        route: "/reports/total-leaves-by-department",
+                        text: "Leave Report",
+                        icon: <ReceiptIcon style={{color: myTheme.palette.primary.contrastText}} />
                     }
                 },
                 "HR": {
