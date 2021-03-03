@@ -5,6 +5,8 @@ import {Container} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import CustomInputField from "../../../components/CustomInput";
 import MenuItem from '@material-ui/core/MenuItem';
+import {useSelector} from "react-redux";
+import {selectors} from "../../../store";
 
 
 const useStyles = makeStyles({
@@ -17,7 +19,9 @@ const useStyles = makeStyles({
 
 export default function PersonalDetailForm() {
     const classes = useStyles();
-    
+    const customColumns = useSelector(selectors.meta.customColumns)
+    console.log(customColumns)
+
     return (
         <Container className={classes.container}>
             
