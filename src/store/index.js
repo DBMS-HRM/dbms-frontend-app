@@ -1,15 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {userActions} from "./user";
+import {userActions, userSelectors} from "./user";
 import {userTActions} from "./user";
 
 import user from "./user";
+import meta, {metaActions, metaSelectors, metaTActions} from "./meta"
 
 /**
  * Actions
  */
 
 export const actions = {
-    user: userActions
+    user: userActions,
+    meta: metaActions
 }
 
 /**
@@ -17,11 +19,23 @@ export const actions = {
  */
 
 export const tActions = {
-    user: userTActions
+    user: userTActions,
+    meta: metaTActions
+}
+
+/**
+ * Selectors
+ */
+export const  selectors = {
+    user: userSelectors,
+    meta: metaSelectors
 }
 
 export default configureStore({
     reducer: {
-        user
+        user,
+        meta
     }
 })
+
+
