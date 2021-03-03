@@ -67,6 +67,11 @@ export default {
                 axios.get("/api/user/get-supervisors")
             )
         },
+        async subordinates() {
+            return extractDataResolve(
+                axios.get("/api/user/get-my-subordinates")
+            )
+        },
     },
     update: {
         async myProfile(formData) {

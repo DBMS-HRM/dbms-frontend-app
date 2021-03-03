@@ -8,6 +8,7 @@ import AddLeave from "./add-leave";
 import Layout from "../../layout";
 import AddEmployee from "./add-employee"
 import EmployeeDetails from "./employee-details";
+import SubordinateDetails from "./subordinate-details";
 import ShowLeaves from "./show-leaves";
 import ApproveLeave from "./approve-leaves";
 import ShowMyLeaves from "./show-leaves/my";
@@ -34,6 +35,7 @@ export default function Employee() {
                         <Route path={`${path}/add-employee`} component={AddEmployee} />
                         <Route path={`${path}/view-employee/:employeeId`} component={ViewEmployee} />
                         <Route path={`${path}/details`} component={EmployeeDetails} />
+                        <Route path={`${path}/subordinate-details`} component={SubordinateDetails} />
                         <Route path={`${path}/show-leaves-requested`} component={ShowMyLeaves} />
                         <Route path={`${path}/show-leaves`} component={ShowLeaves} />
                         <Route path={`${path}/approve-leaves/:leaveId/:employeeId`} component={ApproveLeave} />

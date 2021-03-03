@@ -85,6 +85,12 @@ const SideNavbar = () => {
                     text: "Subordinates Leaves",
                     icon: <ListAltIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
+                showSubordinates: {
+                    route: "/employee/subordinate-details",
+                    text: "Subordinates",
+                    icon: <GroupIcon style={{color: myTheme.palette.primary.contrastText}}/>
+                },
+
             },
         },
 

@@ -95,6 +95,16 @@ export function getEmployeesAll() {
     }
 }
 
+export function getSubordinates() {
+    return async () => {
+        const [res, data] = await api.user.get.subordinates()
+        if (res.status !== 200) {
+            return [res,data];
+        }
+        return [res,data];
+    }
+}
+
 export function getCustomEmployeeAttributes() {
     return async () => {
         const [res, data] = await api.user.get.customEmployeeAttributes()
