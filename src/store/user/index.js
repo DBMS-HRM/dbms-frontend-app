@@ -31,6 +31,7 @@ export const userSlice = createSlice({
             status: null,
             accountType: '',
             supervisor: false,
+            supervisorId: null
         },
         routerRoots: {
 
@@ -77,6 +78,13 @@ export  const userTActions = {
 /**
  * Selectors
  */
+const user = state => state.user.user
+const accountType = (state) => state.user.user.accountType
+const isSupervisor = (state) => state.user.user.supervisor
+const haveSupervisor = (state) => state.user.user.supervisorId !== null
 export const userSelectors = {
-    user: state => state.user.user
+    user,
+    accountType,
+    isSupervisor,
+    haveSupervisor
 }
