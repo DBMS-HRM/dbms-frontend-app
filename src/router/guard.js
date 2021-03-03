@@ -10,7 +10,6 @@ export function useRouteGuard(condition, {whenFalse, whenTrue}) {
     const haveSupervisor = useSelector(selectors.user.haveSupervisor)
     const [state, setState] = useState(false)
     const history = useHistory()
-
     useEffect(() => {
         setState(condition(accountType, isSupervisor, haveSupervisor))
         if (state) {
@@ -18,7 +17,7 @@ export function useRouteGuard(condition, {whenFalse, whenTrue}) {
         } else {
             if (whenFalse) history.push(whenFalse)
         }
-    }, [accountType, isSupervisor])
+    })
 
     return state;
 }
