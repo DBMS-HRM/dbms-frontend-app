@@ -129,15 +129,14 @@ export function fetchMetaData() {
 export function updateLeaveConfig({payGrade, annualLeaves, casualLeaves, maternityLeaves, nopayLeaves}) {
     return async (dispatch) => {
         const data = {payGrade, annualLeaves, casualLeaves, maternityLeaves, nopayLeaves}
-        const [res] = await api.leave.update.leaveConfigs(
-            data
-            )
+        const [res] = await api.leave.update.leaveConfigs(data)
         if (res.status !== 200) {
             console.log("Error while updating leave config")
             return res;
         }
 
-        dispatch(metaActions.setMetaData(data))
+        dispatch(metaActions.updatePayGradeConfig(data))
+        return res
     }
 }
 
