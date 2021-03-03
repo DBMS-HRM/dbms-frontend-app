@@ -1,29 +1,49 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import {Container, Box, TextField, Grid, MenuItem, Button} from "@material-ui/core";
+import api from "../../../api";
+import {toast} from "react-toastify";
+import {userTActions} from "../../../store/user";
+import {useDispatch, useStore} from "react-redux";
+import {leaveActions, leaveSlice} from "../../../store/leave";
 
 
-const paygrade = [
+const payGradeList = [
     {
-      value: 'level1',
+      value: 'Level 1',
       label: 'Level 1',
     },
     {
-      value: 'level2',
+      value: 'Level 2',
       label: 'Level 2',
     },
     {
-       value: 'level3',
+       value: 'Level 3',
        label: 'Level 3',
     },
     {
-       value: 'level4',
+       value: 'Level 4',
        label: 'Level 4',
       },
   ];
 
+const payGrades = {
+    level1 : "Level 1",
+    level2 : "Level 2",
+    level3 : "Level 3",
+    level4 : "Level 4",
+}
+
+const leaveTypes = {
+    annual : "annualLeaves",
+    casual : "casualLeaves",
+    maternity : "maternityLeaves",
+    noPay : "nopayLeaves",
+}
+
+let loading = false
 
 const useStyles = makeStyles((theme) => ({
 
@@ -37,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
             marginRight: 'auto',
         },
     },
+
     paper: {
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
@@ -56,7 +77,47 @@ const useStyles = makeStyles((theme) => ({
 const LeaveConfig = (props) => {
     const classes = useStyles();
     const payGradeSelectWrapper = React.createRef()
+    const [payGrade, setPayGrade] = useState("Level 1");
+    const [casual, setCasual] = useState();
+    const [annual, setAnnual] = useState();
+    const [maternity, setMaternity] = useState();
+    const [noPay, setNoPay] = useState();
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        async function getData() {
+            loading = true
+            const [res, fetchedData] = await api.leave.get.leaveConfigs();
+            // Check status
+            if(res.status !== 200) {
+                toast.error(res.message)
+            }
+
+            if(fetchedData) {
+                const customData = fetchedData.data
+                customData.forEach((value, index)=> {
+                    if(value.payGrade === payGrades.level1){
+                        setPayGrade(payGrades.level1);
+                        setAnnual(value[leaveTypes.annual]);
+                        setCasual(value[leaveTypes.casual]);
+                        setMaternity(value[leaveTypes.maternity]);
+                        setNoPay(value[leaveTypes.noPay]);
+                    }
+                });
+                dispatch(leaveActions.setLeaveConfigs(fetchedData));
+                loading = false
+                if(res.status !== 200) {
+                    toast.error(res.message)
+                }
+            }
+        }
+        getData();
+    }, [])
+
+    function changePayGrade() {
+
+    }
 
     return (
         <Container className={classes.container}>
@@ -79,11 +140,11 @@ const LeaveConfig = (props) => {
                             id="payGrade"
                             name="payGrade"
                             label="Pay Grade"
-                            value={props.paygrade}
-                            onChange={e=>props.setPayGrade(e.target.value)}
+                            // value={paygrade}
+                            // onChange={e=>props.setPayGrade(e.target.value)}
                             fullWidth = {true}
                             >
-                            {paygrade.map((option) => (
+                            {payGradeList.map((option) => (
                                 <MenuItem key={option.value} value={option.value}>
                                 {option.label}
                                 </MenuItem>
@@ -99,10 +160,12 @@ const LeaveConfig = (props) => {
                             id="annual"
                             name="annual"
                             label="Annual"
+                                   value={annual}
                             defaultValue="50"
                             InputProps={{
-                                readOnly:true
-                        }}
+                                readOnly:true,
+                                shrink : true
+                            }}
                     />
                     </Grid>
 
@@ -112,6 +175,7 @@ const LeaveConfig = (props) => {
                             id="casual"
                             name="casual"
                             label="Casual"
+                            value={casual}
                             defaultValue="50"
                             InputProps={{
                                 readOnly:true
@@ -126,6 +190,7 @@ const LeaveConfig = (props) => {
                             id="maternity"
                             name="maternity"
                             label="Maternity"
+                            value={maternity}
                             defaultValue="50"
                             InputProps={{
                                 readOnly:true
@@ -136,10 +201,11 @@ const LeaveConfig = (props) => {
                     <Grid item xs={12} sm={6}>
                         <TextField className={classes.root}
                             variant="outlined"
-                            id="no-pay"
-                            name="no-pay"
+                            id="noPay"
+                            name="noPay"
                             label="No-pay"
                             defaultValue="50"
+                            value={noPay}
                             InputProps={{
                                 readOnly:true
                                 
