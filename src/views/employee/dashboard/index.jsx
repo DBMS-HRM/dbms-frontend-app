@@ -88,7 +88,7 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              {leaves.annual}
+              {leaves.annual || 0}
             </Typography>
             <LinearProgress
               variant="determinate"
@@ -107,7 +107,7 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              {leaves.casual}
+              {leaves.casual || 0}
             </Typography>
             <LinearProgress
               variant="determinate"
@@ -128,7 +128,7 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              {leaves.maternity}
+              {leaves.maternity || 0}
             </Typography>
             <LinearProgress
               variant="determinate"
@@ -147,7 +147,7 @@ const Dashboard = (props) => {
               className={classes.content}
               style={{ marginTop: "10%" }}
             >
-              {leaves.nopay}
+              {leaves.nopay || 0}
             </Typography>
             <LinearProgress
               variant="determinate"
