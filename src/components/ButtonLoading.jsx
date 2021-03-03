@@ -25,7 +25,7 @@ export default function ButtonLoading(props) {
                         <CircularProgress />
                     </div> :
                     <Typography>
-                        Log In
+                        {props.name || 'Log in' }
                     </Typography>
             }
         </Button>

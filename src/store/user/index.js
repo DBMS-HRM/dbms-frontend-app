@@ -10,7 +10,12 @@ import {
     addManagerialEmployee,
     addAdmin,
     getEmployee,
-    getEmployeesAll
+    getEmployeesAll,
+    getCustomEmployeeAttributes,
+    updateEmployee,
+    updateMyProfile,
+    updatePassword,
+    updateMyPassword
 } from "./thunk";
 
 export const userSlice = createSlice({
@@ -46,8 +51,6 @@ export const userSlice = createSlice({
  */
 export default userSlice.reducer
 
-export const selectUser = state => state.user.user
-
 /**
  * Actions
  */
@@ -61,6 +64,18 @@ export  const userTActions = {
     addManagerialEmployee,
     addAdmin,
     getEmployee,
-    getEmployeesAll
+    getEmployeesAll,
+    getCustomEmployeeAttributes,
+    updateEmployee,
+    updateMyProfile,
+    updatePassword,
+    updateMyPassword
 }
 
+
+/**
+ * Selectors
+ */
+export const userSelectors = {
+    user: state => state.user.user
+}

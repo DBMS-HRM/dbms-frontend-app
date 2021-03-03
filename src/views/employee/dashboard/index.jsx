@@ -5,7 +5,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import logo from "../../../JupLogo.svg";
 import api from "../../../api";
 import {useSelector} from "react-redux";
-import {selectUser} from "../../../store/user";
+import {selectors} from "../../../store";
 import {toast} from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +51,7 @@ const Dashboard = (props) => {
     nopay: 0,
     casual: 0
   })
-  const user = useSelector(selectUser)
+  const user = useSelector(selectors.user.user)
 
   let loading = false
   useEffect(() => {

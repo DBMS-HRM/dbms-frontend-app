@@ -9,7 +9,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import SubjectIcon from '@material-ui/icons/Subject';
 
-import {selectUser} from "../../store/user";
+import {selectors} from "../../store";
 import {useSelector} from "react-redux";
 import MiniDrawer from "./drawer";
 import {useTheme} from "@material-ui/core/styles";
@@ -27,7 +27,7 @@ const SideNavbar = () => {
                     icon: <DashboardIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
                 editAbsenceRelatedFunc: {
-                    route: "/employee/edit-absence-related-functionalities",
+                    route: "/admin/custom-fields",
                     text: "Edit Absence Related Functionalities",
                     icon: <LibraryAddCheckIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
@@ -53,7 +53,7 @@ const SideNavbar = () => {
                     icon: <DashboardIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
                 myLeaves: {
-                    route: "/employee/show-leaves-requested",
+                    route: "/employee/show-my-leaves",
                     text: "My Leaves",
                     icon: <SubjectIcon style={{color: myTheme.palette.primary.contrastText}}/>
                 },
@@ -64,21 +64,20 @@ const SideNavbar = () => {
                 },
             },
             managerial: {
-                addEmployee: {
-                    route: "/employee/add-employee",
-                    text: "Add Employee",
-                    icon: <GroupAddIcon style={{color: myTheme.palette.primary.contrastText}}/>
+                normal: {
+                    employeeDetails: {
+                        route: "/employee/details",
+                        text: "Employee Details",
+                        icon: <GroupIcon style={{color: myTheme.palette.primary.contrastText}}/>
+                    }
                 },
-                customEmployeeAttributes: {
-                    route: "/employee/edit-custom-employee-attributes",
-                    text: "Edit Custom Employee Attributes",
-                    icon: <LibraryAddCheckIcon style={{color: myTheme.palette.primary.contrastText}}/>
+                "HR": {
+                    addEmployee: {
+                        route: "/employee/add-employee",
+                        text: "Add Employee",
+                        icon: <GroupAddIcon style={{color: myTheme.palette.primary.contrastText}}/>
+                    },
                 },
-                employeeDetails: {
-                    route: "/employee/details",
-                    text: "Employee Details",
-                    icon: <GroupIcon style={{color: myTheme.palette.primary.contrastText}}/>
-                }
             },
             supervisor: {
                 showLeaves: {
@@ -92,16 +91,20 @@ const SideNavbar = () => {
     }
 
     const employeeAccountTypes = {
-        "Managerial Employee": routes.employee.managerial,
+        "Managerial Employee": routes.employee.managerial.normal,
         "Supervisor": routes.employee.supervisor,
         "Employee": routes.employee.normal
     }
     const adminAccountTypes = {"Super Admin": routes.admin.super, "Admin": routes.admin.normal}
-    const user = useSelector(selectUser)
+    const user = useSelector(selectors.user.user)
+    const departmentWiseAdditional = {
+        "HR": routes.employee.managerial.HR
+    }
     const accountType = user.accountType
-    let route;
-    let routeMap;
-    let supervisorRoutes = [];
+    let route
+    let routeMap
+    let supervisorRoutes = {}
+    let departmentWiseAdditionalRoutes = {}
     let routeList;
     if (Object.keys(adminAccountTypes).includes(accountType)) {
         routeMap = adminAccountTypes
@@ -113,7 +116,10 @@ const SideNavbar = () => {
     if (user.supervisor) {
         supervisorRoutes = employeeAccountTypes["Supervisor"]
     }
-    routeList = {...route, ...routeMap[accountType], ...supervisorRoutes}
+    if (user.departmentName === "HR") {
+        departmentWiseAdditionalRoutes = departmentWiseAdditional["HR"]
+    }
+    routeList = {...route, ...routeMap[accountType], ...supervisorRoutes, ...departmentWiseAdditionalRoutes}
 
     return (
         <div>

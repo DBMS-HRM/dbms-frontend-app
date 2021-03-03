@@ -5,15 +5,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
 import {useSelector} from "react-redux";
-import {selectUser} from "../store/user";
+import {selectors} from "../store";
 import Avatar from "react-avatar";
 import {useHistory} from "react-router";
-
-const employeeAccountTypes = ["Managerial Employee", "Supervisor", "Employee"]
-const adminAccountTypes = ["Super Admin", "Admin"]
+import Button from "@material-ui/core/Button";
+import {adminAccountTypes} from "../helpers/variables";
+import theme from "../theme/Theme";
 
 const UpperNavbar = () => {
     const history = useHistory();
+    const dispatch = useDispatch()
+    const user = useSelector(selectUser)
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
@@ -40,7 +42,19 @@ const UpperNavbar = () => {
         }
     }));
 
-    const user = useSelector(selectUser)
+    const user = useSelector(selectors.user.user)
+    function signOut() {
+        dispatch(userActions.setToken(''))
+        dispatch(userActions.setUserData(''))
+        window.localStorage.removeItem('accessToken')
+        window.localStorage.removeItem('userData')
+        if(adminAccountTypes.includes(user.accountType)) {
+            history.push('/admin/sign-in')
+        }
+        else {
+            history.push('/employee/sign-in')
+        }
+    }
     let routerRoot;
     if(adminAccountTypes.includes(user.accountType)) {
         routerRoot = "/admin"
@@ -65,6 +79,11 @@ const UpperNavbar = () => {
                 <IconButton color="inherit" onClick={() => history.push(`${routerRoot}/profile`)}>
                     <Avatar name={user ? user.username : ""} size={40} round={true} />
                 </IconButton>
+                <Button style={{backgroundColor: 'white'}} onClick={signOut}>
+                    <Typography style={{textTransform: 'none', color: theme.palette.primary.main}}>
+                        Log out
+                    </Typography>
+                </Button>
             </Toolbar>
         </AppBar>
     )

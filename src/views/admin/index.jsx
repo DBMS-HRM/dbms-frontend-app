@@ -19,8 +19,8 @@ export default function Admin() {
                   <Layout>
                       <Route path={`${path}/add-employee`} component={AddEmployee} />
                       <Route path={`${path}/add-admin`} component={AddAdmin} />
-                      <Route path={`${path}/custom-fields`} component={CustomFields} />
                       <Route exact path={path} component={Dashboard} />
+                      <Route path={`${path}/custom-fields`} component={CustomFields} />
                   </Layout>
                   :
                   <Redirect to={`${path}/sign-in`} />

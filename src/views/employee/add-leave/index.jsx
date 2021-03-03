@@ -19,6 +19,7 @@ import {useState} from "react";
 import {func} from "prop-types";
 import api from "../../../api";
 import {toast} from "react-toastify";
+import {getToday} from "../../../helpers/functions";
 
 const leaveType = [
     {
@@ -96,7 +97,7 @@ const AddLeave = (props) => {
     const classes = useStyles();
     const [ltype, setLeaveType] = useState('no-pay');
     const [check, setCheck] = useState(false)
-    const [formData, setFormData] = useState({leaveType: '', leaveDate: today})
+    const [formData, setFormData] = useState({leaveType: '', fromDate: '', toDate: ''})
 
   const handleChange = (event) => {
     setLeaveType(event.target.value);
@@ -174,7 +175,7 @@ const AddLeave = (props) => {
 
         <Box mt={5} mx={-20}>
             <Typography className={classes.header} style={{fontSize:'120%'}}>
-            Date of Absense
+            Dates of Absence
             </Typography>
         </Box>
 
@@ -182,12 +183,23 @@ const AddLeave = (props) => {
         
         <Grid container spacing={2} >
             <Grid item xs={12} sm={6}>
+                <Typography>From Date</Typography>
                 <TextField
                     required           
                     type="date"
                     className={classes.app}
-                    value={formData.leaveDate}
-                    onChange={e=>setFormData({...formData, leaveDate: e.target.value})}
+                    value={formData.fromDate}
+                    onChange={e=>setFormData({...formData, fromDate: e.target.value})}
+                />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                <Typography>To Date</Typography>
+                <TextField
+                    required
+                    type="date"
+                    className={classes.app}
+                    value={formData.toDate}
+                    onChange={e=>setFormData({...formData, toDate: e.target.value})}
                 />
             </Grid>
         </Grid>
@@ -217,46 +229,47 @@ const AddLeave = (props) => {
         <Box mx={-20} mt={3}>
             <TextField
                 required         
-                type="date"                
+                type="date"
+                value={getToday()}
                 className={classes.app}
             />
         </Box>
 
-        <Box mx={-20} mt={3}>            
-            <InputBase
-                value="  SECTION II - TO BE COMPLETED BY THE COMPANY"
-                readOnly            
-                type="Text"                                                                             
-                fullWidth                    
-                className={classes.textField}
-            />
-        </Box>
+        {/*<Box mx={-20} mt={3}>            */}
+        {/*    <InputBase*/}
+        {/*        value="  SECTION II - TO BE COMPLETED BY THE COMPANY"*/}
+        {/*        readOnly            */}
+        {/*        type="Text"                                                                             */}
+        {/*        fullWidth                    */}
+        {/*        className={classes.textField}*/}
+        {/*    />*/}
+        {/*</Box>*/}
 
-        <Box mt={3} mx={-10} >
-            <FormControlLabel
-                control={<Checkbox value="approved" color="primary" />}
-                label="Approved"
-                disabled
-                className={classes.header}
-            />
-        </Box>
+        {/*<Box mt={3} mx={-10} >*/}
+        {/*    <FormControlLabel*/}
+        {/*        control={<Checkbox value="approved" color="primary" />}*/}
+        {/*        label="Approved"*/}
+        {/*        disabled*/}
+        {/*        className={classes.header}*/}
+        {/*    />*/}
+        {/*</Box>*/}
 
-        <Box  mx={-10} >
-            <FormControlLabel
-                control={<Checkbox value="rejected" color="primary" />}
-                label="Rejected"
-                disabled
-                className={classes.header}
-             />
-        </Box>
+        {/*<Box  mx={-10} >*/}
+        {/*    <FormControlLabel*/}
+        {/*        control={<Checkbox value="rejected" color="primary" />}*/}
+        {/*        label="Rejected"*/}
+        {/*        disabled*/}
+        {/*        className={classes.header}*/}
+        {/*     />*/}
+        {/*</Box>*/}
 
-        <Box mx={-20} mt={3}>
-            <TextField
-                disabled        
-                type="date"                
-                className={classes.app}
-            />
-        </Box>
+        {/*<Box mx={-20} mt={3}>*/}
+        {/*    <TextField*/}
+        {/*        disabled        */}
+        {/*        type="date"                */}
+        {/*        className={classes.app}*/}
+        {/*    />*/}
+        {/*</Box>*/}
 
         <Box mt={6}>
             <Button disabled={!check} type="submit" fullWidth variant="contained"  className={classes.root} onClick={() => submitForm(formData)}>

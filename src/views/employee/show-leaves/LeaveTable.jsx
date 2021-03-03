@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import MUIDataTable from 'mui-datatables'
-import Avatar from "react-avatar";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
-import {Box} from "@material-ui/core";
-import {useDispatch} from "react-redux";
-import {userTActions} from "../../../store/user";
 import {toast} from "react-toastify";
 import api from "../../../api";
+import {getDate} from '../../../helpers/functions'
 
 const theme = createMuiTheme({
     overrides: {
@@ -44,31 +41,47 @@ const LeaveTable = (props) => {
 
     let loading = false
     let [rows, setData] = useState([])
+    let res, fetchedData
 
     useEffect(() => {
         async function getEmployees() {
             loading = true
-            const [res,fetchedData] = await api.leave.get.leaves(props.leaveType)
-            loading = false
-            if(res.status !== 200) {
-                toast.error(res.message)
-                return
+            if(props.view==='my') {
+                [res,fetchedData] = await api.leave.get.myLeaves({leaveType: props.leaveType})
             }
+            else {
+                [res,fetchedData] = await api.leave.get.supervisorLeaves({leaveStatus: props.leaveStatus})
+            }
+            loading = false
             let dataRows = []
-            fetchedData.data.map(item => {
-                let dataRow = []
-                dataRow.push(`${item.firstName} ${item.lastName}`)
-                dataRow.push(item.jobTitle)
-                dataRow.push(item.payGrade)
-                dataRow.push(item.employmentStatus)
-                dataRow.push(item.requestedDate)
-                if(props.leaveType!=="Pending") {
-                    dataRow.push(item.reveiwedDate)
-                } else {
-                    dataRow.push(`/${item.leaveId}/${item.employeeId}`)
+
+            if(res && fetchedData) {
+                if(res.status !== 200) {
+                    toast.error(res.message)
+                    return
                 }
-                dataRows.push(dataRow)
-            })
+                fetchedData.data.map(item => {
+                    let dataRow = []
+                    if(props.view!=='my') {
+                        dataRow.push(`${item.firstName} ${item.lastName}`)
+                        dataRow.push(item.jobTitle)
+                        dataRow.push(item.payGrade)
+                        dataRow.push(item.employmentStatus)
+                    }
+                    else {
+                        dataRow.push(getDate(item.fromDate))
+                        dataRow.push(getDate(item.toDate))
+                        dataRow.push(item.leaveStatus)
+                    }
+                    if(props.leaveStatus!=="Pending") {
+                        dataRow.push((getDate(item.reviewedDate)))
+                    } else {
+                        dataRow.push(`/${item.leaveId}/${item.employeeId}`)
+                    }
+                    dataRows.push(dataRow)
+                })
+            }
+
             setData([...dataRows])
         }
         getEmployees()
@@ -78,7 +91,6 @@ const LeaveTable = (props) => {
     return (
         <MuiThemeProvider theme={theme}>
             <MUIDataTable
-                key={props.leaveType}
                 title={"Employee Details"}
                 data={rows}
                 columns={props.advancedColumns}

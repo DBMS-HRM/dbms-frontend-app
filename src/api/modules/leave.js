@@ -3,9 +3,14 @@ import {extractBodyResolve} from "../client";
 
 export default {
     get: {
-        async leaves(query) {
+        async supervisorLeaves(params) {
             return extractBodyResolve(
-                axios.get(`/api/leave/get-all?leaveStatus=${query}`)
+                axios.get(`/api/leave/get-supervisor-all`, {params: params})
+            )
+        },
+        async myLeaves(params) {
+            return extractBodyResolve(
+                axios.get(`/api/leave/get-my-all`,{params: params})
             )
         },
         async leave(query) {
@@ -22,6 +27,11 @@ export default {
             return extractBodyResolve(
                 axios.get(`/api/leave/get-remaining-leaves/${employeeId}`)
             )
+        },
+        async leaveConfigs() {
+            return extractBodyResolve(
+                axios.get(`/api/leave/config-leaves`)
+            )
         }
     },
     add: {
@@ -37,5 +47,10 @@ export default {
                 axios.put(`/api/leave/change-leave-status/${query}`, formData)
             )
         },
+        async leaveConfigs() {
+            return extractBodyResolve(
+                axios.put(`/api/leave/config-leaves`)
+            )
+        }
     }
 }
