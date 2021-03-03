@@ -17,7 +17,6 @@ const drop = {
 
 const Dropdown = (props) => {
   const classes = useStyles
-    // const [state, setState] = useState('');
 
   return (
     <FormControl variant="filled" className={classes.formControl}>
@@ -30,9 +29,7 @@ const Dropdown = (props) => {
         value={props.item}
         onChange={e => props.setItem(e.target.value)}
       >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
+        <MenuItem value=""></MenuItem>
         {drop.dropdown.map((item) => (
           <MenuItem key={item.value} value={item.value}>
             {item.label}
