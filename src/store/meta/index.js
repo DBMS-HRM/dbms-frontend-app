@@ -90,7 +90,7 @@ export const metaTActions = {
  */
 
 const leaveConfig = (state) => {
-    const rawData = state.payGrades
+    const rawData = state.meta.payGrades
     const res = {}
 
     rawData.forEach(piece => {
@@ -106,7 +106,7 @@ const leaveConfig = (state) => {
 }
 
 const customColumns = (state) => {
-    const rawData = state.customColumns
+    const rawData = state.meta.customColumns
     const res = {}
 
     rawData.forEach(piece => {

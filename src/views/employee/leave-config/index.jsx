@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
    
      
 }));
+
 const LeaveConfig = (props) => {
     const classes = useStyles();
     const payGradeSelectWrapper = React.createRef()
@@ -80,48 +81,45 @@ const LeaveConfig = (props) => {
     const [annual, setAnnual] = useState();
     const [maternity, setMaternity] = useState();
     const [noPay, setNoPay] = useState();
+    const [btnStatus, setBtnStatus] = useState(false);
+    const [readOnly, setReadOnly] = useState(true);
 
     const dispatch = useDispatch();
     const leaveConfig = useSelector(selectors.meta.leaveConfig);
 
-    useEffect(() => {
-        async function getData() {
-            loading = true;
-            console.log(leaveConfig);
-            const [res, fetchedData] = await api.leave.get.leaveConfigs();
-            // Check status
-            if(res.status !== 200) {
-                toast.error(res.message)
-            }
-            setMaternity(leaveConfig[payGrades.level1[leaveTypes.maternity]])
-            setAnnual(leaveConfig[payGrades.level1[leaveTypes.maternity]])
-            setCasual(leaveConfig[payGrades.level1[leaveTypes.maternity]])
-            setNoPay(leaveConfig[payGrades.level1[leaveTypes.maternity]])
+    const $setLeaves = (pay_grade) => {
+        setMaternity(leaveConfig[payGrades[pay_grade][leaveTypes.maternity]])
+        setAnnual(leaveConfig[payGrades[pay_grade][leaveTypes.annual]])
+        setCasual(leaveConfig[payGrades[pay_grade][leaveTypes.casual]])
+        setNoPay(leaveConfig[payGrades[pay_grade][leaveTypes.noPay]])
+    }
 
-            // if(fetchedData) {
-            //     const customData = fetchedData.data
-            //     customData.forEach((value, index)=> {
-            //         if(value.payGrade === payGrades.level1){
-            //             setPayGrade(payGrades.level1);
-            //             setAnnual(value[leaveTypes.annual]);
-            //             setCasual(value[leaveTypes.casual]);
-            //             setMaternity(value[leaveTypes.maternity]);
-            //             setNoPay(value[leaveTypes.noPay]);
-            //         }
-            //     });
-            //     loading = false
-            //     if(res.status !== 200) {
-            //         toast.error(res.message)
-            //     }
-            // }
-        }
-        getData();
+    useEffect(() => {
+        $setLeaves(payGrades.level1);
     }, [])
 
     function changePayGrade(event) {
         const payGrade = event.target.value;
-
+        switch (payGrade){
+            case payGrades.level1:
+                $setLeaves(payGrades.level1);
+                break;
+            case payGrades.level2:
+                $setLeaves(payGrades.level2);
+                break;
+            case payGrades.level3:
+                $setLeaves(payGrades.level3);
+                break;
+            case payGrades.level4:
+                $setLeaves(payGrades.level4);
+                break;
+            default:
+                setPayGrade(payGrade.level1);
+                $setLeaves(payGrades.level1);
+        }
     }
+
+
 
     return (
         <Container className={classes.container}>
@@ -144,7 +142,7 @@ const LeaveConfig = (props) => {
                             id="payGrade"
                             name="payGrade"
                             label="Pay Grade"
-                            // value={paygrade}
+                            value={payGrade}
                             onChange={(event) => changePayGrade(event)}
                             fullWidth = {true}
                             >
@@ -166,9 +164,9 @@ const LeaveConfig = (props) => {
                             label="Annual"
                                    value={annual}
                             defaultValue="50"
+                            onChange={(event) => {}}
                             InputProps={{
-                                readOnly:true,
-                                shrink : true
+                                readOnly:readOnly
                             }}
                     />
                     </Grid>
@@ -182,7 +180,7 @@ const LeaveConfig = (props) => {
                             value={casual}
                             defaultValue="50"
                             InputProps={{
-                                readOnly:true
+                                readOnly:readOnly
                                 
                         }}
                     />
@@ -197,7 +195,7 @@ const LeaveConfig = (props) => {
                             value={maternity}
                             defaultValue="50"
                             InputProps={{
-                                readOnly:true
+                                readOnly:readOnly
                                 
                             }}
                         />
@@ -211,7 +209,7 @@ const LeaveConfig = (props) => {
                             defaultValue="50"
                             value={noPay}
                             InputProps={{
-                                readOnly:true
+                                readOnly:readOnly
                                 
                             }}
                         />
