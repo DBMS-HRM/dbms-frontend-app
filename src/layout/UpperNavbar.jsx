@@ -68,25 +68,31 @@ const UpperNavbar = () => {
     return (
         <AppBar position="static" elevation={0} className={classes.appBar}>
             <Toolbar>
-                <Button style={{textTransform: 'none'}} onClick={() => history.push(routerRoot)}>
-                    <Box className={classes.brandIcon}>
-                        <img src={jupiter} alt="jupiter-img"/>
+                <Box display='flex' justifyContent='space-between' width="100%">
+                    <Box display='flex' alignContent='center'>
+                        <Button style={{textTransform: 'none'}} onClick={() => history.push(routerRoot)}>
+                            <Box className={classes.brandIcon}>
+                                <img src={jupiter} alt="jupiter-img"/>
+                            </Box>
+                            <Typography variant="h6" className={classes.title} style={{color: 'white'}}>
+                                Jupiter HRMS
+                            </Typography>
+                        </Button>
                     </Box>
-                    <Typography variant="h6" className={classes.title} style={{color: 'white'}}>
-                        Jupiter HRMS
-                    </Typography>
-                </Button>
-                <IconButton color="inherit">
-                    <AddAlertIcon/>
-                </IconButton>
-                <IconButton color="inherit" onClick={() => history.push(`${routerRoot}/profile`)}>
-                    <Avatar name={user ? user.username : ""} size={40} round={true} />
-                </IconButton>
-                <Button style={{backgroundColor: 'white'}} onClick={signOut}>
-                    <Typography style={{textTransform: 'none', color: theme.palette.primary.main}}>
-                        Log out
-                    </Typography>
-                </Button>
+                    <Box>
+                        <IconButton color="inherit">
+                            <AddAlertIcon/>
+                        </IconButton>
+                        <IconButton color="inherit" onClick={() => history.push(`${routerRoot}/profile`)}>
+                            <Avatar name={user ? user.username : ""} size={40} round={true} />
+                        </IconButton>
+                        <Button style={{backgroundColor: 'white'}} onClick={signOut}>
+                            <Typography style={{textTransform: 'none', color: theme.palette.primary.main}}>
+                                Log out
+                            </Typography>
+                        </Button>
+                    </Box>
+                </Box>
             </Toolbar>
         </AppBar>
     )
