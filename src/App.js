@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {userActions} from "./store/user";
 import {toast, ToastContainer} from "react-toastify";
 import {setAuthToken} from "./api/client";
+import {actions, tActions} from "./store";
 
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
@@ -13,8 +14,9 @@ function App() {
     const token = JSON.parse(window.localStorage.getItem("accessToken"))
     const userData = JSON.parse(window.localStorage.getItem("userData"))
     if(token) setAuthToken(token.access)
-    dispatch(userActions.setToken(token))
-    dispatch(userActions.setUserData(userData))
+    dispatch(actions.user.setToken(token))
+    dispatch(actions.user.setUserData(userData))
+    dispatch(tActions.meta.fetchMetaData())
     return (
         <div>
             <ToastContainer />
