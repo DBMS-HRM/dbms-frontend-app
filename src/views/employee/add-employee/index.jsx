@@ -96,14 +96,15 @@ export default function AddEmployee() {
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [accountType, setAccountType] = useState('')
+    const [extraData, setExtraData] = useState('')
 
-    const formData = {
+    let formData = {
         firstName: firstName,
         lastName: lastName,
         dateOfBirth: dateOfBirth,
         maritalStatus: maritalStatus,
         country: country,
-        phoneNumber: customPhoneNumbers,
+        phoneNumbers: customPhoneNumbers,
         district: district,
         city: city,
         street_1: street1,
@@ -115,14 +116,15 @@ export default function AddEmployee() {
         departmentName: departmentName,
         username: username,
         password: password,
-        email: email,
+        emailAddress: email,
         accountType: accountType,
-        supervisorId: supervisor
+        supervisorId: supervisor,
     }
 
     async function submitForm() {
         loading = true
         let res;
+        formData = {...formData, ...extraData}
         if(jobTitle==="Managerial Employee") {
             res = dispatch(userTActions.addManagerialEmployee(formData))
         }
@@ -170,7 +172,7 @@ export default function AddEmployee() {
                                             type="add"
                 />;
             case 3:
-                return <ExtraForm />;
+                return <ExtraForm extraData={extraData} setExtraData={setExtraData} />;
             default:
                 throw new Error('Unknown step');
         }
