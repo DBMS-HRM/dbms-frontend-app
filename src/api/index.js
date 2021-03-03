@@ -6,7 +6,7 @@ import report from "./modules/report";
 const api = {
     user: user,
     leave: leave,
-    meta: meta
+    meta: meta,
     report: report
 }
 

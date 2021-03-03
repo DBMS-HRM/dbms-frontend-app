@@ -4,18 +4,19 @@ import {makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectors} from "../store";
 import Avatar from "react-avatar";
 import {useHistory} from "react-router";
 import Button from "@material-ui/core/Button";
 import {adminAccountTypes} from "../helpers/variables";
 import theme from "../theme/Theme";
+import {userActions} from "../store/user";
 
 const UpperNavbar = () => {
     const history = useHistory();
     const dispatch = useDispatch()
-    const user = useSelector(selectUser)
+    // const user = useSelector(selectUser)
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,

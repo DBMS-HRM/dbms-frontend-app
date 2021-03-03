@@ -12,7 +12,7 @@ import custom, {customActions, customTActions} from "./custom"
 
 export const actions = {
     user: userActions,
-    meta: metaActions
+    meta: metaActions,
     custom: customActions
 }
 
@@ -22,7 +22,7 @@ export const actions = {
 
 export const tActions = {
     user: userTActions,
-    meta: metaTActions
+    meta: metaTActions,
     custom:customTActions
 }
 
@@ -37,7 +37,7 @@ export const  selectors = {
 export default configureStore({
     reducer: {
         user,
-        meta
+        meta,
         custom
     }
 })
