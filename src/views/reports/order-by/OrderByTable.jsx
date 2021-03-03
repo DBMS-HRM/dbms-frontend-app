@@ -80,6 +80,7 @@ const OrderByTable = (props) => {
       {headings.map((value, index) => (
         <Box style={{marginTop: "1rem"}}>
           <MUIDataTable
+              key = {index}
             title={headings[index]}
             data={rows[index]}
             columns={column}

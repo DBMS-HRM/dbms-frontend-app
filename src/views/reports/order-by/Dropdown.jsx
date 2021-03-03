@@ -62,8 +62,8 @@ const Dropdown = (props) => {
                 onChange={(e) => setSelect(e.target.value)}
             >
                 <MenuItem value=""></MenuItem>
-                {drop.dropdown.map((item) => (
-                    <MenuItem key={item.value} value={item.value}>
+                {drop.dropdown.map((item, index) => (
+                    <MenuItem key={index} value={item.value}>
                         {item.label}
                     </MenuItem>
                 ))}
