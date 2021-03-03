@@ -5,9 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import {Container, Box, TextField, Grid, MenuItem, Button} from "@material-ui/core";
 import api from "../../../api";
 import {toast} from "react-toastify";
-import {userTActions} from "../../../store/user";
-import {useDispatch, useStore} from "react-redux";
-import {leaveActions, leaveSlice} from "../../../store/leave";
+import {useDispatch, useSelector, useStore} from "react-redux";
+import {actions,tActions, selectors} from "../../../store";
 
 
 const payGradeList = [
@@ -46,7 +45,6 @@ const leaveTypes = {
 let loading = false
 
 const useStyles = makeStyles((theme) => ({
-
     layout: {
         width: 'auto',
         marginLeft: theme.spacing(2),
@@ -84,38 +82,44 @@ const LeaveConfig = (props) => {
     const [noPay, setNoPay] = useState();
 
     const dispatch = useDispatch();
+    const leaveConfig = useSelector(selectors.meta.leaveConfig);
 
     useEffect(() => {
         async function getData() {
-            loading = true
+            loading = true;
+            console.log(leaveConfig);
             const [res, fetchedData] = await api.leave.get.leaveConfigs();
             // Check status
             if(res.status !== 200) {
                 toast.error(res.message)
             }
+            setMaternity(leaveConfig[payGrades.level1[leaveTypes.maternity]])
+            setAnnual(leaveConfig[payGrades.level1[leaveTypes.maternity]])
+            setCasual(leaveConfig[payGrades.level1[leaveTypes.maternity]])
+            setNoPay(leaveConfig[payGrades.level1[leaveTypes.maternity]])
 
-            if(fetchedData) {
-                const customData = fetchedData.data
-                customData.forEach((value, index)=> {
-                    if(value.payGrade === payGrades.level1){
-                        setPayGrade(payGrades.level1);
-                        setAnnual(value[leaveTypes.annual]);
-                        setCasual(value[leaveTypes.casual]);
-                        setMaternity(value[leaveTypes.maternity]);
-                        setNoPay(value[leaveTypes.noPay]);
-                    }
-                });
-                dispatch(leaveActions.setLeaveConfigs(fetchedData));
-                loading = false
-                if(res.status !== 200) {
-                    toast.error(res.message)
-                }
-            }
+            // if(fetchedData) {
+            //     const customData = fetchedData.data
+            //     customData.forEach((value, index)=> {
+            //         if(value.payGrade === payGrades.level1){
+            //             setPayGrade(payGrades.level1);
+            //             setAnnual(value[leaveTypes.annual]);
+            //             setCasual(value[leaveTypes.casual]);
+            //             setMaternity(value[leaveTypes.maternity]);
+            //             setNoPay(value[leaveTypes.noPay]);
+            //         }
+            //     });
+            //     loading = false
+            //     if(res.status !== 200) {
+            //         toast.error(res.message)
+            //     }
+            // }
         }
         getData();
     }, [])
 
-    function changePayGrade() {
+    function changePayGrade(event) {
+        const payGrade = event.target.value;
 
     }
 
@@ -141,7 +145,7 @@ const LeaveConfig = (props) => {
                             name="payGrade"
                             label="Pay Grade"
                             // value={paygrade}
-                            // onChange={e=>props.setPayGrade(e.target.value)}
+                            onChange={(event) => changePayGrade(event)}
                             fullWidth = {true}
                             >
                             {payGradeList.map((option) => (
