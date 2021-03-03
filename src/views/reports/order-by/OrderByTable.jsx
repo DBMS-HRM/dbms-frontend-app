@@ -44,6 +44,9 @@ const OrderByTable = (props) => {
 
   useEffect(() => {
     async function getEmployees() {
+      if(props.groupBy === ""){
+        return;
+      }
       const [res, fetchedData] = await api.report.get.employeeGroupBy({
         heading: props.groupBy,
       });

@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 export default function OrderByReport() {
   const classes = useStyles();
 
-  let [item, setItem] = useState("departmentName");
+  let [item, setItem] = useState("");
 
   return (
     <Container className={classes.container}>
