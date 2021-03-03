@@ -47,9 +47,10 @@ export default {
                 axios.put(`/api/leave/change-leave-status/${query}`, formData)
             )
         },
-        async leaveConfigs() {
+        async leaveConfigs(data) {
             return extractBodyResolve(
-                axios.put(`/api/leave/config-leaves`)
+                axios.put(`/api/leave/config-leaves`,
+                    data)
             )
         }
     }
