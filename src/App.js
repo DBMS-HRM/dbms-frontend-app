@@ -15,10 +15,12 @@ function App() {
     useEffect(() => {
         const token = JSON.parse(window.localStorage.getItem("accessToken"))
         const userData = JSON.parse(window.localStorage.getItem("userData"))
-        const customAttributes = JSON.parse(window.localStorage.getItem("customAttributes"))
-        if(token) setAuthToken(token.access)
-        dispatch(actions.user.setToken(token))
-        dispatch(actions.user.setUserData(userData))
+        // const customAttributes = JSON.parse(window.localStorage.getItem("customAttributes"))
+        if (token) {
+            setAuthToken(token.access)
+            dispatch(actions.user.setToken(token))
+        }
+        if (userData) dispatch(actions.user.setUserData(userData))
         dispatch(tActions.meta.fetchMetaData())
     }, [])
     return (

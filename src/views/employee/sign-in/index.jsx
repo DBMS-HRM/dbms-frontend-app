@@ -20,6 +20,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router";
 import ButtonLoading from "../../../components/ButtonLoading";
 import {toast} from "react-toastify";
+import {useRouteGuard} from "../../../router/guard";
 
 
 const useStyles = makeStyles((theme) =>({
@@ -79,6 +80,8 @@ const SignIn = (props) => {
       toast.error(response.message)
     }
   }
+
+  useRouteGuard((at) => at === 'Managerial Employee', {whenTrue: '/employee'})
 
   return (
     <Box className={classes.box}>
