@@ -22,6 +22,11 @@ export default {
             return extractBodyResolve(
                 axios.get(`/api/leave/get-remaining-leaves/${employeeId}`)
             )
+        },
+        async leaveConfigs() {
+            return extractBodyResolve(
+                axios.get(`/api/leave/config-leaves`)
+            )
         }
     },
     add: {
@@ -37,5 +42,10 @@ export default {
                 axios.put(`/api/leave/change-leave-status/${query}`, formData)
             )
         },
+        async leaveConfigs() {
+            return extractBodyResolve(
+                axios.put(`/api/leave/config-leaves`)
+            )
+        }
     }
 }
