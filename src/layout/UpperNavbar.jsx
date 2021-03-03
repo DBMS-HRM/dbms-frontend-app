@@ -70,7 +70,7 @@ const UpperNavbar = () => {
             <Toolbar>
                 <Box display='flex' justifyContent='space-between' width="100%">
                     <Box display='flex' alignContent='center'>
-                        <Button style={{textTransform: 'none'}} onClick={() => history.push(routerRoot)}>
+                        <Button style={{textTransform: 'none'}} onClick={() => history.push('/')}>
                             <Box className={classes.brandIcon}>
                                 <img src={jupiter} alt="jupiter-img"/>
                             </Box>
