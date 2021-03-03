@@ -15,6 +15,7 @@ const CustomInputField = (props) => {
             helperText= {props.helperText}
             value={props.value}
             onChange={e => props.handleChange(e.target.value)}
+            disabled={props.disabled || false}
         />
     );
 }

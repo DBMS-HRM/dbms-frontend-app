@@ -36,6 +36,7 @@ export function employeeLogin(username, password) {
         setAuthToken(data.token.access)
         dispatch(userActions.setToken(data.token))
         dispatch(userActions.setUserData(data.data))
+        dispatch(customTActions.getCustomAttributes())
 
         return res;
     };

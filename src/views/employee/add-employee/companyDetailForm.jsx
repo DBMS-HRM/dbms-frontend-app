@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import api from "../../../api";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import {useSelector} from "react-redux";
 
 
 const payGrade = [
@@ -102,6 +103,7 @@ const useStyles = makeStyles({
 
 export default function PersonalDetailForm(props) {
     const classes = useStyles();
+    const user = useSelector(state => state.user.user)
     const [ptype, setPayGradeType] = React.useState('level1');
     const handleChange_payGrade = (event) => {
         setPayGradeType(event.target.value);
@@ -176,8 +178,9 @@ export default function PersonalDetailForm(props) {
                         name="branchName"
                         label="Branch name"
                         fullWidth={true}
-                        value={props.branchName}
+                        value={user.branchName}
                         handleChange={props.setBranchName}
+                        disabled
                     />
                 </Grid>
 

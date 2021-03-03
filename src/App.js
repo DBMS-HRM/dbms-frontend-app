@@ -19,6 +19,7 @@ function App() {
     dispatch(actions.user.setToken(token))
     dispatch(actions.user.setUserData(userData))
     dispatch(tActions.meta.fetchMetaData())
+    dispatch(actions.custom.setCustomAttributes(customAttributes))
     return (
         <div>
             <ToastContainer />
