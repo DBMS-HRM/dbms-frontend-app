@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link }  from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
@@ -11,12 +11,16 @@ import PersonalDetailForm from './personalDetailForm';
 import CompanyDetailForm from './companyDetailForm';
 import EmployeeAccountForm from './employeeAccountForm';
 import ExtraForm from './extraForm';
-import {Container} from "@material-ui/core";
+import {Card, Container, TextField} from "@material-ui/core";
 import user from "../../../api/modules/user";
 import ButtonLoading from "../../../components/ButtonLoading";
 import {userTActions} from "../../../store/user";
 import {toast} from "react-toastify";
 import {useDispatch} from "react-redux";
+import api from "../../../api";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import MenuItem from "@material-ui/core/MenuItem";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-            width: 600,
+            width: '100%',
             marginLeft: 'auto',
             marginRight: 'auto',
         },
@@ -76,7 +80,9 @@ export default function AddEmployee() {
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [maritalStatus, setMaritalStatus] = useState(false)
     const [country, setCountry] = useState('Sri Lanka')
-    const [phoneNumber, setPhoneNumber] = useState('')
+    const [customPhoneNumbers, setCustomPhoneNumbers] = useState([])
+    const [phoneNumbers, setPhoneNumbers] = useState({"phoneNumber1": ''})
+    const [supervisor, setSupervisor] = useState('')
     const [district, setDistrict] = useState('')
     const [city, setCity] = useState('')
     const [street1, setStreet1] = useState('')
@@ -85,7 +91,7 @@ export default function AddEmployee() {
     const [jobTitle, setJobTitle] = useState('')
     const [payGrade, setPayGrade] = useState('')
     const [employmentStatus, setEmploymentStatus] = useState('')
-    const [departmentName, setDepartmentName] = useState('HR')
+    const [departmentName, setDepartmentName] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -97,11 +103,11 @@ export default function AddEmployee() {
         dateOfBirth: dateOfBirth,
         maritalStatus: maritalStatus,
         country: country,
-        phoneNumber: phoneNumber,
+        phoneNumber: customPhoneNumbers,
         district: district,
         city: city,
-        street1: street1,
-        street2: street2,
+        street_1: street1,
+        street_2: street2,
         branchName: branchName,
         jobTitle: jobTitle,
         payGrade: payGrade,
@@ -111,6 +117,7 @@ export default function AddEmployee() {
         password: password,
         email: email,
         accountType: accountType,
+        supervisorId: supervisor
     }
 
     async function submitForm() {
@@ -142,6 +149,8 @@ export default function AddEmployee() {
                                            city={city} setCity={setCity}
                                            street1={street1} setStreet1={setStreet1}
                                            street2={street2} setStreet2={setStreet2}
+                                           phoneNumbers={phoneNumbers} setPhoneNumbers={setPhoneNumbers}
+                                           setCustomPhoneNumbers={setCustomPhoneNumbers}
                 />;
             case 1:
                 return <CompanyDetailForm branchName={branchName} setBranchName={setBranchName}
@@ -149,6 +158,8 @@ export default function AddEmployee() {
                                           payGrade={payGrade} setPayGrade={setPayGrade}
                                           employmentStatus={employmentStatus} setEmploymentStatus={setEmploymentStatus}
                                           departmentName={departmentName} setDepartmentName={setDepartmentName}
+                                          supervisor={supervisor} setSupervisor={setSupervisor}
+                                          type="add"
 
                 />;
             case 2:
@@ -156,6 +167,7 @@ export default function AddEmployee() {
                                             password={password} setPassword={setPassword}
                                             email={email} setEmail={setEmail}
                                             accountType={accountType} setAccountType={setAccountType}
+                                            type="add"
                 />;
             case 3:
                 return <ExtraForm />;
@@ -175,57 +187,61 @@ export default function AddEmployee() {
     return (
         <Container className={classes.container}>
             <main className={classes.layout} >
-                <Paper className={classes.paper}>
-                    <Typography component="h1" variant="h4" align="center">
-                        Add Employee
-                    </Typography>
-                    <Stepper activeStep={activeStep} className={classes.stepper}>
-                        {steps.map((label) => (
-                            <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
-                    <React.Fragment>
-                        {activeStep === steps.length ? (
+                <Grid container justify="center" spacing={3}>
+                    <Grid item xs={12} md={8} >
+                        <Paper className={classes.paper}>
+                            <Typography component="h1" variant="h4" align="center">
+                                Add Employee
+                            </Typography>
+                            <Stepper activeStep={activeStep} className={classes.stepper}>
+                                {steps.map((label) => (
+                                    <Step key={label}>
+                                        <StepLabel>{label}</StepLabel>
+                                    </Step>
+                                ))}
+                            </Stepper>
                             <React.Fragment>
-                                <Typography variant="h5" gutterBottom>
-                                    Employee added Successfully.
-                                </Typography>
-                                <Link to = "/employee" className = {classes.buttons}
-                                    style ={{textDecoration: 'none'}}
-                                >
-                                    <Button
-                                        color="primary"
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.button}
-                                    >Home </Button>
-                                </Link>
+                                {activeStep === steps.length ? (
+                                    <React.Fragment>
+                                        <Typography variant="h5" gutterBottom>
+                                            Employee added Successfully.
+                                        </Typography>
+                                        <Link to = "/employee" className = {classes.buttons}
+                                              style ={{textDecoration: 'none'}}
+                                        >
+                                            <Button
+                                                color="primary"
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.button}
+                                            >Home </Button>
+                                        </Link>
 
+                                    </React.Fragment>
+                                ) : (
+                                    <React.Fragment>
+                                        {getStepContent(activeStep)}
+                                        <div className={classes.buttons}>
+                                            {activeStep !== 0 && (
+                                                <Button onClick={handleBack} className={classes.button}>
+                                                    Back
+                                                </Button>
+                                            )}
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={activeStep === steps.length - 1 ? submitForm : handleNext}
+                                                className={classes.button}
+                                            >
+                                                {activeStep === steps.length - 1 ? 'Add Employee' : 'Next'}
+                                            </Button>
+                                        </div>
+                                    </React.Fragment>
+                                )}
                             </React.Fragment>
-                        ) : (
-                            <React.Fragment>
-                                {getStepContent(activeStep)}
-                                <div className={classes.buttons}>
-                                    {activeStep !== 0 && (
-                                        <Button onClick={handleBack} className={classes.button}>
-                                            Back
-                                        </Button>
-                                    )}
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={activeStep === steps.length - 1 ? submitForm : handleNext}
-                                        className={classes.button}
-                                    >
-                                        {activeStep === steps.length - 1 ? 'Add Employee' : 'Next'}
-                                    </Button>
-                                </div>
-                            </React.Fragment>
-                        )}
-                    </React.Fragment>
-                </Paper>
+                        </Paper>
+                    </Grid>
+                </Grid>
             </main>
         </Container>
     );

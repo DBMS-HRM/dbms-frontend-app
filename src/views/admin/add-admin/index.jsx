@@ -2,15 +2,17 @@ import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import {Container} from "@material-ui/core";
+import {Button, Container} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import CustomInputField from "../../../components/CustomInput";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import {useDispatch} from "react-redux";
-import {userTActions} from "../../../store/user";
+import {useDispatch, useSelector} from "react-redux";
+import {selectUser, userTActions} from "../../../store/user";
 import {toast} from "react-toastify";
 import ButtonLoading from "../../../components/ButtonLoading";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 const useStyles = makeStyles((theme) => ({
 
     layout: {
@@ -61,14 +63,45 @@ const branches = [
     }
     ]
 
+const validationSchema = yup.object({
+    username: yup
+        .string('Enter an username')
+        .min(5, 'Too short!')
+        .max(20, 'Too long!')
+        .required('Username is required!'),
+    password: yup
+        .string('Enter a password')
+        .min(6, 'Too short!')
+        .max(12, 'Too long!')
+        .required('Password is required!'),
+    emailAddress: yup
+        .string()
+        .email('Invalid email')
+        .required('Required'),
+})
+
 export default function AddAdmin() {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const user = useSelector(state => state.user.user);
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [branch, setBranch] = useState('')
+
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            password: '',
+            emailAddress: '',
+            branchName: user.branchName || '',
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            console.log(values)
+        },
+    });
 
     let formData = {
         username: username,
@@ -90,6 +123,7 @@ export default function AddAdmin() {
         }
     }
 
+
     return (
         <Container className={classes.container}>
             <main className={classes.layout} >
@@ -97,70 +131,76 @@ export default function AddAdmin() {
                     <Typography component="h1" variant="h4" align="center">
                         Add Admin
                     </Typography>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={6}>
-                            <CustomInputField
-                                required = {true}
-                                error = {false}
-                                id="username"
-                                name="username"
-                                label="Username"
-                                fullWidth = {true}
-                                value={username}
-                                handleChange={setUsername}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required = {true}
-                                error = {false}
-                                type="password"
-                                id="password"
-                                name="password"
-                                label="Password"
-                                fullWidth = {true}
-                                value={password}
-                                onChange={e=>setPassword(e.target.value)}
-                            />
-                        </Grid>
+                    <form onSubmit={formik.handleSubmit}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required = {true}
+                                    id="username"
+                                    name="username"
+                                    label="Username"
+                                    fullWidth = {true}
+                                    error={formik.touched.username && Boolean(formik.errors.username)}
+                                    helperText={formik.touched.username && formik.errors.username}
+                                    value={formik.values.username}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required = {true}
+                                    error={formik.touched.password && Boolean(formik.errors.password)}
+                                    helperText={formik.touched.password && formik.errors.password}
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    label="Password"
+                                    fullWidth = {true}
+                                    value={formik.values.password}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
 
-                        <Grid item xs={12} sm={6}>
-                            <CustomInputField
-                                required = {true}
-                                error = {false}
-                                id="emailAddress"
-                                name="emailAddress"
-                                label="Email Address"
-                                fullWidth = {true}
-                                value={email}
-                                handleChange={setEmail}
-                            />
-                        </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required = {true}
+                                    error={formik.touched.emailAddress && Boolean(formik.errors.emailAddress)}
+                                    helperText={formik.touched.emailAddress && formik.errors.emailAddress}
+                                    id="emailAddress"
+                                    name="emailAddress"
+                                    label="Email Address"
+                                    fullWidth = {true}
+                                    value={formik.values.emailAddress}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
 
 
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                select
-                                required = {true}
-                                error = {false}
-                                id="branchName"
-                                name="branchName"
-                                label="Branch"
-                                fullWidth = {true}
-                                value={branch}
-                                onChange={e=>setBranch(e.target.value)}
-                            >
-                                {branches.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    select
+                                    required = {true}
+                                    id="branchName"
+                                    name="branchName"
+                                    label="Branch"
+                                    fullWidth = {true}
+                                    value={formik.values.branchName}
+                                    onChange={formik.handleChange}
+                                >
+                                    {branches.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button color="primary" variant="contained" type="submit">
+                                    Submit
+                                </Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={4}>
-                            <ButtonLoading loading={loading} onClick={submitForm} />
-                        </Grid>
-                    </Grid>
+                    </form>
                 </Paper>
             </main>
         </Container>

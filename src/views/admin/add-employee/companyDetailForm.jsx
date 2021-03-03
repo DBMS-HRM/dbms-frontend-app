@@ -10,18 +10,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const payGrade = [
     {
-        value: 'Level 1',
-        label: 'Level 1',
-    },
-    {
-        value: 'Level 2',
-        label: 'Level 2',
-    },
-    {
-        value: 'Level 3',
-        label: 'Level 3',
-    },
-    {
         value: 'Level 4',
         label: 'Level 4',
     },
@@ -62,38 +50,6 @@ const department = [
             value: 'HR Manager',
             label: 'HR Manager',
         }],
-    },
-    {
-        value: 'Financial',
-        label: 'Financial',
-        jobTitles: [{
-            value: 'Accountant',
-            label: 'Accountant',
-        }]
-    },
-    {
-        value: 'ICT',
-        label: 'ICT',
-        jobTitles: [{
-            value: 'Software Engineer',
-            label: 'Software Engineer',
-        }]
-    },
-    {
-        value: 'Security',
-        label: 'Security',
-        jobTitles: [{
-            value: 'Security Officer',
-            label: 'Security Officer',
-        }]
-    },
-    {
-        value: 'Quality Assurance',
-        label: 'Quality Assurance',
-        jobTitles: [{
-            value: 'QA Engineer',
-            label: 'QA Engineer',
-        }]
     },
 ];
 

@@ -91,11 +91,7 @@ export default function TabView(props) {
         {name: "jobTitle", label: "Job Title"},
         {name: "payGrade", label: "Pay Grade"},
         {name: "employmentStatus", label: "Employment Status"},
-        {name: "requestedDate", label: "Requested Date"},
     ]
-    if(props.view === "my") {
-        advancedColumns.splice(0,1)
-    }
 
     let advancedColumnsApproved = [...advancedColumns, {name: "approvedDate", label: "Approved Date"}]
     let advancedColumnsRejected = [...advancedColumns, {name: "rejectedDate", label: "Rejected Date"}]
@@ -114,13 +110,24 @@ export default function TabView(props) {
             }
         })
 
+    if(props.view === "my") {
+        advancedColumns = [
+            {name: "fomDate", label: "From"},
+            {name: "toDate", label: "To"},
+            {name: "leaveStatus", label: "Leave Status"},
+        ]
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 {
                     props.view === 'my' ?
                         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                            <Tab label="Pending" {...a11yProps(0)} />
+                            <Tab label="Annual" {...a11yProps(0)} />
+                            <Tab label="Casual" {...a11yProps(1)} />
+                            <Tab label="Maternity" {...a11yProps(2)} />
+                            <Tab label="No-pay" {...a11yProps(3)} />
                         </Tabs>
                         :
                         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
@@ -130,16 +137,32 @@ export default function TabView(props) {
                         </Tabs>
                 }
             </AppBar>
-            <CustomTabPanel style={{display: "block"}} value={value} index={0}>
-                <LeaveTable key={"Pending"} leaveType={"Pending"} advancedColumns={advancedColumns} />
-            </CustomTabPanel>
-            {props.view === 'my' ? null :
+            {props.view === 'my'
+                ?
                 <React.Fragment>
+                    <CustomTabPanel value={value} index={0}>
+                        <LeaveTable key={"Annual"} view={props.view} leaveType={"Annual"} advancedColumns={advancedColumns}/>
+                    </CustomTabPanel>
                     <CustomTabPanel value={value} index={1}>
-                        <LeaveTable key={"Approved"} leaveType={"Approved"} advancedColumns={advancedColumnsApproved}/>
+                        <LeaveTable key={"Casual"} view={props.view} leaveType={"Casual"} advancedColumns={advancedColumns} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2}>
-                        <LeaveTable key={"Rejected"} leaveType={"Rejected"} advancedColumns={advancedColumnsRejected} />
+                        <LeaveTable key={"Maternity"} view={props.view} leaveType={"Maternity"} advancedColumns={advancedColumns} />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={3}>
+                        <LeaveTable key={"No-pay"} view={props.view} leaveType={"No-pay"} advancedColumns={advancedColumns} />
+                    </CustomTabPanel>
+                </React.Fragment>
+                :
+                <React.Fragment>
+                    <CustomTabPanel style={{display: "block"}} value={value} index={0}>
+                        <LeaveTable key={"Pending"} view={props.view} leaveStatus={"Pending"} advancedColumns={advancedColumns} />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={1}>
+                        <LeaveTable key={"Approved"} view={props.view} leaveStatus={"Approved"} advancedColumns={advancedColumnsApproved}/>
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={2}>
+                        <LeaveTable key={"Rejected"} view={props.view} leaveStatus={"Rejected"} advancedColumns={advancedColumnsRejected} />
                     </CustomTabPanel>
                 </React.Fragment>
             }

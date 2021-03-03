@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react'
 import MUIDataTable from 'mui-datatables'
 import Avatar from "react-avatar";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
-import {Box} from "@material-ui/core";
+import {Box, IconButton} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {userTActions} from "../../../store/user";
 import {toast} from "react-toastify";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import {useHistory} from "react-router";
 
 const theme = createMuiTheme({
     overrides: {
@@ -39,30 +41,45 @@ const theme = createMuiTheme({
     }
 })
 
-const advancedColumns = [
-    {name: "name", label: "Name",
-        options: {
-            customBodyRender: (value) => {
-                return (
-                    <Box>
-                        <Avatar  name={value} round={true} size={36} />
-                        <span style={{marginLeft: "1rem", fontWeight: "500", color: "#323C47"}}>{value}</span>
-                    </Box>
-                );
-            }
-        }
-    },
-    {name: "branch", label: "Branch"},
-    {name: "department", label: "Department"},
-    {name: "jobTitle", label: "Job Title"},
-    {name: "employmentStatus", label: "Employment Status"},
-    {name: "payGrade", label: "Pay Grade"},
-]
-
 const EmployeeTableAdvance = () => {
     let loading = false
+    let history = useHistory()
     let dispatch = useDispatch()
     let [rows, setData] = useState([])
+
+    const advancedColumns = [
+        {name: "name", label: "Name",
+            options: {
+                customBodyRender: (value) => {
+                    return (
+                        <Box>
+                            <Avatar  name={value} round={true} size={36} />
+                            <span style={{marginLeft: "1rem", fontWeight: "500", color: "#323C47"}}>{value}</span>
+                        </Box>
+                    );
+                }
+            }
+        },
+        {name: "branch", label: "Branch"},
+        {name: "department", label: "Department"},
+        {name: "jobTitle", label: "Job Title"},
+        {name: "employmentStatus", label: "Employment Status"},
+        {name: "payGrade", label: "Pay Grade"},
+        {name: "actions", label: "Actions",
+            options: {
+                customBodyRender: (value) => {
+                    return (
+                        <Box>
+                            <IconButton onClick={() => history.push(`/employee/view-employee/${value}`)} >
+                                <VisibilityIcon />
+                            </IconButton>
+                        </Box>
+                    );
+                }
+            }
+        }
+    ]
+
     useEffect(() => {
         async function getEmployees() {
             loading = true
@@ -81,6 +98,7 @@ const EmployeeTableAdvance = () => {
                 dataRow.push(item.jobTitle)
                 dataRow.push(item.employmentStatus)
                 dataRow.push(item.payGrade)
+                dataRow.push(item.employeeId)
                 dataRows.push(dataRow)
             })
             setData([...dataRows])
