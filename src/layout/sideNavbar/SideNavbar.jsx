@@ -9,7 +9,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import SubjectIcon from '@material-ui/icons/Subject';
 
-import {selectUser} from "../../store/user";
+import {selectors} from "../../store";
 import {useSelector} from "react-redux";
 import MiniDrawer from "./drawer";
 import {useTheme} from "@material-ui/core/styles";
@@ -97,7 +97,7 @@ const SideNavbar = () => {
         "Employee": routes.employee.normal
     }
     const adminAccountTypes = {"Super Admin": routes.admin.super, "Admin": routes.admin.normal}
-    const user = useSelector(selectUser)
+    const user = useSelector(selectors.user.user)
     const accountType = user.accountType
     let route;
     let routeMap;

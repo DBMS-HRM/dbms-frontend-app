@@ -5,7 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
 import {useSelector} from "react-redux";
-import {selectUser} from "../store/user";
+import {selectors} from "../store";
 import Avatar from "react-avatar";
 import {useHistory} from "react-router";
 
@@ -40,7 +40,7 @@ const UpperNavbar = () => {
         }
     }));
 
-    const user = useSelector(selectUser)
+    const user = useSelector(selectors.user.user)
     let routerRoot;
     if(adminAccountTypes.includes(user.accountType)) {
         routerRoot = "/admin"
