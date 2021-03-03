@@ -68,12 +68,14 @@ const UpperNavbar = () => {
     return (
         <AppBar position="static" elevation={0} className={classes.appBar}>
             <Toolbar>
-                <Box className={classes.brandIcon}>
-                    <img src={jupiter} alt="jupiter-img"/>
-                </Box>
-                <Typography variant="h6" className={classes.title}>
-                    Jupiter HRMS
-                </Typography>
+                <Button style={{textTransform: 'none'}} onClick={() => history.push(routerRoot)}>
+                    <Box className={classes.brandIcon}>
+                        <img src={jupiter} alt="jupiter-img"/>
+                    </Box>
+                    <Typography variant="h6" className={classes.title} style={{color: 'white'}}>
+                        Jupiter HRMS
+                    </Typography>
+                </Button>
                 <IconButton color="inherit">
                     <AddAlertIcon/>
                 </IconButton>
