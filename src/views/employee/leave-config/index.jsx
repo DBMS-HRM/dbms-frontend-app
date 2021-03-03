@@ -96,7 +96,8 @@ const LeaveConfig = (props) => {
                     <Grid item xs={12} sm={6}>
                         <TextField className={classes.root}
                             variant="outlined"
-                            id="standard-read-only-input"
+                            id="annual"
+                            name="annual"
                             label="Annual"
                             defaultValue="50"
                             InputProps={{
@@ -108,7 +109,8 @@ const LeaveConfig = (props) => {
                     <Grid item xs={12} sm={6}>
                         <TextField className={classes.root}
                             variant="outlined"
-                            id="standard-read-only-input"
+                            id="casual"
+                            name="casual"
                             label="Casual"
                             defaultValue="50"
                             InputProps={{
@@ -122,6 +124,7 @@ const LeaveConfig = (props) => {
                         <TextField className={classes.root}
                             variant="outlined"
                             id="maternity"
+                            name="maternity"
                             label="Maternity"
                             defaultValue="50"
                             InputProps={{
@@ -134,6 +137,7 @@ const LeaveConfig = (props) => {
                         <TextField className={classes.root}
                             variant="outlined"
                             id="no-pay"
+                            name="no-pay"
                             label="No-pay"
                             defaultValue="50"
                             InputProps={{
