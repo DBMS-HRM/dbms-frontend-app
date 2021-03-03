@@ -96,6 +96,7 @@ const Profile = (props) => {
 
     async function submitForm() {
         loading = true
+        console.log(customPhoneNumbers)
         setData({...data, phoneNumbers: customPhoneNumbers})
         // setData({...data, dateOfBirth: getDate(data.dateOfBirth)})
         console.log(data)

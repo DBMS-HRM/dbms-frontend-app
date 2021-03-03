@@ -10,9 +10,9 @@ export default function AddInputField(props) {
 
     const [state, setState] = useState({})
 
-    useEffect(() => {
-        setState(props.value)
-    },[props.value])
+    // useEffect(() => {
+    //     setState(props.value)
+    // },[props.value])
 
     function handleChange(e) {
         setState({
