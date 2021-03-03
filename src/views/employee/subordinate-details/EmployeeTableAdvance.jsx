@@ -90,18 +90,22 @@ const EmployeeTableAdvance = () => {
                 return
             }
             let dataRows = []
-            fetchedData.data.map(item => {
-                let dataRow = []
-                dataRow.push(`${item.firstName} ${item.lastName}`)
-                dataRow.push(item.branchName)
-                dataRow.push(item.departmentName)
-                dataRow.push(item.jobTitle)
-                dataRow.push(item.employmentStatus)
-                dataRow.push(item.payGrade)
-                dataRow.push(item.employeeId)
-                dataRows.push(dataRow)
-            })
-            setData([...dataRows])
+            console.log("this is fetched data",fetchedData);
+            if(fetchedData){
+                fetchedData.map(item => {
+                    let dataRow = []
+                    dataRow.push(`${item.firstName} ${item.lastName}`)
+                    dataRow.push(item.branchName)
+                    dataRow.push(item.departmentName)
+                    dataRow.push(item.jobTitle)
+                    dataRow.push(item.employmentStatus)
+                    dataRow.push(item.payGrade)
+                    dataRow.push(item.employeeId)
+                    dataRows.push(dataRow)
+                })
+                setData([...dataRows])
+            }
+
         }
         getEmployees()
     },[])

@@ -65,7 +65,9 @@ const SearchBar = () => {
                                 <MenuItem className={classes.option} value="All">All</MenuItem>
                                 <MenuItem className={classes.option} value="HR">HR</MenuItem>
                                 <MenuItem className={classes.option} value="Security">Security</MenuItem>
-                                <MenuItem className={classes.option} value="Maintenance">Maintenance</MenuItem>
+                                <MenuItem className={classes.option} value="Financial">Financial</MenuItem>
+                                <MenuItem className={classes.option} value="Quality Assurance">Quality Assurance</MenuItem>
+                                <MenuItem className={classes.option} value="ICT">ICT</MenuItem>
                             </Select>
                         </MuiThemeProvider>
                     </Box>

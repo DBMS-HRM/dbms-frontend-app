@@ -20,7 +20,6 @@ const SubordinateDetails = () => {
     const classes = useStyles()
     return (
           <Container className={classes.container} >
-              <SearchBar />
               <Box style={{marginTop: '4rem'}}>
                   {/*<EmployeeTable />*/}
                   <EmployeeTableAdvance />

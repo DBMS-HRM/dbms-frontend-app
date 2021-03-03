@@ -91,7 +91,7 @@ const LeaveTable = (props) => {
     return (
         <MuiThemeProvider theme={theme}>
             <MUIDataTable
-                title={"Employee Details"}
+                title={"Leave Request Details"}
                 data={rows}
                 columns={props.advancedColumns}
                 options={{
