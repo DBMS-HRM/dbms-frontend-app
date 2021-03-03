@@ -171,6 +171,11 @@ const SignIn = (props) => {
                                                    className={classes.root} onClick={signIn} loading={loading}>
                                         Log In
                                     </ButtonLoading>
+                                    <Box mt={3} display="flex" justifyContent="center" width="100%">
+                                        <Box display="flex" justifyContent="center" width="100%">
+                                            <Button onClick={() => history.push("/")} style={{backgroundColor: 'white'}}>Home</Button>
+                                        </Box>
+                                    </Box>
                                 </Box>
                             </Box>
 

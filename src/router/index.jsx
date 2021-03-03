@@ -5,6 +5,7 @@ import Admin from "../views/admin";
 import Report from "../views/reports";
 import {useSelector} from "react-redux";
 import {selectUser} from "../store/user";
+import HomePage from "../views/homepage";
 
 export default function AppRouter() {
 
@@ -12,7 +13,7 @@ export default function AppRouter() {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/">
-                    <Redirect to="/employee/sign-in"/>
+                    <HomePage />
                 </Route>
                 <Route path="/admin">
                     <Admin />
