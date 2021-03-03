@@ -166,31 +166,11 @@ const SignIn = (props) => {
 
                                     />
                                 </Box>
-
-                                <FormControlLabel
-                                    control={<Checkbox value="remember"/>}
-                                    label="Remember me"
-                                    className={classes.checkBox}
-                                />
-                                <ButtonLoading variant="contained" sx={{mt: 3, mb: 2}}
-                                        className={classes.root} onClick={signIn} loading={loading}>
-                                    Log In
-                                </ButtonLoading>
                                 <Box mt={3}>
-                                    <Grid container>
-                                        <Grid item xs>
-
-                                            <Link href="#" variant="body2" className={classes.checkBox}>
-                                                Forgot password?
-                                            </Link>
-
-                                        </Grid>
-                                        <Grid item>
-                                            <Link href="#" variant="body2" className={classes.checkBox} mt={130}>
-                                                {"Don't have an account? Sign Up"}
-                                            </Link>
-                                        </Grid>
-                                    </Grid>
+                                    <ButtonLoading variant="contained" sx={{mt: 3, mb: 2}}
+                                                   className={classes.root} onClick={signIn} loading={loading}>
+                                        Log In
+                                    </ButtonLoading>
                                 </Box>
                             </Box>
 
