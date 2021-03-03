@@ -124,7 +124,7 @@ export default function PersonalDetailForm(props) {
         setEmployeementStatusType(event.target.value);
     };
 
-    const [dtype, setDepartmentType] = React.useState('hr');
+    const [dtype, setDepartmentType] = React.useState('Financial');
     const handleChange_department = (event) => {
         setDepartmentType(event.target.value);
     };

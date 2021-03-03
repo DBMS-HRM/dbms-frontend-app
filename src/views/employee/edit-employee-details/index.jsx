@@ -20,6 +20,8 @@ import {useDispatch} from "react-redux";
 import {useParams} from "react-router";
 import {getDate} from "../../../helpers/functions";
 import Box from "@material-ui/core/Box";
+import MenuItem from "@material-ui/core/MenuItem";
+import api from "../../../api";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -98,12 +100,33 @@ export default function ViewEmployee() {
     const [email, setEmail] = useState('')
     const [accountType, setAccountType] = useState('')
 
-    let loading = false
+
+    const [supervisors, setSupervisors] = useState({})
+    const [supervisor, setSupervisor] = useState('')
+
     useEffect(() => {
         async function getData() {
-            loading = true
+            const [res,data] = await api.user.get.potentialSupervisors()
+            if(res.status === 200) {
+                let customSupervisors = {}
+                data.map(item => {
+                    customSupervisors[item.employeeId] = {
+                        firstName: item.firstName,
+                        lastName: item.lastName,
+                        jobTitle: item.jobTitle,
+                        payGrade: item.payGrade,
+                        subordinateCount: item.subordinateCount
+                    }
+                })
+                setSupervisors(customSupervisors)
+            }
+        }
+        getData()
+    },[])
+
+    useEffect(() => {
+        async function getData() {
             const [res, data] = await dispatch(userTActions.getEmployee(employeeId))
-            loading = false
             if(res.status !== 200) {
                 toast.error(res.message)
             }
@@ -159,9 +182,7 @@ export default function ViewEmployee() {
     }
 
     async function submitForm() {
-        loading = true
         let res = await dispatch(userTActions.updateEmployee(employeeId))
-        loading = false
         if(res.status === 200) {
             toast.success("Successfully updated the employee account!!!")
             return
@@ -170,11 +191,18 @@ export default function ViewEmployee() {
     }
 
     async function resetPassword() {
-        loading = true
         let res = await dispatch(userTActions.updatePassword(employeeId, {newPassword: newPassword}))
-        loading = false
         if(res.status === 200) {
             toast.success("Successfully updated the employee account!!!")
+            return
+        }
+        toast.error(res.message)
+    }
+
+    async function setSupervisorToEmployee() {
+        let res = await api.user.add.supervisor({supervisorId: supervisor, employeeId: employeeId})
+        if(res.status === 200) {
+            toast.success("Successfully assigned a supervisor to the employee!!!")
             return
         }
         toast.error(res.message)
@@ -282,6 +310,62 @@ export default function ViewEmployee() {
                                 )}
                             </React.Fragment>
                         </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={4} style={{marginTop: '3rem'}}>
+                        <Card style={{marginBottom: '3rem', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+
+                            <Box>
+                                <Box mb={4}>
+                                    <Typography variant="h6">
+                                        Set Supervisor to Employee
+                                    </Typography>
+                                </Box>
+                                <Box>
+
+                                    <TextField
+                                        select
+                                        required={true}
+                                        error={false}
+                                        name="potentialSupervisors"
+                                        label="Potential Supervisors"
+                                        fullWidth={true}
+                                        value={supervisor}
+                                        onChange={e => setSupervisor(e.target.value)}
+                                    >
+                                        {
+                                            Object.keys(supervisors).map(item => (
+                                                <MenuItem key={item} value={item}>
+                                                    {`${supervisors[item].firstName} ${supervisors[item].lastName}`}
+                                                </MenuItem>
+                                            ))
+                                        }
+                                        <div>
+
+                                        </div>
+                                    </TextField>
+                                    {
+                                        supervisors[supervisor] ?
+                                            <Box>
+                                                <Box mt={3}>
+                                                    <Typography>Job Title</Typography>
+                                                    <TextField value={supervisors[supervisor].jobTitle} disabled />
+                                                </Box>
+                                                <Box mt={3}>
+                                                    <Typography>Pay Grade</Typography>
+                                                    <TextField value={supervisors[supervisor].payGrade} disabled />
+                                                </Box>
+                                                <Box mt={3}>
+                                                    <Typography>Subordinate Count</Typography>
+                                                    <TextField value={supervisors[supervisor].subordinateCount} disabled />
+                                                </Box>
+                                            </Box> : null
+                                    }
+                                </Box>
+                                <Box style={{marginTop: '1rem', display: 'flex', justifyContent: 'flex-end'}} >
+                                    <Button variant="contained" color="primary" onClick={setSupervisorToEmployee} >Assign Supervisor</Button>
+                                </Box>
+                            </Box>
+                        </Card>
                     </Grid>
                     <Grid item xs={12} md={4} style={{marginTop: '3rem'}}>
                         <Card style={{marginBottom: '3rem', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>

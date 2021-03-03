@@ -29,6 +29,11 @@ export default {
             return extractBodyResolve(
                 axios.post("/api/user/register/admin", formData)
             )
+        },
+        async supervisor(formData) {
+            return extractBodyResolve(
+                axios.post("/api/user/set-supervisor", formData)
+            )
         }
     },
     get: {

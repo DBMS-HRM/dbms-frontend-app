@@ -31,110 +31,77 @@ const useStyles = makeStyles({
 
 export default function PersonalDetailForm(props) {
     const classes = useStyles();
-    const [loading,setLoading] = useState(false)
     const [atype, setAccountType] = React.useState('managerialEmployee');
-    const [supervisors, setSupervisors] = useState([])
         const handleChange_accountType = (event) => {
             setAccountType(event.target.value);
     };
 
-    useEffect(() => {
-        async function getData() {
-            setLoading(true)
-            const [res,data] = await api.user.get.potentialSupervisors()
-            setLoading(false)
-            if(res.status === 200) {
-                setSupervisors(data)
-                console.log(supervisors)
-            }
-        }
-        getData()
-    },[supervisors])
-
     return (
         <Container className={classes.container}>
-            
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required = {true}
-                        error = {false}
-                        disabled={props.type==='view'}
-                        id="username"
-                        name="username"
-                        label="Username"
-                        fullWidth = {true}
-                        value={props.username}
-                        onChange={e => props.setUsername(e.target.value)}
-                    />
-                </Grid>
-                {props.type!=="view"?<Grid item xs={12} sm={6}>
-                    <TextField
-                        required={true}
-                        error={false}
-                        type="password"
-                        id="password"
-                        name="password"
-                        label="Password"
-                        fullWidth={true}
-                        value={props.password}
-                        onChange={e => props.setPassword(e.target.value)}
-                    />
-                </Grid>:null}
-               
-                <Grid item xs={12} sm={6}>
-                    <CustomInputField
-                        required = {true}
-                        error = {false}
-                        id="emailAddress"
-                        name="emailAddress"
-                        label="Email Address"
-                        fullWidth = {true}
-                        value={props.email}
-                        handleChange={props.setEmail}
-                    />
-                </Grid>
+            <form>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            required = {true}
+                            error = {false}
+                            disabled={props.type==='view'}
+                            id="username"
+                            name="username"
+                            label="Username"
+                            fullWidth = {true}
+                            value={props.username}
+                            onChange={e => props.setUsername(e.target.value)}
+                        />
+                    </Grid>
+                    {props.type!=="view"?<Grid item xs={12} sm={6}>
+                        <TextField
+                            required={true}
+                            error={false}
+                            type="password"
+                            id="password"
+                            name="password"
+                            label="Password"
+                            fullWidth={true}
+                            value={props.password}
+                            onChange={e => props.setPassword(e.target.value)}
+                            autoComplete="on"
+                        />
+                    </Grid>:null}
+
+                    <Grid item xs={12} sm={6}>
+                        <CustomInputField
+                            required = {true}
+                            error = {false}
+                            id="emailAddress"
+                            name="emailAddress"
+                            label="Email Address"
+                            fullWidth = {true}
+                            value={props.email}
+                            handleChange={props.setEmail}
+                        />
+                    </Grid>
 
 
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        select
-                        required={true}
-                        error={false}
-                        disabled={props.type==='view'}
-                        id="accountType"
-                        name="accountType"
-                        label="Account Type"
-                        fullWidth={true}
-                        value={props.accountType}
-                        onChange={e => props.setAccountType(e.target.value)}
-                    >
-                        {accountType.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </Grid>
-                <Grid container item >
                     <Grid item xs={12} sm={6}>
                         <TextField
                             select
                             required={true}
                             error={false}
+                            disabled={props.type==='view'}
+                            label="Account Type"
                             fullWidth={true}
                             value={props.accountType}
                             onChange={e => props.setAccountType(e.target.value)}
                         >
-                            {/*{supervisors.map((option) => (*/}
-                            {/*    <MenuItem key={option.employeeId} value={option.employeeId}>*/}
-                            {/*        {`${option.firstName}` `${option.lastName}`}*/}
-                            {/*    </MenuItem>*/}
-                            {/*))}*/}
+                            {accountType.map(item => (
+                                <MenuItem key={item.value} value={item.value}>
+                                    {item.label}
+                                </MenuItem>
+                            ))}
                         </TextField>
                     </Grid>
                 </Grid>
-            </Grid>
+            </form>
         </Container>
 
     );
