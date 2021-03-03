@@ -98,8 +98,14 @@ export default function AddAdmin() {
             branchName: user.branchName || '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            console.log(values)
+        onSubmit: async (formData) => {
+            const res = await dispatch(userTActions.addAdmin(formData))
+            if(res.status === 200) {
+                toast.success("Successfully added an admin !!!")
+            }
+            else {
+                toast.error(res.message)
+            }
         },
     });
 
@@ -109,20 +115,6 @@ export default function AddAdmin() {
         email: email,
         branchName: branch
     }
-
-    let loading = false
-    async function submitForm() {
-        loading = true
-        const res = await dispatch(userTActions.addAdmin(formData))
-        loading = false
-        if(res.status === 200) {
-            toast.success("Successfully added an admin !!!")
-        }
-        else {
-            toast.error(res.message)
-        }
-    }
-
 
     return (
         <Container className={classes.container}>

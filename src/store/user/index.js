@@ -51,9 +51,6 @@ export const userSlice = createSlice({
  */
 export default userSlice.reducer
 
-export const selectUser = state => state.user.user
-export const selectToken = state => state.user.token
-
 /**
  * Actions
  */
@@ -75,3 +72,10 @@ export  const userTActions = {
     updateMyPassword
 }
 
+
+/**
+ * Selectors
+ */
+export const userSelectors = {
+    user: state => state.user.user
+}

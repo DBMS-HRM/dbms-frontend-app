@@ -5,17 +5,18 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
 import jupiter from '../jupiter.svg'
 import {useDispatch, useSelector} from "react-redux";
-import {selectUser, userActions} from "../store/user";
+import {selectors} from "../store";
 import Avatar from "react-avatar";
 import {useHistory} from "react-router";
 import Button from "@material-ui/core/Button";
 import {adminAccountTypes} from "../helpers/variables";
 import theme from "../theme/Theme";
+import {userActions} from "../store/user";
 
 const UpperNavbar = () => {
     const history = useHistory();
     const dispatch = useDispatch()
-    const user = useSelector(selectUser)
+    // const user = useSelector(selectUser)
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
@@ -42,6 +43,7 @@ const UpperNavbar = () => {
         }
     }));
 
+    const user = useSelector(selectors.user.user)
     function signOut() {
         dispatch(userActions.setToken(''))
         dispatch(userActions.setUserData(''))

@@ -30,7 +30,7 @@ export default {
         },
         async leaveConfigs() {
             return extractBodyResolve(
-                axios.get("/api/leave/get-supervisors")
+                axios.get(`/api/leave/config-leaves`)
             )
         }
     },
@@ -47,5 +47,11 @@ export default {
                 axios.put(`/api/leave/change-leave-status/${query}`, formData)
             )
         },
+        async leaveConfigs(data) {
+            return extractBodyResolve(
+                axios.put(`/api/leave/config-leaves`,
+                    data)
+            )
+        }
     }
 }
