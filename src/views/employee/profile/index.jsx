@@ -96,13 +96,11 @@ const Profile = (props) => {
 
     async function submitForm() {
         loading = true
-        console.log(customPhoneNumbers)
-        setData({...data, phoneNumbers: customPhoneNumbers})
-        // setData({...data, dateOfBirth: getDate(data.dateOfBirth)})
-        console.log(data)
-        const res = dispatch(userTActions.updateMyProfile(data))
+        setData({...data})
+        let sendingData = data
+        sendingData.phoneNumbers = customPhoneNumbers
+        const res = dispatch(userTActions.updateMyProfile(sendingData))
         loading = false
-        console.log(data)
         if (res.status === 200) {
             toast.success("Successfully updated the profile!!!")
             return

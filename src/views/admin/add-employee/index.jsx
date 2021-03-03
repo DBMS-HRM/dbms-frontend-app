@@ -96,7 +96,7 @@ export default function AddEmployee() {
         dateOfBirth: dateOfBirth,
         maritalStatus: maritalStatus,
         country: country,
-        phoneNumber: customPhoneNumbers,
+        phoneNumbers: customPhoneNumbers,
         district: district,
         city: city,
         street_1: street1,
@@ -108,7 +108,7 @@ export default function AddEmployee() {
         departmentName: departmentName,
         username: username,
         password: password,
-        email: email,
+        emailAddress: email,
         accountType: accountType,
     }
 
