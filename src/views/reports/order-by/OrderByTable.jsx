@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Box from "@material-ui/core/Box";
 import MUIDataTable from "mui-datatables";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { toast } from "react-toastify";
@@ -71,48 +72,23 @@ const OrderByTable = (props) => {
     getEmployees();
   }, [props.groupBy]);
 
-  // const columns = [
-  //   {
-  //     name: "Full_Name",
-  //     label: "Full Name",
-  //   },
-  //   {
-  //     name: "Job_Title",
-  //     label: "Job Title",
-  //   },
-  //   {
-  //     name: "Pay_Grade",
-  //     label: "Pay Grade",
-  //   },
-  //   {
-  //     name: "Branch_Name",
-  //     label: "Branch Name",
-  //   },
-  //   {
-  //     name: "Employeement_Status",
-  //     label: "Employeement Status",
-  //   },
-  // ];
-
-  // columns.push()
-
-  // const rows = [["Yasith Deelaka", "HR Manager", "Level 3", "Sri Lanka", "true"]];
-
   return (
     <MuiThemeProvider theme={theme}>
       {headings.map((value, index) => (
-        <MUIDataTable
-          title={headings[index]}
-          data={rows[index]}
-          columns={column}
-          options={{
-            download: true,
-            filter: false,
-            print: true,
-            viewColumns: false,
-            selectableRows: false,
-          }}
-        />
+        <Box style={{marginTop: "1rem"}}>
+          <MUIDataTable
+            title={headings[index]}
+            data={rows[index]}
+            columns={column}
+            options={{
+              download: true,
+              filter: false,
+              print: true,
+              viewColumns: false,
+              selectableRows: false,
+            }}
+          />
+        </Box>
       ))}
     </MuiThemeProvider>
   );

@@ -42,8 +42,8 @@ const TotalLeaveTable = (props) => {
   useEffect(() => {
     async function getLeaveTable() {
       const [res, fetchedData] = await api.report.get.leaveReport({
-        startingDate: props.startingDate,
-        endingDate: props.endingDate,
+        fromDate: props.fromDate,
+        toDate: props.toDate,
       });
       if (res.status !== 200) {
         toast.error(res.message);
