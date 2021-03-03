@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -10,13 +9,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import { InputBase,spacing } from '@material-ui/core';
-import logo from "../../../JupLogo.svg";
 import MenuItem from '@material-ui/core/MenuItem';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import {useState} from "react";
-import {func} from "prop-types";
 import api from "../../../api";
 import {toast} from "react-toastify";
 import {getToday} from "../../../helpers/functions";
@@ -41,49 +35,34 @@ const leaveType = [
   ];
 
 const useStyles = makeStyles((theme) =>({
-  root: {
-    background: 'linear-gradient(45deg, #4489A7 30%, #F3F5F6 90%)',
-    border: '1px solid white',
-    borderRadius: 3,    
-    color: 'black',
-    height: 48,
-    padding: '0 30px',
-  },
-
-  textField: {
-    border:'1px solid #064758',    
-    background: '#0B7C9A',
-    color:'#C7E8F1',
-  },
-
-  header:{
-    color: '#045375',
-    borderColor: 'white'
-  },
-
-  box: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "94vw",
-    height: "210vh",
-    backgroundColor:'#D4E6F9',
-  },
-
-  app:{
-      background:'#DAEAEF',
-      width:'44ch',
-      borderBottom:'1px solid #045375',
-      
-  } ,
-
-  txt:{
-    border:'1px solid #064758',    
-    background: '#0B7C9A',
-    color:'#C7E8F1',
-    height:'200%'
-  } 
-
+  layout: {
+    width: 'auto',
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+        width: 800,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+},
+paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+        marginTop: theme.spacing(6),
+        marginBottom: theme.spacing(6),
+        padding: theme.spacing(3),
+    },
+},
+root: {
+  width: '46ch',
+},
+borderss:{
+  padding: theme.spacing(1),
+  border:'1px solid',
+  borderRadius:'5px'
+}
 }));
 let loading = false
 
@@ -115,172 +94,101 @@ const AddLeave = (props) => {
     }
   
   return (
-    <Box className={classes.box}>
-    <img src={logo} style={{ position: "absolute", top: "180vh", left: "50%" }} />
-    
-    <Grid >
-        <Paper variant={"outlined"} 
-            style={{padding :20,
-            height:'185vh',
-            width:'60vw',         
-            margin:"2% auto"
-                             
-            }}>     
-        <Container component="main" maxWidth="xs">
-        <CssBaseline />
-      
-        
-        <Grid align='center'>
-            <Typography component="h1" variant="h5" className={classes.header}>
-                Leave Request Application
-            </Typography>
-        </Grid>
-        
-       
-        <Box mt={8} mx={-20} >
-            <Box height={50} >
-            
-            <InputBase
-                value="  SECTION I - TO BE COMPLETED BY THE EMPLOYEE"
-                readOnly            
-                type="Text"                
-                variant="outlined"                                             
-                fullWidth                    
-                className={classes.textField}
-            />
-            </Box>
-        </Box>
+    <Container className={classes.container}>
+            <main className={classes.layout}>
+                <Box mt={12}>           
+                <Paper className={classes.paper}>                    
+                    <Typography component="h1" variant="h4" align="center">
+                        Leave Application Form
+                    </Typography>
+                    
+                    <Box mt={5}>                  
+                    <Typography  className={classes.borderss}>
+                    SECTION I - To be completed by the employee
+                    </Typography>
+                    </Box>
+                    <Box mt={5}>  
+                    <Typography  style={{fontSize:'120%'}}>
+                        Type of Absence Requested
+                     </Typography>
+                  </Box>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12}  > 
+                      <TextField className={classes.root}         
+                        variant="outlined"
+                        fullWidth
+                        select
+                        required
+                        label="Select"
+                        value={formData.leaveType}
+                        onChange={e=>setFormData({...formData, leaveType: e.target.value})}
+                        className={classes.app}
+                        >
+                        {leaveType.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Typography>From Date</Typography>
+                          <TextField
+                              required  
+                              variant="outlined"         
+                              type="date"
+                              className={classes.root}
+                              value={formData.fromDate}
+                              onChange={e=>setFormData({...formData, fromDate: e.target.value})}
+                          />
+                    </Grid>
 
-        <Box mt={5} mx={-20}>
-            <Typography className={classes.header} style={{fontSize:'120%'}}>
-            Type of Absence Requested
-            </Typography>
-        </Box>
-        <Box mx={-20} mt={1}>
-            <TextField          
-            select
-            required
-            label="Select"
-            value={formData.leaveType}
-            onChange={e=>setFormData({...formData, leaveType: e.target.value})}
-            className={classes.app}
-            >
-            {leaveType.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                {option.label}
-                </MenuItem>
-            ))}
-            </TextField>
-        </Box>
+                    <Grid item xs={12} sm={6}>
+                        <Typography>To Date</Typography>
+                          <TextField
+                            required
+                            variant="outlined"
+                            type="date"
+                            className={classes.root}
+                            value={formData.toDate}
+                            onChange={e=>setFormData({...formData, toDate: e.target.value})}
+                        />
+                    </Grid>
+                    </Grid>
 
-        <Box mt={5} mx={-20}>
-            <Typography className={classes.header} style={{fontSize:'120%'}}>
-            Dates of Absence
-            </Typography>
-        </Box>
+                    <Box mt={3}>
+                    <Typography className={classes.borderss}>
+                      CERTIFICATION : I hereby request leave/approved absence from duty as indicated
+                      above and cartify that such leave/absence is requested for the purpose(s) indicated.
+                      I understand that falsification on this form may be grounds for disciplinary action. 
+                    </Typography> 
+                </Box>
 
-        <Box mx={-20} mt={1}>
-        
-        <Grid container spacing={2} >
-            <Grid item xs={12} sm={6}>
-                <Typography>From Date</Typography>
-                <TextField
-                    required           
-                    type="date"
-                    className={classes.app}
-                    value={formData.fromDate}
-                    onChange={e=>setFormData({...formData, fromDate: e.target.value})}
+                <FormControlLabel
+                  control={<Checkbox value={check} onChange={() => setCheck(!check)} color="primary" />}
+                  label="I agree"
+                  required                  
                 />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-                <Typography>To Date</Typography>
-                <TextField
-                    required
+                <Box mt={3}>
+                  <TextField
+                    required 
+                    variant="outlined"        
                     type="date"
-                    className={classes.app}
-                    value={formData.toDate}
-                    onChange={e=>setFormData({...formData, toDate: e.target.value})}
-                />
-            </Grid>
-        </Grid>
-        </Box>
+                    value={getToday()}
+                    className={classes.root}
+                  />
+              </Box>
 
-        <Box height={50} mt={8} mx={-20}>
-           <Card className={classes.textField}>
-                <CardContent>
-                <Typography >
-                    CERTIFICATION : I hereby request leave/approved absence from duty as indicated
-                    above and cartify that such leave/absence is requested for the purpose(s) indicated.
-                    I understand that falsification on this form may be grounds for disciplinary action. 
-                </Typography>
-                </CardContent>
-            </Card>
-        </Box>
-
-        <Box mt={8} mx={18}>
-            <FormControlLabel
-                control={<Checkbox value={check} onChange={() => setCheck(!check)} color="primary" />}
-                label="I agree"
-                required
-                className={classes.header}
-            />
-        </Box>
-
-        <Box mx={-20} mt={3}>
-            <TextField
-                required         
-                type="date"
-                value={getToday()}
-                className={classes.app}
-            />
-        </Box>
-
-        {/*<Box mx={-20} mt={3}>            */}
-        {/*    <InputBase*/}
-        {/*        value="  SECTION II - TO BE COMPLETED BY THE COMPANY"*/}
-        {/*        readOnly            */}
-        {/*        type="Text"                                                                             */}
-        {/*        fullWidth                    */}
-        {/*        className={classes.textField}*/}
-        {/*    />*/}
-        {/*</Box>*/}
-
-        {/*<Box mt={3} mx={-10} >*/}
-        {/*    <FormControlLabel*/}
-        {/*        control={<Checkbox value="approved" color="primary" />}*/}
-        {/*        label="Approved"*/}
-        {/*        disabled*/}
-        {/*        className={classes.header}*/}
-        {/*    />*/}
-        {/*</Box>*/}
-
-        {/*<Box  mx={-10} >*/}
-        {/*    <FormControlLabel*/}
-        {/*        control={<Checkbox value="rejected" color="primary" />}*/}
-        {/*        label="Rejected"*/}
-        {/*        disabled*/}
-        {/*        className={classes.header}*/}
-        {/*     />*/}
-        {/*</Box>*/}
-
-        {/*<Box mx={-20} mt={3}>*/}
-        {/*    <TextField*/}
-        {/*        disabled        */}
-        {/*        type="date"                */}
-        {/*        className={classes.app}*/}
-        {/*    />*/}
-        {/*</Box>*/}
-
-        <Box mt={6}>
-            <Button disabled={!check} type="submit" fullWidth variant="contained"  className={classes.root} onClick={() => submitForm(formData)}>
+            <Box mt={6}>
+            <Button disabled={!check} type="submit" fullWidth variant="contained"  onClick={() => submitForm(formData)}>
                 Submit
             </Button>
+            </Box>
+          </Paper>
         </Box>
-          
+      </main>
+                   
     </Container>
-</Paper>
-</Grid>
-</Box>
-);
-}
+  );}    
 export default AddLeave;

@@ -42,8 +42,8 @@ const TotalLeaveTable = (props) => {
   useEffect(() => {
     async function getLeaveTable() {
       const [res, fetchedData] = await api.report.get.leaveReport({
-        startingDate: props.startingDate,
-        endingDate: props.endingDate,
+        fromDate: props.fromDate,
+        toDate: props.toDate,
       });
       if (res.status !== 200) {
         toast.error(res.message);
@@ -68,12 +68,12 @@ const TotalLeaveTable = (props) => {
     }
 
     getLeaveTable();
-  }, []);
+  }, [props.fromDate, props.toDate]);
 
   let columns = ["Department Name", "Annual", "Casual", "Maternity", "No Pay"];
 
   return (
-    <MuiThemeProvider>
+    <MuiThemeProvider theme={theme}>
       <MUIDataTable
         title={"Total Leaves by Department"}
         data={data}
