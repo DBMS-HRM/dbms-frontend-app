@@ -21,6 +21,7 @@ import {useDispatch} from "react-redux";
 import {Redirect} from "react-router-dom";
 import ButtonLoading from "../../../components/ButtonLoading";
 import {toast} from "react-toastify";
+import {useRouteGuard} from "../../../router/guard";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -83,6 +84,7 @@ const SignIn = (props) => {
         }
     }
 
+    useRouteGuard((at) => ['Super Admin', 'Admin'].includes(at) , {whenTrue: '/admin'})
 
     return (
         <Box className={classes.box}>

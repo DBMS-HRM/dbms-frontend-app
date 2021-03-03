@@ -13,9 +13,9 @@ export function useRouteGuard(condition, {whenFalse, whenTrue}) {
     useEffect(() => {
         setState(condition(accountType, isSupervisor, haveSupervisor))
         if (state) {
-            if (whenTrue) history.push(whenTrue)
+            if (whenTrue) history.replace(whenTrue)
         } else {
-            if (whenFalse) history.push(whenFalse)
+            if (whenFalse) history.replace(whenFalse)
         }
     })
 

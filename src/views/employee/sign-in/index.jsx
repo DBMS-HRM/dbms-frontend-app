@@ -81,7 +81,7 @@ const SignIn = (props) => {
     }
   }
 
-  useRouteGuard((at) => at === 'Managerial Employee', {whenTrue: '/employee'})
+  useRouteGuard((at) => ['Managerial Employee', 'Employee'].includes(at) , {whenTrue: '/employee'})
 
   return (
     <Box className={classes.box}>
