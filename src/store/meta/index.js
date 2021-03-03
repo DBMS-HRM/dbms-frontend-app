@@ -152,16 +152,20 @@ export const metaTActions = {
 /**
  * Selectors
  */
-
 const leaveConfig = (state) => state.meta.payGrades
 const customColumns = (state) => state.meta.customColumns
 const departments = (state) => state.departments
 const branches = (state) => state.branches
+const userLeaveConfig = (state) => {
+    const payGrades = leaveConfig(state)
+    return payGrades[state.user.payGrade] || null
+}
 
 export const metaSelectors = {
     leaveConfig,
     customColumns,
     departments,
-    branches
+    branches,
+    userLeaveConfig
 }
 
