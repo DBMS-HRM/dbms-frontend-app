@@ -84,8 +84,7 @@ const Profile = (props) => {
                 toast.error(res.message)
                 return
             }
-            console.log(fetchedData)
-            setData({...fetchedData.data})
+            setData({...fetchedData.data, dateOfBirth: getDate(fetchedData.data.dateOfBirth)})
             let phoneNos = {}
             if (fetchedData.data.phoneNumbers)
                 fetchedData.data.phoneNumbers.map((item, index) => phoneNos[`phone-Number${index}`] = item)
