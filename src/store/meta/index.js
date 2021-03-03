@@ -52,27 +52,31 @@ export const metaSlice = createSlice({
             data.forEach((piece) => {
                 const {metaName, metaData} = piece
                 if (metaName === 'custom_columns') {
-                    const rawData = (metaData || [])
+                    const rawData = Array.isArray(metaData) ? metaData : []
+                    const res = {}
                     rawData.forEach(piece => {
-                        state.customColumns[piece['custom_column']] = {
+                        res[piece['custom_column']] = {
                             dataType: piece['data_type'],
                             defaultValue:  piece['default_value']
                         }
                     })
+                    state.customColumns = res;
                 } else if (metaName === 'pay_grades') {
-                    const rawData = (metaData || [])
+                    const rawData = Array.isArray(metaData) ? metaData : []
+                    const res = {}
                     rawData.forEach(piece => {
-                        state.payGrades[piece['pay_grade']] = {
+                        res[piece['pay_grade']] = {
                             annual: piece['annual_leaves'],
                             casual:  piece['casual_leaves'],
                             maternity: piece['maternity_leaves'],
                             nopay: piece['nopay_leaves'],
                         }
                     })
+                    state.payGrades = res;
                 } else if (metaName === 'departments') {
-                    state.departments = (metaData || []).map(d => d['department_name'])
+                    state.departments = (Array.isArray(metaData) ? metaData : []).map(d => d['department_name'])
                 } else if (metaName === 'branches') {
-                    state.branches = (metaData || []).map(b => b['branch_name'])
+                    state.branches = (Array.isArray(metaData) ? metaData : []).map(b => b['branch_name'])
                 }
             })
         },
